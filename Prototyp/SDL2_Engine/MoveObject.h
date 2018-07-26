@@ -93,6 +93,14 @@ public:
 	/// </summary>
 	/// <param name="_movement">true if player can move</param>
 	inline bool GetMoveable() { return moveable; } // Changed
+
+	/// <summary>
+	/// set moveable
+	/// </summary>
+	/// <param name="_bool">new moveable bool</param>
+	inline void SetMoveable(bool _bool) { moveable = _bool; }
+
+	inline void ResetfallTime() { m_fallTime = 0.001f; }
 #pragma endregion
 
 protected:

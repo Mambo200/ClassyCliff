@@ -17,8 +17,10 @@
 void GPlayer::Update(float _deltaTime)
 {
 #pragma region Changed
+
 	if (!collided)
 		collided = !GetMoveable();
+
 
 	// player collides
 	if (!collided)
@@ -47,19 +49,16 @@ void GPlayer::Update(float _deltaTime)
 			m_movement.X = 0.0f;
 
 		// if key space is pressed this frame
-		if (CInput::GetKeyDown(SDL_SCANCODE_SPACE))
+		if (CInput::GetKeyDown(SDL_SCANCODE_SPACE) || (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT)))
 		{
 			// set jump enable, gravity false and set jump time
 			m_jump = true;
 			m_jumpTime = PLAYER_JUMP_TIME;
 			m_gravity = false;
+			ResetfallTime();
 		}
-	}
-	else	// changed
-	{
-		EASY_OUTPUT("Verloren");	// changed
-		m_movement = SVector2(0, 0);
-	}
+		else { }
+	
 
 	// update parent
 	CMoveObject::Update(_deltaTime);
@@ -78,11 +77,10 @@ void GPlayer::Update(float _deltaTime)
 			m_gravity = true;
 		}
 
-		// moveable default true
-		bool moveable = true;
+
 
 		// next position
-		SVector2 nextPos = m_position;
+		nextPos = m_position;
 		nextPos.Y -= PLAYER_JUMP_FORCE * _deltaTime;
 
 		// next rect
@@ -91,29 +89,9 @@ void GPlayer::Update(float _deltaTime)
 		nextRect.y = nextPos.Y;
 
 		// through all scene objects
-		for (CObject* pObj : CEngine::Get()->GetCM()->GetSceneObjects())
+		if (GetMoveable())
 		{
-			// if current object is self continue
-			if ((CMoveObject*)pObj && pObj == this)
-				continue;
-
-			// if collision type none
-			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
-				continue;
-
-			// set moveable by checking collision
-			moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
-
-			// if not moveable cancel collision check
-			if (!moveable)
-				break;
-		}
-
-		// if moveable
-		if (moveable)
-		{
-			// through all persistant objects
-			for (CObject* pObj : CEngine::Get()->GetCM()->GetPersistantObjects())
+			for (CObject* pObj : CEngine::Get()->GetCM()->GetSceneObjects())
 			{
 				// if current object is self continue
 				if ((CMoveObject*)pObj && pObj == this)
@@ -124,20 +102,50 @@ void GPlayer::Update(float _deltaTime)
 					continue;
 
 				// set moveable by checking collision
-				moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+				SetMoveable(!CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect()));
 
 				// if not moveable cancel collision check
-				if (!moveable)
+				if (!GetMoveable())
 					break;
 			}
-		}
 
+			// if moveable
+			if (GetMoveable())
+			{
+				// through all persistant objects
+				for (CObject* pObj : CEngine::Get()->GetCM()->GetPersistantObjects())
+				{
+					// if current object is self continue
+					if ((CMoveObject*)pObj && pObj == this)
+						continue;
+
+					// if collision type none
+					if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+						continue;
+
+					// set moveable by checking collision
+					SetMoveable(!CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect()));
+
+
+
+					// if not moveable cancel collision check
+					if (!GetMoveable())
+						break;
+				}
+			}
+		}
 		// if still moveable set y position
-		if (moveable)
+		if (GetMoveable())
 		{
 			m_position.Y -= PLAYER_JUMP_FORCE * _deltaTime;
 			m_rect.y = m_position.Y;
 		}
+	}
+	}
+	else	// changed
+	{
+		EASY_OUTPUT("Verloren");	// changed
+		m_movement = SVector2(0, 0);
 	}
 
 #pragma region Changed

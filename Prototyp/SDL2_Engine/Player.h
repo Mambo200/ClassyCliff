@@ -80,5 +80,14 @@ private:
 	/// if collided --> true
 	/// </summary>
 	bool collided = false;
+
+	/// <summary>
+	/// save next position
+	/// </summary>
+	SVector2 nextPos = SVector2(0,0);
+
+	//TODO DELETE
+	int LoseCounter = 0;
+	char IntStr;
 #pragma endregion
 };

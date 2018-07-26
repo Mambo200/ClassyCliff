@@ -3,15 +3,13 @@
 #include "Engine.h"
 #include "ContentManagement.h"
 #include "Physic.h"
+#include "Macro.h" ///TODO DELETE
 #pragma endregion
 
 #pragma region public override function
 // update every frame
 void CMoveObject::Update(float _deltaTime)
 {
-	// moveable default true
-	moveable = true;
-
 	// next position
 	SVector2 nextPos = m_position + m_movement * m_speed * _deltaTime;
 
@@ -32,7 +30,7 @@ void CMoveObject::Update(float _deltaTime)
 			continue;
 
 		// set moveable by checking collision
-		moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+		moveable = !(CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect()));
 
 		// if not moveable cancel collision check
 		if (!moveable)
@@ -54,7 +52,7 @@ void CMoveObject::Update(float _deltaTime)
 				continue;
 
 			// set moveable by checking collision
-			moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+			moveable = !(CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect()));
 
 			// if not moveable cancel collision check
 			if (!moveable)
@@ -77,9 +75,6 @@ void CMoveObject::Update(float _deltaTime)
 	if (!m_gravity)
 		return;
 
-	// set moveable true
-	moveable = true;
-
 	// set next rect down
 	nextRect = m_rect;
 
@@ -87,29 +82,9 @@ void CMoveObject::Update(float _deltaTime)
 	nextRect.y += GRAVITY_VALUE * m_fallTime * m_fallTime + 1;
 
 	// through all scene objects
-	for (CObject* pObj : CEngine::Get()->GetCM()->GetSceneObjects())
+	if (!moveable)
 	{
-		// if current object is self continue
-		if ((CMoveObject*)pObj && pObj == this)
-			continue;
-
-		// if collision type none
-		if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
-			continue;
-
-		// set moveable by checking collision
-		moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
-
-		// if not moveable cancel collision check
-		if (!moveable)
-			break;
-	}
-
-	// if moveable
-	if (moveable)
-	{
-		// through all persistant objects
-		for (CObject* pObj : CEngine::Get()->GetCM()->GetPersistantObjects())
+		for (CObject* pObj : CEngine::Get()->GetCM()->GetSceneObjects())
 		{
 			// if current object is self continue
 			if ((CMoveObject*)pObj && pObj == this)
@@ -125,6 +100,29 @@ void CMoveObject::Update(float _deltaTime)
 			// if not moveable cancel collision check
 			if (!moveable)
 				break;
+		}
+
+		// if moveable
+		if (moveable)
+		{
+			// through all persistant objects
+			for (CObject* pObj : CEngine::Get()->GetCM()->GetPersistantObjects())
+			{
+				// if current object is self continue
+				if ((CMoveObject*)pObj && pObj == this)
+					continue;
+
+				// if collision type none
+				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+					continue;
+
+				// set moveable by checking collision
+				moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+
+				// if not moveable cancel collision check
+				if (!moveable)
+					break;
+			}
 		}
 	}
 /*

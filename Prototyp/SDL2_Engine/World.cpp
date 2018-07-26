@@ -73,9 +73,9 @@ void GWorld::Init()
 	world += "XX00LLLL000XX\n";
 	world += "XX00LLLL000XX\n";
 	world += "XX00LLLL000XX\n";
-	world += "XX00000000LXX\n";
-	world += "XX00000000LXX\n";
-	world += "XX00000000LXX\n";
+	world += "XX000000000XX\n";
+	world += "XX000000000XX\n";
+	world += "XX000000000XX\n";
 	world += "XX00000000LXX\n";
 	world += "XX00000000LXX\n";
 	world += "XX0000000LLXX\n";
@@ -188,7 +188,7 @@ void GWorld::Init()
 			xPosOfTexture = 3 * WORLD_BLOCK_ATLAS_WIDTH;
 			
 			// set collision type to wall
-			pObj->SetColType(ECollisionType::WALL);
+			pObj->SetColType(ECollisionType::DEAD);
 			break;
 		}
 

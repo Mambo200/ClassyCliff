@@ -5,7 +5,7 @@
 #define SCREEN_HEIGHT 840
 #define PLAYER_SPEED 500.0f
 #define PLAYER_JUMP_FORCE 500.0f
-#define PLAYER_JUMP_TIME 0.25f
+#define PLAYER_JUMP_TIME 0.50f
 #define PLAYER_WIDTH  51 //68
 #define PLAYER_HEIGHT 69 //92
 #define PLAYER_MIRROR SVector2(1.0f, 0.0f)
