@@ -13,6 +13,7 @@
 #define WORLD_BLOCK_ATLAS_HEIGHT 26
 #define WORLD_BLOCK_WIDTH 40
 #define WORLD_BLOCK_HEIGHT 40
+#define BLOCK_FALL_SPEED 10.0f
 #define GRAVITY_VALUE 9.81f
 #pragma endregion
 

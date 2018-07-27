@@ -8,6 +8,8 @@
 #include "Engine.h"
 #include "ContentManagement.h"
 #include "Player.h"
+#include "Physic.h" //TODO DELETE
+#include "Time.h"	//TODO DELETE
 #pragma endregion
 
 #pragma region using
@@ -51,85 +53,82 @@ void GWorld::Init()
 	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
 	world += "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";*/
 	
-	world += "XXWWWWWWWWWXX\n";
-	world += "XXWWWWWWWWWXX\n";
-	world += "XX000000000XX\n";
-	world += "XXLL0000000XX\n";
-	world += "XXLL0000000XX\n";
-	world += "XXLL0000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX0000LL000XX\n";
-	world += "XX0000LL000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX00LLLL000XX\n";
-	world += "XX00LLLL000XX\n";
-	world += "XX00LLLL000XX\n";
-	world += "XX00LLLL000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX00000000LXX\n";
-	world += "XX00000000LXX\n";
-	world += "XX0000000LLXX\n";
-	world += "XX0000000LLXX\n";
-	world += "XXLL00000LLXX\n";
-	world += "XXLL00000LLXX\n";
-	world += "XXLL0000000XX\n";
-	world += "XX0000000LLXX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XXLLL000000XX\n";
-	world += "XXLLL000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX0000LLLLLXX\n";
-	world += "XX0000LLLLLXX\n";
-	world += "XX0000LLLLLXX\n";
-	world += "XX00000000LXX\n";
-	world += "XX00000000LXX\n";
-	world += "XX00000000LXX\n";
-	world += "XX000000000XX\n";
-	world += "XX00LL00000XX\n";
-	world += "XX00LL00000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000LLLXX\n";
-	world += "XX000000LLLXX\n";
-	world += "XX000000LLLXX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX000000000XX\n";
-	world += "XX0000S0000XX\n";
-	world += "XXXXXXXXXXXXX\n";
-	world += "XXXXXXXXXXXXX\n";
-	world += "XXXXXXXXXXXXX";
+	world += "XWWWWWWWWWX\n";
+	world += "X000000000X\n";
+	world += "XLL0000000X\n";
+	world += "XLL0000000X\n";
+	world += "XLL0000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X0000LL000X\n";
+	world += "X0000LL000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X0LLLL0000X\n";
+	world += "X0LLLL0000X\n";
+	world += "X0LLLL0000X\n";
+	world += "X0LLLL0000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X00000000LX\n";
+	world += "X00000000LX\n";
+	world += "X0000000LLX\n";
+	world += "X0000000LLX\n";
+	world += "XLL00000LLX\n";
+	world += "XLL00000LLX\n";
+	world += "XLL0000000X\n";
+	world += "X0000000LLX\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "XLLL000000X\n";
+	world += "XLLL000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X0000LLLLLX\n";
+	world += "X0000LLLLLX\n";
+	world += "X0000LLLLLX\n";
+	world += "X00000000LX\n";
+	world += "X00000000LX\n";
+	world += "X00000000LX\n";
+	world += "X000000000X\n";
+	world += "XLL0000000X\n";
+	world += "XLL0000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000LLLX\n";
+	world += "X000000LLLX\n";
+	world += "X000000LLLX\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X000000000X\n";
+	world += "X0000S0000X\n";
+	world += "XXXXXXXXXXX";
 
 	// width and height of world
 	int width = 0, height = 1;
@@ -191,6 +190,12 @@ void GWorld::Init()
 			pObj->SetColType(ECollisionType::DEAD);
 			break;
 		}
+
+		// if falling lava set position of texture in atlas map
+		case 'F':
+		{
+		}
+
 
 		case 'S':
 		{
