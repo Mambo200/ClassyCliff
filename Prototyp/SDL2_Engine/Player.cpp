@@ -10,6 +10,7 @@
 #include "Renderer.h"
 #include "World.h"
 #include "MoveObject.h"
+#include "Bullet.h"
 #pragma endregion
 
 #pragma region public override function
@@ -49,7 +50,7 @@ void GPlayer::Update(float _deltaTime)
 			m_movement.X = 0.0f;
 
 		// if key space is pressed this frame
-		if (CInput::GetKeyDown(SDL_SCANCODE_SPACE) || (SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT)))
+		if ((SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT)))
 		{
 			// set jump enable, gravity false and set jump time
 			m_jump = true;
@@ -58,6 +59,20 @@ void GPlayer::Update(float _deltaTime)
 			ResetfallTime();
 		}
 		else { }
+
+		if (CInput::GetKeyDown(SDL_SCANCODE_SPACE))
+		{
+			CTexturedObject* bullet = new CTexturedObject(
+				SVector2(m_position.X + PLAYER_WIDTH / 2, m_position.Y),
+				SVector2(5, 17),
+				CEngine::Get()->GetRenderer(),
+				"Texture/Bullet/T_Bullet.png"
+			);
+
+			// add object to persistant list
+			CEngine::Get()->GetCM()->AddPersistantObject(bullet);
+			
+		}
 	
 
 	// update parent
