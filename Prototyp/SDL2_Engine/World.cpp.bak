@@ -188,12 +188,14 @@ void GWorld::Init()
 			
 			// set collision type to wall
 			pObj->SetColType(ECollisionType::DEAD);
-
-			// add Lava to falling object list
-			pObj->SetSrcRect(SRect(xPosOfTexture, 0, WORLD_BLOCK_ATLAS_WIDTH, WORLD_BLOCK_ATLAS_HEIGHT));
-			CEngine::Get()->GetCM()->AddFallingObject(pObj);
-			continue;
+			break;
 		}
+
+		// if falling lava set position of texture in atlas map
+		case 'F':
+		{
+		}
+
 
 		case 'S':
 		{

@@ -133,6 +133,5 @@ protected:
 
 	// Changed
 private:
-	// is Player movable
 	bool moveable = true;
 };

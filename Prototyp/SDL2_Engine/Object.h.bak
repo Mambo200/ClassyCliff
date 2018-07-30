@@ -45,26 +45,6 @@ public:
 	/// </summary>
 	/// <param name="_pos">position to add</param>
 	inline void AddPosition(SVector2 _pos) { m_position = m_position + _pos; }
-
-	/// <summary>
-	/// set moveable of object
-	/// </summary>
-	inline void SetMoveableObject(bool _bo) { m_moveableObject = _bo; }
-
-	/// <summary>
-	/// get moveable of object
-	/// </summary>
-	inline bool GetMoveableObject() { return m_moveableObject; }
-
-	/// <summary>
-	/// set falltime of object
-	/// </summary>
-	inline void SetFalltime(float _float) { m_falltime += _float; }
-
-	/// <summary>
-	/// get falltime of object
-	/// </summary>
-	inline float GetFalltime() { return m_falltime; }
 #pragma endregion
 
 #pragma region public function
@@ -92,15 +72,5 @@ protected:
 	/// angle of object
 	/// </summary>
 	float m_angle;
-
-	/// <summary>
-	/// moveable of object
-	/// </summary>
-	bool m_moveableObject = false;
-
-	/// <summary>
-	/// falltime of object
-	/// </summary>
-	float m_falltime = 0.0f;
 #pragma endregion
 };
