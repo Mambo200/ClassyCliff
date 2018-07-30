@@ -49,19 +49,16 @@ void GPlayer::Update(float _deltaTime)
 		else
 			m_movement.X = 0.0f;
 
-		// if key space is pressed this frame
-		if ((SDL_GetMouseState(NULL, NULL) && SDL_BUTTON(SDL_BUTTON_LEFT)))
+		// if left mouse button is pressed this frame
+		if (CInput::GetMouseDown(SDL_BUTTON_LEFT))
 		{
 			// set jump enable, gravity false and set jump time
 			m_jump = true;
 			m_jumpTime = PLAYER_JUMP_TIME;
 			m_gravity = false;
 			ResetfallTime();
-		}
-		else { }
 
-		if (CInput::GetKeyDown(SDL_SCANCODE_SPACE))
-		{
+			// create bullet
 			CTexturedObject* bullet = new CTexturedObject(
 				SVector2(m_position.X + PLAYER_WIDTH / 2, m_position.Y),
 				SVector2(5, 17),
@@ -71,9 +68,8 @@ void GPlayer::Update(float _deltaTime)
 
 			// add object to persistant list
 			CEngine::Get()->GetCM()->AddPersistantObject(bullet);
-			
 		}
-	
+		else { }	
 
 	// update parent
 	CMoveObject::Update(_deltaTime);
