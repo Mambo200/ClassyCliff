@@ -22,13 +22,12 @@ class GPlayer :	public CMoveObject
 {
 public:
 #pragma region constructor
-
 	/// <summary>
 	/// constructor
 	/// </summary>
 	/// <param name="_pos">position of object</param>
 	GPlayer(SVector2 _pos) : CMoveObject(_pos) 
-	{
+	{		
 		CEngine::Get()->GetRenderer()->SetCamera(
 			SVector2(savedXPos, m_position.Y - PLAYER_HEIGHT * 2) // Changed xPosition
 		);
@@ -39,12 +38,7 @@ public:
 	/// </summary>
 	/// <param name="_pos">position of object</param>
 	/// <param name="_size">width and height of rect</param>
-	GPlayer(SVector2 _pos, SVector2 _size) : CMoveObject(_pos, _size)
-	{
-		CEngine::Get()->GetRenderer()->SetCamera(
-			SVector2(savedXPos, m_position.Y - PLAYER_HEIGHT * 2) // Changed xPosition
-		);
-	}
+	GPlayer(SVector2 _pos, SVector2 _size) : CMoveObject(_pos, _size) {}
 
 	/// <summary>
 	/// constructor
@@ -54,12 +48,7 @@ public:
 	/// <param name="_pRenderer">renderer</param>
 	/// <param name="_pFileName">file path name (relative)</param>
 	GPlayer(SVector2 _pos, SVector2 _size, CRenderer* _pRenderer,
-		const char* _pFileName) : CMoveObject(_pos, _size, _pRenderer, _pFileName)
-	{
-		CEngine::Get()->GetRenderer()->SetCamera(
-			SVector2(savedXPos, m_position.Y - PLAYER_HEIGHT * 2) // Changed xPosition
-		);
-	}
+		const char* _pFileName) : CMoveObject(_pos, _size, _pRenderer, _pFileName) {}
 
 	/// <summary>
 	/// destructor

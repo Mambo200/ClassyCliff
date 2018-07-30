@@ -28,14 +28,6 @@ void GPlayer::Update(float _deltaTime)
 	if (!collided)
 		collided = !GetMoveable();
 
-	for each (CObject* Obj in CEngine::Get()->GetCM()->GetFallingObjects())
-	{
-		if (Obj->GetMoveableObject() == true)
-		{
-			Obj->AddPosition(SVector2(0, Obj->GetFalltime() * OBJECT_FALL_FORCE));
-			Obj->SetFalltime(_deltaTime);
-		}
-	}
 
 	// player collides
 	if (!collided)

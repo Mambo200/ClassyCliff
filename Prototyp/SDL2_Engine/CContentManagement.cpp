@@ -18,6 +18,14 @@ CContentManagement::~CContentManagement()
 	// as long as there is a object in list delete first element
 	while (m_pUIObjects.size() > 0)
 		m_pUIObjects.pop_front();
+
+	// as long as there is a object in list delete first element
+	while (m_pFallingObjects.size() > 0)
+		m_pFallingObjects.pop_front();
+
+	// as long as there is a object in list delete first element
+	while (m_pBulletObjects.size() > 0)
+		m_pBulletObjects.pop_front();
 }
 #pragma endregion
 
@@ -37,6 +45,13 @@ void CContentManagement::Update(float _deltaTime)
 	for (CObject* pObj : m_pUIObjects)
 		pObj->Update(_deltaTime);
 
+	// update every falling object
+	for (CObject* pObj : m_pFallingObjects)
+		pObj->Update(_deltaTime);
+
+	for (CObject* pObj : m_pBulletObjects)
+		pObj->Update(_deltaTime);
+
 	// remove object in remove list
 	while (m_pRemoveObjects.size() > 0)
 	{
@@ -54,6 +69,12 @@ void CContentManagement::Update(float _deltaTime)
 
 		// delete first object in list
 		m_pRemoveObjects.pop_front();
+
+		//delete first object in list
+		m_pFallingObjects.pop_front();
+
+		//delete first object in list
+		m_pBulletObjects.pop_front();
 	}
 }
 
@@ -70,6 +91,13 @@ void CContentManagement::Render(CRenderer * _pRenderer)
 
 	// render every ui object
 	for (CObject* pObj : m_pUIObjects)
+		pObj->Render(_pRenderer);
+
+	// render every falling object
+	for (CObject* pObj : m_pFallingObjects)
+		pObj->Render(_pRenderer);
+
+	for (CObject* pObj : m_pBulletObjects)
 		pObj->Render(_pRenderer);
 }
 
