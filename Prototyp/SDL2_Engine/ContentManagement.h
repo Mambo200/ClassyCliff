@@ -86,7 +86,7 @@ public:
 	/// <param name="_pObject">object to add</param>
 	inline void AddBulletObject(CObject* _pObject) { AddObject(_pObject, m_pBulletObjects); }
 
-	inline void RemoveBullet() { m_pBulletObjects.pop_front(); }
+	inline void RemoveBullet() { m_pBulletObjects.pop_back(); }
 
 	/// <summary>
 	/// get scene objects list

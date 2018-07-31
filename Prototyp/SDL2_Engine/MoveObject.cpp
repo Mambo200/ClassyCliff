@@ -38,30 +38,33 @@ void CMoveObject::Update(float _deltaTime)
 			break;
 	}
 	// throught all falling objects
-	for (CObject* pObj : CEngine::Get()->GetCM()->GetFallingObjects())
+	if (moveable)
 	{
-		// if current object is self continue
-		if ((CMoveObject*)pObj && pObj == this)
-			continue;
-
-		// if object is near Sceenspace set moveableObject true
-		if (((CMoveObject*)pObj)->GetPosition().Y >= (CEngine::Get()->GetRenderer()->GetCamera().Y) - 50)
+		for (CObject* pObj : CEngine::Get()->GetCM()->GetFallingObjects())
 		{
-			SVector2 tmp = ((CMoveObject*)pObj)->GetPosition();
-			float tmp2 = CEngine::Get()->GetRenderer()->GetCamera().Y;
-			pObj->SetMoveableObject(true);
+			// if current object is self continue
+			if ((CMoveObject*)pObj && pObj == this)
+				continue;
+
+			// if object is near Sceenspace set moveableObject true
+			if (((CMoveObject*)pObj)->GetPosition().Y >= (CEngine::Get()->GetRenderer()->GetCamera().Y) - SCREEN_HEIGHT /*- 50*/)
+			{
+				SVector2 tmp = ((CMoveObject*)pObj)->GetPosition();
+				float tmp2 = CEngine::Get()->GetRenderer()->GetCamera().Y;
+				pObj->SetMoveableObject(true);
+			}
+
+			// set moveable by checking collision
+			moveable = !(CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect()));
+
+			// if not moveable cancel collision check
+			if (!moveable)
+				break;
+
+			//// if object out of Screen add to RemoveList
+			//if (((CMoveObject*)pObj)->GetPosition().Y >= (CEngine::Get()->GetRenderer()->GetCamera().Y) + SCREEN_HEIGHT + 50)
+			//	CEngine::Get()->GetCM()->RemoveObject(pObj);
 		}
-
-		// set moveable by checking collision
-		moveable = !(CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect()));
-
-		// if not moveable cancel collision check
-		if (!moveable)
-			break;
-
-		//// if object out of Screen add to RemoveList
-		//if (((CMoveObject*)pObj)->GetPosition().Y >= (CEngine::Get()->GetRenderer()->GetCamera().Y) + SCREEN_HEIGHT + 50)
-		//	CEngine::Get()->GetCM()->RemoveObject(pObj);
 	}
 
 	// if moveable
@@ -109,7 +112,7 @@ void CMoveObject::Update(float _deltaTime)
 	nextRect.y += GRAVITY_VALUE * m_fallTime * m_fallTime + 1;
 
 	// through all scene objects
-	if (!moveable)
+	if (moveable)
 	{
 		for (CObject* pObj : CEngine::Get()->GetCM()->GetSceneObjects())
 		{

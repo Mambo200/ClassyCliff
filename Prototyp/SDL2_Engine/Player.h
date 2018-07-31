@@ -170,5 +170,15 @@ private:
 	/// if bullet is shot
 	/// </summary>
 	bool shot = false;
+
+	/// <summary>
+	/// game start
+	/// </summary>
+	bool start = false;
+
+	/// <summary>
+	/// which bullet got shot
+	/// </summary>
+	bool whichBulletShot[2];
 #pragma endregion
 };
