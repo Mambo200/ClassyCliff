@@ -9,7 +9,7 @@
 void GMainScene::Init()
 {
 	// create world
-	m_pWorld = new GWorld(CEngine::Get()->GetRenderer(), "Texture/World/T_WorldSide.png");
+	m_pWorld = new GWorld();
 	m_pWorld->Init();
 }
 
