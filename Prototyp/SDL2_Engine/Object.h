@@ -47,24 +47,16 @@ public:
 	inline void AddPosition(SVector2 _pos) { m_position = m_position + _pos; }
 
 	/// <summary>
-	/// set moveable of object
+	/// get tag of object
 	/// </summary>
-	inline void SetMoveableObject(bool _bo) { m_moveableObject = _bo; }
+	/// <returns>tag</returns>
+	inline const char* GetTag() { return m_pTag; }
 
 	/// <summary>
-	/// get moveable of object
+	/// set tag of object
 	/// </summary>
-	inline bool GetMoveableObject() { return m_moveableObject; }
-
-	/// <summary>
-	/// set falltime of object
-	/// </summary>
-	inline void SetFalltime(float _float) { m_falltime += _float; }
-
-	/// <summary>
-	/// get falltime of object
-	/// </summary>
-	inline float GetFalltime() { return m_falltime; }
+	/// <param name="_pTag">tag to set</param>
+	inline void SetTag(const char* _pTag) { m_pTag = _pTag; }
 #pragma endregion
 
 #pragma region public function
@@ -94,13 +86,13 @@ protected:
 	float m_angle;
 
 	/// <summary>
-	/// moveable of object
+	/// tag of object
 	/// </summary>
-	bool m_moveableObject = false;
+	const char* m_pTag;
 
 	/// <summary>
-	/// falltime of object
+	/// lifetime of object
 	/// </summary>
-	float m_falltime = 0.0f;
+	float m_pLifetime = 0.0f;
 #pragma endregion
 };

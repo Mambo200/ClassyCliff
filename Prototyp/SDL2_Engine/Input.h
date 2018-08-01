@@ -50,14 +50,14 @@ public:
 	/// <param name="_key">mouse button event</param>
 	/// <returns>if mouse button is pressed</returns>
 	static bool GetMouse(int _button);
-	
+
 	/// <summary>
 	/// mouse button is pressed in current frame
 	/// </summary>
 	/// <param name="_key">mouse button event</param>
 	/// <returns>if mouse button is pressed this frame</returns>
 	static bool GetMouseDown(int _button);
-	
+
 	/// <summary>
 	/// mouse button is released in current frame
 	/// </summary>
@@ -82,7 +82,7 @@ private:
 	/// key down this frame
 	/// </summary>
 	static bool m_buttonIsDown[5];
-	
+
 	/// <summary>
 	/// key down last frame
 	/// </summary>

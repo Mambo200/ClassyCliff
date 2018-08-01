@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
@@ -43,10 +44,9 @@
     <ClCompile Include="Time.cpp">
       <Filter>Engine\Time</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Game\Bullet</Filter>
+    <ClCompile Include="MoveEnemy.cpp">
+      <Filter>Game\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -98,10 +98,16 @@
       <UniqueIdentifier>{25468902-10eb-451a-9001-a0e1a8193d0b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Time">
-      <UniqueIdentifier>{91bf709f-0fcf-4aab-923d-cb1486629760}</UniqueIdentifier>
+      <UniqueIdentifier>{867bee15-8b50-4c5d-a022-86394f6dce94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemy">
+      <UniqueIdentifier>{79e90500-163f-44e3-ab0f-16c971cd12c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\TextureManagement">
+      <UniqueIdentifier>{c675f3a2-e8a8-4020-9e0b-b9131e88b742}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Bullet">
-      <UniqueIdentifier>{936aa374-32b4-48cc-9e9b-5311e2e3e77b}</UniqueIdentifier>
+      <UniqueIdentifier>{70585f1a-3a15-4d97-8a1f-6c7d31bd0893}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +170,12 @@
     </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>Engine\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveEnemy.h">
+      <Filter>Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManagement.h">
+      <Filter>Engine\TextureManagement</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Game\Bullet</Filter>

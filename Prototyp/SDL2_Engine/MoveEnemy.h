@@ -5,9 +5,9 @@
 #pragma endregion
 
 /// <summary>
-/// player class
+/// move enemy class
 /// </summary>
-class GPlayer :	public CMoveObject
+class GMoveEnemy : public CMoveObject
 {
 public:
 #pragma region constructor
@@ -15,14 +15,14 @@ public:
 	/// constructor
 	/// </summary>
 	/// <param name="_pos">position of object</param>
-	GPlayer(SVector2 _pos) : CMoveObject(_pos) {}
+	GMoveEnemy(SVector2 _pos) : CMoveObject(_pos) {}
 
 	/// <summary>
 	/// constructor
 	/// </summary>
 	/// <param name="_pos">position of object</param>
 	/// <param name="_size">width and height of rect</param>
-	GPlayer(SVector2 _pos, SVector2 _size) : CMoveObject(_pos, _size) {}
+	GMoveEnemy(SVector2 _pos, SVector2 _size) : CMoveObject(_pos, _size) {}
 
 	/// <summary>
 	/// constructor
@@ -31,13 +31,13 @@ public:
 	/// <param name="_size">width and height of rect</param>
 	/// <param name="_pRenderer">renderer</param>
 	/// <param name="_pFileName">file path name (relative)</param>
-	GPlayer(SVector2 _pos, SVector2 _size, CRenderer* _pRenderer,
+	GMoveEnemy(SVector2 _pos, SVector2 _size, CRenderer* _pRenderer,
 		const char* _pFileName) : CMoveObject(_pos, _size, _pRenderer, _pFileName) {}
 
 	/// <summary>
 	/// destructor
 	/// </summary>
-	~GPlayer() {}
+	~GMoveEnemy() {}
 #pragma endregion
 
 #pragma region public override function
@@ -50,35 +50,14 @@ public:
 	/// <summary>
 	/// render every frame
 	/// </summary>
-	/// <param name="_pRenderer"></param>
+	/// <param name="_pRenderer">time since last frame</param>
 	void Render(CRenderer* _pRenderer) override;
 #pragma endregion
 
-private:
-#pragma region private primitive variable
+#pragma region public function
 	/// <summary>
-	/// is jump active
+	/// initialize enemy
 	/// </summary>
-	bool m_jump;
-
-	/// <summary>
-	/// time till jump ends
-	/// </summary>
-	float m_jumpTime;
-
-	/// <summary>
-	/// save first x position of camera
-	/// </summary>
-	float savedXPos;
-
-	/// <summary>
-	/// x position of camera saved
-	/// </summary>
-	bool saved = false;
-
-	/// <summary>
-	/// game start
-	/// </summary>
-	bool start = false;
+	void Init();
 #pragma endregion
 };

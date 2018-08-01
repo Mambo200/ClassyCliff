@@ -36,18 +36,18 @@ public:
 	/// </summary>
 	/// <returns>sdl renderer</returns>
 	inline SDL_Renderer* GetSDLRenderer() { return m_pRenderer; }
+	
+	/// <summary>
+	/// get camera position
+	/// </summary>
+	/// <returns>camera position</returns>
+	inline SVector2 GetCamera() { return m_camera; }
 
 	/// <summary>
 	/// set position of camera
 	/// </summary>
 	/// <param name="_pos">position to set</param>
 	inline void SetCamera(SVector2 _pos) { m_camera = _pos; }
-
-	/// <summary>
-	/// get position of camera
-	/// </summary>
-	/// <param name="_pos">get position of camera</param>
-	inline SVector2 GetCamera() { return m_camera; }
 #pragma endregion
 
 #pragma region public function
