@@ -7,6 +7,7 @@
 #pragma region forward decleration
 class CRenderer;
 class CObject;
+class CMoveObject;
 #pragma endregion
 
 #pragma region using
@@ -67,32 +68,6 @@ public:
 	/// </summary>
 	/// <returns>list of all ui object</returns>
 	inline list<CObject*> GetUIObjects() { return m_pUIObjects; }
-
-	/// <summary>
-	/// add object to falling list
-	/// </summary>
-	/// <param name="_pObject">object to add</param>
-	inline void AddFallingObject(CObject* _pObject) { AddObject(_pObject, m_pFallingObjects); }
-
-	/// <summary>
-	/// get falling objects list
-	/// </summary>
-	/// <returns>list of all scene object</returns>
-	inline list<CObject*> GetFallingObjects() { return m_pFallingObjects; }
-
-	/// <summary>
-	/// add object to scene list
-	/// </summary>
-	/// <param name="_pObject">object to add</param>
-	inline void AddBulletObject(CObject* _pObject) { AddObject(_pObject, m_pBulletObjects); }
-
-	inline void RemoveBullet() { m_pBulletObjects.pop_back(); }
-
-	/// <summary>
-	/// get scene objects list
-	/// </summary>
-	/// <returns>list of all scene object</returns>
-	inline list<CObject*> GetBulletObjects() { return m_pBulletObjects; }
 #pragma endregion
 
 #pragma region public function
@@ -144,14 +119,9 @@ private:
 	list<CObject*> m_pRemoveObjects;
 
 	/// <summary>
-	/// falling object
+	/// list of all moveable objects
 	/// </summary>
-	list<CObject*> m_pFallingObjects;
-
-	/// <summary>
-	/// bullet object
-	/// </summary>
-	list<CObject*> m_pBulletObjects;
+	list<CMoveObject*> m_pMoveObjects;
 #pragma endregion
 
 #pragma region private function
@@ -161,6 +131,12 @@ private:
 	/// <param name="_pObj">object</param>
 	/// <param name="_pList">list to add to</param>
 	void AddObject(CObject* _pObj, list<CObject*> &_pList);
+#pragma endregion
 
+#pragma region private primitive variable
+	/// <summary>
+	/// time to check collision for move objects
+	/// </summary>
+	float m_collisionTimer;
 #pragma endregion
 };

@@ -2,22 +2,26 @@
 
 #pragma region value macro
 #define SCREEN_WIDTH 500
-#define SCREEN_HEIGHT 840
+#define SCREEN_HEIGHT 720
 #define PLAYER_SPEED 500.0f
 #define PLAYER_JUMP_FORCE 500.0f
-#define PLAYER_JUMP_TIME 0.50f
-#define PLAYER_WIDTH  51 //68
-#define PLAYER_HEIGHT 69 //92
+#define PLAYER_JUMP_TIME 0.25f
+#define PLAYER_WIDTH 68
+#define PLAYER_HEIGHT 92
 #define PLAYER_MIRROR SVector2(1.0f, 0.0f)
-#define OBJECT_FALL_FORCE 1.0f
 #define WORLD_BLOCK_ATLAS_WIDTH 26
 #define WORLD_BLOCK_ATLAS_HEIGHT 26
-#define WORLD_BLOCK_WIDTH 40
-#define WORLD_BLOCK_HEIGHT 40
-#define BLOCK_FALL_SPEED 10.0f
+#define WORLD_BLOCK_WIDTH 48
+#define WORLD_BLOCK_HEIGHT 48
+#define MOVE_ENEMY_WIDTH 32
+#define MOVE_ENEMY_HEIGHT 32
+#define MOVE_ENEMY_SPEED 125.0f
+#define BULLET_SIZE 16.0f
+#define BULLET_SPEED 1000.0f
 #define GRAVITY_VALUE 9.81f
-#define BULLET_TIME_ON_SCREEN 0.5f
-#define BULLET_TIME_TO_DISAPPEAR (BULLET_TIME_ON_SCREEN * 2)
+#define COLLISION_DISTANCE 640.0f
+#define COLLISION_CHECK_TIMER 1.0f
+#define LIFETIME_OF_BULLET 1.0f
 #pragma endregion
 
 #pragma region function macro
@@ -26,6 +30,4 @@
 	std::cout << " Error: ";		\
 	std::cout << ERROR;				\
 	std::cout << std::endl;
-
-#define EASY_OUTPUT(TEXT) std::cout << TEXT << std::endl;
 #pragma endregion

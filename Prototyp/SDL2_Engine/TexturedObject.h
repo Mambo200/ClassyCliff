@@ -80,6 +80,18 @@ public:
 	inline void SetInWorld(bool _inWorld) { m_inWorld = _inWorld; }
 
 	/// <summary>
+	/// get name of texture
+	/// </summary>
+	/// <returns>name of texture</returns>
+	inline const char* GetTextureName() { return m_pTextureName; }
+
+	/// <summary>
+	/// set name of texture
+	/// </summary>
+	/// <param name="_pName">name to set</param>
+	inline void SetTextureName(const char* _pName) { m_pTextureName = _pName; }
+
+	/// <summary>
 	/// get collision type of object
 	/// </summary>
 	/// <returns>collision type</returns>
@@ -132,6 +144,12 @@ public:
 	/// </summary>
 	/// <returns>texture</returns>
 	inline CTexture* GetTexture() { return m_pTexture; }
+
+	/// <summary>
+	/// set texture
+	/// </summary>
+	/// <param name="_pTexture">texture to set</param>
+	inline void SetTexture(CTexture* _pTexture) { m_pTexture = _pTexture; }
 #pragma endregion
 
 protected:
@@ -140,6 +158,11 @@ protected:
 	/// if object is rendered in screen or world space
 	/// </summary>
 	bool m_inWorld = true;
+
+	/// <summary>
+	/// name of texture
+	/// </summary>
+	const char* m_pTextureName;
 
 	/// <summary>
 	/// collision type

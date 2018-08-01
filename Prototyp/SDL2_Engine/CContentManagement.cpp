@@ -1,6 +1,7 @@
 #pragma region project include
 #include "ContentManagement.h"
-#include "Object.h"
+#include "MoveObject.h"
+#include "Macro.h"
 #pragma endregion
 
 #pragma region constructor
@@ -18,14 +19,6 @@ CContentManagement::~CContentManagement()
 	// as long as there is a object in list delete first element
 	while (m_pUIObjects.size() > 0)
 		m_pUIObjects.pop_front();
-
-	// as long as there is a object in list delete first element
-	while (m_pFallingObjects.size() > 0)
-		m_pFallingObjects.pop_front();
-
-	// as long as there is a object in list delete first element
-	while (m_pBulletObjects.size() > 0)
-		m_pBulletObjects.pop_front();
 }
 #pragma endregion
 
@@ -45,13 +38,6 @@ void CContentManagement::Update(float _deltaTime)
 	for (CObject* pObj : m_pUIObjects)
 		pObj->Update(_deltaTime);
 
-	// update every falling object
-	for (CObject* pObj : m_pFallingObjects)
-		pObj->Update(_deltaTime);
-
-	for (CObject* pObj : m_pBulletObjects)
-		pObj->Update(_deltaTime);
-
 	// remove object in remove list
 	while (m_pRemoveObjects.size() > 0)
 	{
@@ -67,14 +53,34 @@ void CContentManagement::Update(float _deltaTime)
 		// remove pointer from ui list
 		m_pUIObjects.remove(pObj);
 
+		// remove pointer from move list
+		if((CMoveObject*)pObj)
+			m_pMoveObjects.remove((CMoveObject*)pObj);
+
 		// delete first object in list
 		m_pRemoveObjects.pop_front();
+	}
 
-		//delete first object in list
-		m_pFallingObjects.pop_front();
+	// decrease collision check timer
+	m_collisionTimer -= _deltaTime;
 
-		//delete first object in list
-		m_pBulletObjects.pop_front();
+	// if collision timer under 0
+	if (m_collisionTimer <= 0.0f && m_pMoveObjects.size() > 0)
+	{
+		// check collision of first move object
+		m_pMoveObjects.front()->CheckCollisionObjects();
+
+		// save reference of first move object
+		CMoveObject* pObj = m_pMoveObjects.front();
+
+		// remove object from list
+		m_pMoveObjects.remove(pObj);
+
+		// add object at end of list
+		m_pMoveObjects.push_back(pObj);
+
+		// reset
+		m_collisionTimer = COLLISION_CHECK_TIMER / m_pMoveObjects.size();
 	}
 }
 
@@ -91,13 +97,6 @@ void CContentManagement::Render(CRenderer * _pRenderer)
 
 	// render every ui object
 	for (CObject* pObj : m_pUIObjects)
-		pObj->Render(_pRenderer);
-
-	// render every falling object
-	for (CObject* pObj : m_pFallingObjects)
-		pObj->Render(_pRenderer);
-
-	for (CObject* pObj : m_pBulletObjects)
 		pObj->Render(_pRenderer);
 }
 
@@ -121,6 +120,10 @@ void CContentManagement::AddObject(CObject * _pObj, list<CObject*>& _pList)
 {
 	// add object to list
 	_pList.push_front(_pObj);
+
+	// if object is a moveable object add to list
+	if (dynamic_cast<CMoveObject*>(_pObj))
+		m_pMoveObjects.push_front((CMoveObject*)_pObj);
 
 	// sort list
 	SortList(_pList);
