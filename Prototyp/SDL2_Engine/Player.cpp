@@ -62,7 +62,7 @@ void GPlayer::Update(float _deltaTime)
 
 				// spawn bullet
 				GBullet* pBullet = new GBullet(m_position, m_forward);
-				pBullet->AddPosition(SVector2(m_forward.X * PLAYER_WIDTH + 1, 48.0f));  //m_forward.X muss noch geändert werden
+				pBullet->AddPosition(SVector2(m_forward.X * PLAYER_WIDTH + 1, 48.0f));  //m_forward.X muss noch geÃ¤ndert werden
 
 				// set texture name of object
 				pBullet->SetTextureName("Bullet");
@@ -95,6 +95,7 @@ void GPlayer::Update(float _deltaTime)
 
 			// if jump enabled
 			if (m_jump)
+
 			{
 				// decrease jump time
 				m_jumpTime -= _deltaTime;
