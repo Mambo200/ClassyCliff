@@ -20,7 +20,7 @@
 #define BULLET_SPEED 1000.0f
 #define GRAVITY_VALUE 9.81f
 #define COLLISION_DISTANCE 640.0f
-#define COLLISION_CHECK_TIMER 1.0f
+#define COLLISION_CHECK_TIMER 0.1f
 #define LIFETIME_OF_BULLET 1.0f
 #pragma endregion
 

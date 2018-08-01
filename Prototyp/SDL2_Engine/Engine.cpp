@@ -219,6 +219,8 @@ void CEngine::Update()
 		// parse event to input class
 		if (e.type == SDL_EventType::SDL_KEYDOWN || e.type == SDL_EventType::SDL_KEYUP)
 			CInput::ParseEvent(e);
+		if (e.type == SDL_EventType::SDL_MOUSEBUTTONDOWN || e.type == SDL_EventType::SDL_MOUSEBUTTONUP)
+			CInput::ParseEvent(e);
 	}
 
 	// update content

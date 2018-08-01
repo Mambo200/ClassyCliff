@@ -136,6 +136,11 @@ protected:
 	/// forward direction
 	/// </summary>
 	SVector2 m_forward = SVector2(-1.0f, 0.0f);
+
+	/// <summary>
+	/// moveable of object
+	/// </summary>
+	bool moveable = true;
 #pragma endregion
 
 #pragma region protected variable

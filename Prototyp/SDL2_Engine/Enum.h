@@ -7,7 +7,5 @@ enum ECollisionType
 {
 	NONE,
 	MOVE,
-	WALL,
-	DEAD,
-	SLOW,
+	WALL
 };

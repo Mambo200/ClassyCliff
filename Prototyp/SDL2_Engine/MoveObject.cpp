@@ -18,9 +18,6 @@ void CMoveObject::Update(float _deltaTime)
 		m_position.Y <= camera.Y - SCREEN_HEIGHT || m_position.Y >= camera.Y + SCREEN_HEIGHT)
 		return;
 
-	// moveable default true
-	bool moveable = true;
-
 	// next position
 	SVector2 nextPos = m_position + m_movement * m_speed * _deltaTime;
 

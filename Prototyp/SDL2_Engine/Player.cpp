@@ -18,131 +18,133 @@
 // update every frame
 void GPlayer::Update(float _deltaTime)
 {
-	//// start game
-	//if (CInput::GetMouseDown(SDL_BUTTON_LEFT))
-	//	start = true;
-	//
-	//// if game started
-	//if (start)
-	//{
-		// movement left
-		if (CInput::GetKey(SDL_SCANCODE_A))
+	// start game
+	if (CInput::GetMouseDown(SDL_BUTTON_LEFT))
+		start = true;
+	
+	// if game started
+	if (start)
+	{
+
+		if (moveable)
 		{
-			// set movement, forward and mirror
-			m_movement.X = -1.0f;
-			m_mirror.X = 1.0f;
-			m_forward.X = -1.0f;
-		}
-
-		// movement right
-		else if (CInput::GetKey(SDL_SCANCODE_D))
-		{
-			// set movemenet, forward and mirror
-			m_movement.X = 1.0f;
-			m_mirror.X = 0.0f;
-			m_forward.X = 1.0f;
-		}
-
-		// no movement left or right
-		else
-			m_movement.X = 0.0f;
-
-		// if key space is pressed this frame and jump not active and grounded
-		if (CInput::GetMouseDown(SDL_BUTTON_LEFT) && !m_jump && m_grounded)
-		{
-			// set jump enable, gravity false and set jump time
-			m_jump = true;
-			m_jumpTime = PLAYER_JUMP_TIME;
-			m_gravity = false;
-
-			// TODO
-
-			// spawn bullet
-			GBullet* pBullet = new GBullet(m_position, m_forward);
-			pBullet->AddPosition(SVector2(m_forward.X * PLAYER_WIDTH + 1, 48.0f));  //m_forward.X muss noch geändert werden
-
-			// set texture name of object
-			pBullet->SetTextureName("Bullet");
-
-			// if texture not exists
-			if (CEngine::Get()->GetTM()->GetTexture("Bullet") == nullptr)
+			// movement left
+			if (CInput::GetKey(SDL_SCANCODE_A))
 			{
-				// create new texture
-				CTexture* pTexture = new CTexture("Texture/Bullet/T_Bullet.png", CEngine::Get()->GetRenderer());
-
-				// add texture to tm
-				CEngine::Get()->GetTM()->AddTexture("Bullet", pTexture);
-
-				// set texture of object
-				pBullet->SetTexture(pTexture);
+				// set movement, forward and mirror
+				m_movement.X = -1.0f;
+				m_mirror.X = 1.0f;
+				m_forward.X = -1.0f;
 			}
 
-			// if texture exists set texture of object
+			// movement right
+			else if (CInput::GetKey(SDL_SCANCODE_D))
+			{
+				// set movemenet, forward and mirror
+				m_movement.X = 1.0f;
+				m_mirror.X = 0.0f;
+				m_forward.X = 1.0f;
+			}
+
+			// no movement left or right
 			else
+				m_movement.X = 0.0f;
+
+			// if key space is pressed this frame and jump not active and grounded
+			if (CInput::GetMouseDown(SDL_BUTTON_LEFT))
 			{
-				pBullet->SetTexture(CEngine::Get()->GetTM()->GetTexture("Bullet"));
+				// set jump enable, gravity false and set jump time
+				m_jump = true;
+				m_jumpTime = PLAYER_JUMP_TIME;
+				m_gravity = false;
+
+				// TODO
+
+				// spawn bullet
+				GBullet* pBullet = new GBullet(m_position, m_forward);
+				pBullet->AddPosition(SVector2(m_forward.X * PLAYER_WIDTH + 1, 48.0f));  //m_forward.X muss noch geÃ¤ndert werden
+
+				// set texture name of object
+				pBullet->SetTextureName("Bullet");
+
+				// if texture not exists
+				if (CEngine::Get()->GetTM()->GetTexture("Bullet") == nullptr)
+				{
+					// create new texture
+					CTexture* pTexture = new CTexture("Texture/Bullet/T_Bullet.png", CEngine::Get()->GetRenderer());
+
+					// add texture to tm
+					CEngine::Get()->GetTM()->AddTexture("Bullet", pTexture);
+
+					// set texture of object
+					pBullet->SetTexture(pTexture);
+				}
+
+				// if texture exists set texture of object
+				else
+				{
+					pBullet->SetTexture(CEngine::Get()->GetTM()->GetTexture("Bullet"));
+				}
+
+				// add to list
+				CEngine::Get()->GetCM()->AddPersistantObject(pBullet);
 			}
 
-			// add to list
-			CEngine::Get()->GetCM()->AddPersistantObject(pBullet);
+			// update parent
+			CMoveObject::Update(_deltaTime);
+
+			// if jump enabled
+			if (m_jump)
+
+			{
+				// decrease jump time
+				m_jumpTime -= _deltaTime;
+
+				// if jump time under 0
+				if (m_jumpTime <= 0.0f)
+				{
+					// deactivate jump and activate gravity
+					m_jump = false;
+					m_gravity = true;
+				}
+
+				// next position
+				SVector2 nextPos = m_position;
+				nextPos.Y -= PLAYER_JUMP_FORCE * _deltaTime;
+
+				// next rect
+				SRect nextRect = m_rect;
+				nextRect.x = nextPos.X;
+				nextRect.y = nextPos.Y;
+
+				// through all collision objects
+				for (CObject* pObj : m_pCollisionObjects)
+				{
+					// if current object is self continue
+					if ((CMoveObject*)pObj && pObj == this)
+						continue;
+
+					// if collision type none
+					if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+						continue;
+
+					// set moveable by checking collision
+					moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
+
+					// if not moveable cancel collision check
+					if (!moveable)
+						break;
+				}
+
+				// if still moveable set y position
+				if (moveable)
+				{
+					m_position.Y -= PLAYER_JUMP_FORCE * _deltaTime;
+					m_rect.y = m_position.Y;
+				}
+			}
 		}
-
-		// update parent
-		CMoveObject::Update(_deltaTime);
-
-		// if jump enabled
-		if (m_jump)
-		{
-			// decrease jump time
-			m_jumpTime -= _deltaTime;
-
-			// if jump time under 0
-			if (m_jumpTime <= 0.0f)
-			{
-				// deactivate jump and activate gravity
-				m_jump = false;
-				m_gravity = true;
-			}
-
-			// moveable default true
-			bool moveable = true;
-
-			// next position
-			SVector2 nextPos = m_position;
-			nextPos.Y -= PLAYER_JUMP_FORCE * _deltaTime;
-
-			// next rect
-			SRect nextRect = m_rect;
-			nextRect.x = nextPos.X;
-			nextRect.y = nextPos.Y;
-
-			// through all collision objects
-			for (CObject* pObj : m_pCollisionObjects)
-			{
-				// if current object is self continue
-				if ((CMoveObject*)pObj && pObj == this)
-					continue;
-
-				// if collision type none
-				if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
-					continue;
-
-				// set moveable by checking collision
-				moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
-
-				// if not moveable cancel collision check
-				if (!moveable)
-					break;
-			}
-
-			// if still moveable set y position
-			if (moveable)
-			{
-				m_position.Y -= PLAYER_JUMP_FORCE * _deltaTime;
-				m_rect.y = m_position.Y;
-			}
-		}
-	//}
+	}
 
 	if (!saved)
 	{
