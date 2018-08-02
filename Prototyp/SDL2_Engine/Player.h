@@ -206,5 +206,8 @@ private:
 	/// boost direction
 	/// </summary>
 	SVector2 m_boostDirection = SVector2(0.0f, 0.0f);
+
+	int m_backGround = PRERENDER;
+	int m_afterFifty = PRERENDER;
 #pragma endregion
 };

@@ -85,14 +85,14 @@ public:
 	inline list<CObject*> GetBackground1Object() { return m_pBackground1; }
 
 	inline void AddBackground2Object(CObject* _pObject) { AddObject(_pObject, m_pBackground2); }
-	inline list<CObject*> GetBackground2Object() { return m_pBackground1; }
+	inline list<CObject*> GetBackground2Object() { return m_pBackground2; }
 	//inline void MoveBackground2Object();
 
 	inline void AddBackground3Object(CObject* _pObject) { AddObject(_pObject, m_pBackground3); }
-	inline list<CObject*> GetBackground3Object() { return m_pBackground1; }
+	inline list<CObject*> GetBackground3Object() { return m_pBackground3; }
 
 	inline void AddBackground4Object(CObject* _pObject) { AddObject(_pObject, m_pBackground4); }
-	inline list<CObject*> GetBackground4Object() { return m_pBackground1; }
+	inline list<CObject*> GetBackground4Object() { return m_pBackground4; }
 
 #pragma endregion
 

@@ -47,6 +47,9 @@
     <ClCompile Include="MoveEnemy.cpp">
       <Filter>Game\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Game\Background</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -108,6 +111,9 @@
     </Filter>
     <Filter Include="Game\Bullet">
       <UniqueIdentifier>{70585f1a-3a15-4d97-8a1f-6c7d31bd0893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Background">
+      <UniqueIdentifier>{ba1c758b-6fe4-48f3-9338-7003d877532a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Game\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Game\Background</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
