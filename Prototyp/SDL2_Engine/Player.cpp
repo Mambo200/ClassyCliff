@@ -12,6 +12,7 @@
 #include "Renderer.h"
 #include "Bullet.h"
 #include "Time.h"	///TODO: DELETE
+#include "Background.h"
 #pragma endregion
 
 #pragma region static variable
@@ -22,6 +23,24 @@ SVector2 GPlayer::m_helperPosition = SVector2(0, 0);
 // update every frame
 void GPlayer::Update(float _deltaTime)
 {
+
+	// creating world while playing
+	for (CObject* pObj : CEngine::Get()->GetCM()->GetBackground2Object())
+		pObj->SetPosition(pObj->GetPosition() + SVector2(0, 100));
+
+	//LOG_ERROR((int)CEngine::Get()->GetRenderer()->GetCamera().Y % (SCREEN_HEIGHT * (m_backGround - 2)), m_backGround)
+	LOG_ERROR(CEngine::Get()->GetTime()->GetFPS(), m_afterFifty);
+		if (((int)CEngine::Get()->GetRenderer()->GetCamera().Y % (SCREEN_HEIGHT * (m_afterFifty - 2))) <= 0 &&
+			((int)CEngine::Get()->GetRenderer()->GetCamera().Y % (SCREEN_HEIGHT * (m_afterFifty - 2))) >= -100)
+		{
+			GBackground::GenerateBackgorund(m_afterFifty);
+			GBackground::CreateWalls(m_backGround, m_afterFifty);
+			if (m_backGround < 50)
+				m_backGround++;
+			m_afterFifty++;
+			//CEngine::Get()->GetCM()->MoveBackground2Object();
+		}
+
 	// start game
 	if (CInput::GetMouseDown(SDL_BUTTON_LEFT))
 		start = true;
@@ -120,8 +139,8 @@ void GPlayer::Update(float _deltaTime)
 		}
 
 		// if player is moveable
-		if (moveable)
-		{
+		//if (moveable)
+		//{
 			// movement left
 			if (CInput::GetMouseDown(SDL_BUTTON_LEFT) && m1 > m_helperPosition.X)
 			{
@@ -285,7 +304,7 @@ void GPlayer::Update(float _deltaTime)
 					m_rect.y = m_position.Y;
 				}
 			}
-		}
+		//}
 	}
 
 	if (!saved)
@@ -296,7 +315,7 @@ void GPlayer::Update(float _deltaTime)
 
 	// set position of camera
 	CEngine::Get()->GetRenderer()->SetCamera(
-		SVector2(savedXPos, m_position.Y - PLAYER_HEIGHT)
+		SVector2(savedXPos, m_position.Y - PLAYER_HEIGHT * 2.4)
 	);
 
 	/// <summary>
@@ -306,6 +325,7 @@ void GPlayer::Update(float _deltaTime)
 	std::string s = "Position Y: ";
 	s += std::to_string(s2.X) + " " + std::to_string(s2.Y) + "\n";
 	s += std::to_string(m_boostDirection.X) + " " + std::to_string(m_boostDirection.Y) + "\n";
+
 	s += std::to_string(m_helperPosition.X) + " " + std::to_string(m_helperPosition.Y);
 	LOG_ERROR("", s.c_str());
 }

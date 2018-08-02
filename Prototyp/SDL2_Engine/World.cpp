@@ -11,6 +11,7 @@
 #include "Texture.h"
 #include "Player.h"
 #include "MoveEnemy.h"
+#include "Background.h"
 #pragma endregion
 
 #pragma region using
@@ -22,7 +23,18 @@ using namespace std;
 #pragma region public function
 // initialize world
 void GWorld::Init()
-{
+{	
+	// create ground
+	GBackground::Ground();
+
+	// prerender background
+	for (int i = 0; i < PRERENDER; i++)
+	{
+		GBackground::GenerateBackgorund(i);
+		GBackground::CreateWalls(i, i);
+	}
+
+
 	// string to define world
 	string world;
 
@@ -37,82 +49,7 @@ void GWorld::Init()
 	// S = start point of player
 	// E = move enemy
 	
-	world += "XXXXXXXXXXX\n";
-	world += "X000000000X\n";
-	world += "XWW0000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X0000LL000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000WWWX\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "XWW0000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X0LL000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X0000LL000X\n";
-	world += "X0000LL000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "XWW0000000X\n";
-	world += "X000000000X\n";
-	world += "X0000000WWX\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "XWWW000000X\n";
-	world += "XWWW000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X0000LL000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000WWWX\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "XWW0000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000WWWX\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X000000000X\n";
-	world += "X0000S0000X\n";
-	world += "XXXXXXXXXXX";
+	world += "FFFFFSFFFFF\n";
 
 	// width and height of world
 	int width = 0, height = 1;
@@ -203,6 +140,9 @@ void GWorld::Init()
 			break;
 		}
 
+		case 'F':
+			continue;
+
 		case 'S':
 		{
 			// create textured object
@@ -227,7 +167,7 @@ void GWorld::Init()
 			if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
 			{
 				// create new texture
-				CTexture* pTexture = new CTexture("Texture/Character/Player/T_Samus_Idle.png", CEngine::Get()->GetRenderer());
+				CTexture* pTexture = new CTexture("Texture/Character/Player/steigen/player_steigen0.png", CEngine::Get()->GetRenderer());
 
 				// add texture to tm
 				CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
@@ -297,6 +237,8 @@ void GWorld::Init()
 			break;
 		}
 
+		if (texName == "Player")
+			continue;
 		// set source rect of object
 		pObj->SetSrcRect(SRect(xPosOfTexture, 0, WORLD_BLOCK_ATLAS_WIDTH, WORLD_BLOCK_ATLAS_HEIGHT));
 

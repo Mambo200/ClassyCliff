@@ -2,6 +2,7 @@
 #include "ContentManagement.h"
 #include "MoveObject.h"
 #include "Macro.h"
+#include "Background.h"
 #pragma endregion
 
 #pragma region constructor
@@ -51,9 +52,9 @@ CContentManagement::~CContentManagement()
 void CContentManagement::Update(float _deltaTime)
 {
 	//update every background object
-	for (CObject* pObj : m_pBackgroundObjects)
+	for (CObject* pObj : m_pBackground1)
 		pObj->Update(_deltaTime);
-
+		
 	// update every scene object
 	for each (CObject* pObj in m_pSceneObjects)
 		pObj->Update(_deltaTime);
@@ -65,6 +66,8 @@ void CContentManagement::Update(float _deltaTime)
 	// update every ui object
 	for (CObject* pObj : m_pUIObjects)
 		pObj->Update(_deltaTime);
+
+
 
 	// remove object in remove list
 	while (m_pRemoveObjects.size() > 0)
