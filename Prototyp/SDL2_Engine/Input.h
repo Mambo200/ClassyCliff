@@ -79,12 +79,12 @@ private:
 	static bool m_keyWasDown[256];
 
 	/// <summary>
-	/// key down this frame
+	/// mousebutton down this frame
 	/// </summary>
 	static bool m_buttonIsDown[5];
 
 	/// <summary>
-	/// key down last frame
+	/// mousebutton down last frame
 	/// </summary>
 	static bool m_buttonWasDown[5];
 #pragma endregion

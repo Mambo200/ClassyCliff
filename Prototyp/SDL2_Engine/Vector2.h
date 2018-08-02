@@ -1,5 +1,7 @@
 #pragma once
 
+#include <math.h>
+
 /// <summary>
 /// vector 2 struct
 /// </summary>
@@ -50,5 +52,18 @@ public:
 	{
 		return SVector2(X * _value, Y * _value);
 	}
+
+	/// <summary>
+	/// vector2 / float
+	/// </summary>
+	/// <param name="_value">float value</param>
+	/// <returns>new vector2</returns>
+	SVector2 operator/(float _value)
+	{
+		return SVector2(X / _value, Y / _value);
+	}
 #pragma endregion
+
+	float magnitude() { return sqrtf(X * X + Y * Y);}
+	SVector2 normalize() { return *this / magnitude(); }
 };
