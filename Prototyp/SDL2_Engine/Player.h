@@ -63,14 +63,10 @@ public:
 	static void SetHelpPosition(SVector2 _pos) { m_helperPosition = _pos; }
 
 	/// <summary>
-	/// add position of helper position
-	/// </summary>
-	/// <param name="_pos">position to add</param>
-	void AddHelpPosition(SVector2 _pos) { m_helperPosition = m_helperPosition + _pos; }
-
-	/// <summary>
 	/// calculate boostpower
 	/// </summary>
+	/// <param name="_pos">position of mouse</param>
+	/// <param name="_pos">position of m_helperPosition</param>
 	void DirectionBoost(SVector2 _posMouse, SVector2 _posPlayer)
 	{
 		// reset boost direction
@@ -92,14 +88,6 @@ public:
 		// if mouse is right from player
 		else if (_posMouse.X >= _posPlayer.X)
 			tmp_x = _posMouse.X - _posPlayer.X;
-
-		//if mouseposition is too far left from player, set max value for x-achse of mouse
-		if (tmp_x < tmp * -1)
-			_posMouse.X = tmp * -1;
-
-		//if mouseposition is too far right from player, set max value for x-achse of mouse
-		if (tmp_x > tmp)
-			_posMouse.X = tmp;
 
 		// calculate 1% of the relative position of mouse for y-achse
 		one_percent = tmp / 100;
@@ -124,6 +112,7 @@ public:
 			correctur_percent_power.X = m_boostDirection.X;
 			x_positiv = true;
 		}
+
 		if (m_boostDirection.Y <= 0)
 		{
 			correctur_percent_power.Y = m_boostDirection.Y * -1;
@@ -154,15 +143,18 @@ public:
 		else if (boostPower <= 1)
 		{
 			if (x_positiv)
-				m_boostDirection.X += (boostPower - 1) / 2;
+				m_boostDirection.X += (1 - boostPower) / 2;
 			else
-				m_boostDirection.X -= (boostPower - 1) / 2;
+				m_boostDirection.X -= (1 - boostPower) / 2;
 			if (y_positiv)
-				m_boostDirection.Y += (boostPower - 1) / 2;
+				m_boostDirection.Y += (1 - boostPower) / 2;
 			else
-				m_boostDirection.Y -= (boostPower - 1) / 2;
+				m_boostDirection.Y -= (1 - boostPower) / 2;
 		}
 	}
+
+	// get direction of boost
+	SVector2 GetBoostDirection() { return m_boostDirection; }
 #pragma endregion
 
 private:

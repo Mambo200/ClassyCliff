@@ -27,20 +27,64 @@ void GPlayer::Update(float _deltaTime)
 		start = true;
 
 	// get mouseposition on screen
-	int m1 = (int)m_position.X;
-	int m2 = (int)m_position.Y;
+	int m1;
+	int m2;
 	SDL_GetMouseState(&m1, &m2);
-	m1 -= SCREEN_WIDTH / 2;
-	m2 -= SCREEN_HEIGHT - (PLAYER_HEIGHT * 2);
-	if (m2 < (PLAYER_HEIGHT * 1.5f) * -1)
-		m2 = (PLAYER_HEIGHT * 1.5f) * -1;
-	else if (m2 > (PLAYER_HEIGHT * 1.5f))
-			 m2 = (PLAYER_HEIGHT * 1.5f);
-	if (m1 < (PLAYER_HEIGHT * 1.5f) * -1)
-		m1 = (PLAYER_HEIGHT * 1.5f) * -1;
-	else if (m1 > (PLAYER_HEIGHT * 1.5f))
-			 m1 = (PLAYER_HEIGHT * 1.5f);
-	DirectionBoost(SVector2(m1, m2), m_helperPosition);
+
+	m1 = m1 - ( m_rect.x - (CEngine::Get()->GetRenderer()->GetCamera().X - SCREEN_WIDTH / 2)+ m_rect.w / 2);
+	m2 = m2 - (m_rect.y  - (CEngine::Get()->GetRenderer()->GetCamera().Y - SCREEN_HEIGHT / 2)+ m_rect.h / 2);
+
+	SVector2 s2 = SVector2(m1, m2);
+
+	if (s2.magnitude() > PLAYER_HEIGHT * 1.5f)
+	{
+		s2 = s2.normalize() * PLAYER_HEIGHT * 1.5f;
+	}
+
+	if (CInput::GetMouseDown(SDL_BUTTON_RIGHT))
+	{
+		// calculate boost direction
+		DirectionBoost(SVector2(m1, m2), m_helperPosition);
+
+		// calculate angle
+		double angle = atan2((double)m_boostDirection.X, (double)m_boostDirection.Y) * 180 / M_PI;
+
+		// spawn bullet
+		GBullet* pBullet = new GBullet(m_position, m_boostDirection);
+		pBullet->AddPosition(SVector2((m_boostDirection.X * (PLAYER_WIDTH)) + 30, (m_boostDirection.Y * 100) + 50));
+
+		// set texture name of object
+		pBullet->SetTextureName("Bullet");
+
+		// set forward of object
+		m_forward = m_boostDirection;
+
+		// if texture not exists
+		if (CEngine::Get()->GetTM()->GetTexture("Bullet") == nullptr)
+		{
+			// create new texture
+			CTexture* pTexture = new CTexture("Texture/Bullet/Rakete.png", CEngine::Get()->GetRenderer());
+
+			// add texture to tm
+			CEngine::Get()->GetTM()->AddTexture("Bullet", pTexture);
+
+			// set texture of object
+			pBullet->SetTexture(pTexture);
+			pBullet->SetAngle(-angle + 90);
+			pBullet->SetAnimated(true);
+			pBullet->SetAnimatedFrames(3);
+		}
+
+		// if texture exists set texture of object
+		else
+		{
+			pBullet->SetTexture(CEngine::Get()->GetTM()->GetTexture("Bullet"));
+			pBullet->SetAngle(-angle + 90);
+		}
+
+		// add to list
+		CEngine::Get()->GetCM()->AddPersistantObject(pBullet);
+	}
 
 	// if cursor right of player
 	if (m1 < m_helperPosition.X)
@@ -55,38 +99,8 @@ void GPlayer::Update(float _deltaTime)
 		m_forward.X = 1.0f;
 		m_mirror.X = 0.0f;
 	}
-	
-	if (CInput::GetMouseDown(SDL_BUTTON_RIGHT))
-	{
-		// spawn bullet
-		GBullet* pBullet = new GBullet(m_position, m_forward);
-		pBullet->AddPosition(SVector2(m_boostDirection.X * PLAYER_WIDTH + 1, m_boostDirection.Y * PLAYER_HEIGHT + 1));
 
-		// set texture name of object
-		pBullet->SetTextureName("Bullet");
-
-		// if texture not exists
-		if (CEngine::Get()->GetTM()->GetTexture("Bullet") == nullptr)
-		{
-			// create new texture
-			CTexture* pTexture = new CTexture("Texture/Bullet/T_Bullet.png", CEngine::Get()->GetRenderer());
-
-			// add texture to tm
-			CEngine::Get()->GetTM()->AddTexture("Bullet", pTexture);
-
-			// set texture of object
-			pBullet->SetTexture(pTexture);
-		}
-
-		// if texture exists set texture of object
-		else
-		{
-			pBullet->SetTexture(CEngine::Get()->GetTM()->GetTexture("Bullet"));
-		}
-
-		// add to list
-		CEngine::Get()->GetCM()->AddPersistantObject(pBullet);
-	}
+	DirectionBoost(s2, m_helperPosition);
 
 	// if game started
 	if (start)
@@ -104,16 +118,18 @@ void GPlayer::Update(float _deltaTime)
 			m_forward.X = 1.0f;
 			m_mirror.X = 0.0f;
 		}
-		
+
 		// if player is moveable
 		if (moveable)
 		{
 			// movement left
 			if (CInput::GetMouseDown(SDL_BUTTON_LEFT) && m1 > m_helperPosition.X)
 			{
-				// set movement, forward and mirror
-				m_movement.X = -1.0f;
-				AddHelpPosition(SVector2(m_movement.X, 0));
+				// calculate boost direction
+				DirectionBoost(s2, m_helperPosition);
+
+				// calculate angle
+				double angle = atan2((double)m_boostDirection.X, (double)m_boostDirection.Y) * 180 / M_PI;
 
 				// set jump enable, gravity false and set jump time
 				m_fallTime = 0.001f;
@@ -123,29 +139,34 @@ void GPlayer::Update(float _deltaTime)
 				m_gravity = false;
 
 				// spawn bullet
-				GBullet* pBullet = new GBullet(m_position, m_forward);
-				pBullet->AddPosition(SVector2(m_boostDirection.X * PLAYER_WIDTH + 1, m_boostDirection.Y * 48.0f + 1));
+				GBullet* pBullet = new GBullet(m_position, m_boostDirection);
+				pBullet->AddPosition(SVector2((m_boostDirection.X * (PLAYER_WIDTH)) + 30, (m_boostDirection.Y * 100) + 50));
 
 				// set texture name of object
 				pBullet->SetTextureName("Bullet");
+
+				// set forward of object
+				m_forward = m_boostDirection;
 
 				// if texture not exists
 				if (CEngine::Get()->GetTM()->GetTexture("Bullet") == nullptr)
 				{
 					// create new texture
-					CTexture* pTexture = new CTexture("Texture/Bullet/T_Bullet.png", CEngine::Get()->GetRenderer());
+					CTexture* pTexture = new CTexture("Texture/Bullet/Rakete.png", CEngine::Get()->GetRenderer());
 
 					// add texture to tm
 					CEngine::Get()->GetTM()->AddTexture("Bullet", pTexture);
 
 					// set texture of object
 					pBullet->SetTexture(pTexture);
+					pBullet->SetAngle(-angle + 90);
 				}
 
 				// if texture exists set texture of object
 				else
 				{
 					pBullet->SetTexture(CEngine::Get()->GetTM()->GetTexture("Bullet"));
+					pBullet->SetAngle(-angle + 90);
 				}
 
 				// add to list
@@ -155,9 +176,11 @@ void GPlayer::Update(float _deltaTime)
 			// movement right
 			else if (CInput::GetMouseDown(SDL_BUTTON_LEFT) && m1 < m_helperPosition.X)
 			{
-				// set movement, forward and mirror
-				m_movement.X = 1.0f;
-				AddHelpPosition(SVector2(m_movement.X, 0));
+				// calculate boost direction
+				DirectionBoost(s2, m_helperPosition);
+
+				// calculate angle
+				double angle = atan2((double)m_boostDirection.X, (double)m_boostDirection.Y) * 180 / M_PI;
 
 				// set jump enable, gravity false and set jump time
 				m_fallTime = 0.001f;
@@ -166,41 +189,40 @@ void GPlayer::Update(float _deltaTime)
 				m_shotTime = PLAYER_JUMP_TIME - PLAYER_JUMP_TIME / 5;
 				m_gravity = false;
 
-				// TODO
-
 				// spawn bullet
-				GBullet* pBullet = new GBullet(m_position, m_forward);
-				pBullet->AddPosition(SVector2(m_boostDirection.X * PLAYER_WIDTH + 1, m_boostDirection.Y * 48.0f + 1));  //m_forward.X muss noch geändert werder
+				GBullet* pBullet = new GBullet(m_position, m_boostDirection);
+				pBullet->AddPosition(SVector2((m_boostDirection.X * (PLAYER_WIDTH)) + 30, (m_boostDirection.Y * 100) + 50)); 
 													
 				// set texture name of object
 				pBullet->SetTextureName("Bullet");
+
+				// set forward of object
+				m_forward = m_boostDirection;
 
 				// if texture not exists
 				if (CEngine::Get()->GetTM()->GetTexture("Bullet") == nullptr)
 				{
 					// create new texture
-					CTexture* pTexture = new CTexture("Texture/Bullet/T_Bullet.png", CEngine::Get()->GetRenderer());
+					CTexture* pTexture = new CTexture("Texture/Bullet/Rakete.png", CEngine::Get()->GetRenderer());
 
 					// add texture to tm
 					CEngine::Get()->GetTM()->AddTexture("Bullet", pTexture);
 
 					// set texture of object
 					pBullet->SetTexture(pTexture);
+					pBullet->SetAngle(-angle + 90);
 				}
 
 				// if texture exists set texture of object
 				else
 				{
 					pBullet->SetTexture(CEngine::Get()->GetTM()->GetTexture("Bullet"));
+					pBullet->SetAngle(-angle + 90);
 				}
 
 				// add to list
 				CEngine::Get()->GetCM()->AddPersistantObject(pBullet);
 			}
-
-			// no movement left or right
-			else if (m_jumpTime <= 0.01f)
-				m_movement.X = 0.0f;
 			
 			// update parent
 			CMoveObject::Update(_deltaTime);
@@ -223,8 +245,10 @@ void GPlayer::Update(float _deltaTime)
 
 				// next position
 				SVector2 nextPos = m_position;
-				nextPos.X += m_movement.X;
-				nextPos.Y -= PLAYER_JUMP_FORCE * _deltaTime;
+				float tmp_x = m_boostDirection.X * PLAYER_JUMP_FORCE * _deltaTime;
+				nextPos.X -= tmp_x;
+				float tmp_y = m_boostDirection.Y * PLAYER_JUMP_FORCE * _deltaTime;
+				nextPos.Y -= tmp_y;
 
 				// next rect
 				SRect nextRect = m_rect;
@@ -241,6 +265,8 @@ void GPlayer::Update(float _deltaTime)
 					// if collision type none
 					if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
 						continue;
+					if (((CTexturedObject*)pObj)->GetTag() == "Bullet")
+						continue;
 
 					// set moveable by checking collision
 					moveable = !CPhysic::RectRectCollision(nextRect, ((CTexturedObject*)pObj)->GetRect());
@@ -253,7 +279,9 @@ void GPlayer::Update(float _deltaTime)
 				// if still moveable set y position
 				if (moveable)
 				{
-					m_position.Y -= PLAYER_JUMP_FORCE * _deltaTime;
+					m_position.X -= tmp_x;
+					m_position.Y -= tmp_y;
+					m_rect.x = m_position.X;
 					m_rect.y = m_position.Y;
 				}
 			}
@@ -276,9 +304,9 @@ void GPlayer::Update(float _deltaTime)
 	/// </summary>
 	// print player position
 	std::string s = "Position Y: ";
-	s += std::to_string(m1) + " " + std::to_string(m2) + "\n";
+	s += std::to_string(s2.X) + " " + std::to_string(s2.Y) + "\n";
 	s += std::to_string(m_boostDirection.X) + " " + std::to_string(m_boostDirection.Y) + "\n";
-	s += std::to_string(Y_POSITION_OF_PLAYER);
+	s += std::to_string(m_helperPosition.X) + " " + std::to_string(m_helperPosition.Y);
 	LOG_ERROR("", s.c_str());
 }
 
