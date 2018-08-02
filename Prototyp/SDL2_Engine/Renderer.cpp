@@ -68,10 +68,10 @@ void CRenderer::RenderTexture(CTexture * _pTexture, SRect _destRect, SRect _srcR
 
 	// if texture is rendered in world and is not in screen return
 	if (_inWorld &&
-		(destRect.x >= m_camera.X + SCREEN_WIDTH / 2 + WORLD_BLOCK_WIDTH ||
-		destRect.x <= m_camera.X - SCREEN_WIDTH / 2 - WORLD_BLOCK_WIDTH ||
+		(destRect.x >= m_camera.X + SCREEN_WIDTH / 2 + (WORLD_BLOCK_WIDTH + 100) ||
+		destRect.x <= m_camera.X - SCREEN_WIDTH / 2 - (WORLD_BLOCK_WIDTH  + 100) ||
 		destRect.y >= m_camera.Y + SCREEN_HEIGHT / 2 + WORLD_BLOCK_HEIGHT ||
-		destRect.y <= m_camera.Y - SCREEN_HEIGHT / 2 - WORLD_BLOCK_HEIGHT))
+		destRect.y <= m_camera.Y - SCREEN_HEIGHT / 2 - WORLD_BLOCK_HEIGHT * 20))
 	{
 		return;
 	}

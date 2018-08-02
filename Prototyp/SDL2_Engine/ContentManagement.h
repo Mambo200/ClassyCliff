@@ -34,6 +34,18 @@ public:
 
 #pragma region public inline function
 	/// <summary>
+	/// add object to background list
+	/// </summary>
+	/// <param name="_pObject">object to add</param>
+	inline void AddBackgroundObject(CObject* _pObject) { AddObject(_pObject, m_pBackgroundObjects); }
+
+	/// <summary>
+	/// get background object list
+	/// </summary>
+	/// <returns>list of all background object</returns>
+	inline list<CObject*> GetBackgroundObjects() { return m_pBackgroundObjects; }
+
+	/// <summary>
 	/// add object to scene list
 	/// </summary>
 	/// <param name="_pObject">object to add</param>
@@ -68,6 +80,20 @@ public:
 	/// </summary>
 	/// <returns>list of all ui object</returns>
 	inline list<CObject*> GetUIObjects() { return m_pUIObjects; }
+
+	inline void AddBackground1Object(CObject* _pObject) { AddObject(_pObject, m_pBackground1); }
+	inline list<CObject*> GetBackground1Object() { return m_pBackground1; }
+
+	inline void AddBackground2Object(CObject* _pObject) { AddObject(_pObject, m_pBackground2); }
+	inline list<CObject*> GetBackground2Object() { return m_pBackground1; }
+	//inline void MoveBackground2Object();
+
+	inline void AddBackground3Object(CObject* _pObject) { AddObject(_pObject, m_pBackground3); }
+	inline list<CObject*> GetBackground3Object() { return m_pBackground1; }
+
+	inline void AddBackground4Object(CObject* _pObject) { AddObject(_pObject, m_pBackground4); }
+	inline list<CObject*> GetBackground4Object() { return m_pBackground1; }
+
 #pragma endregion
 
 #pragma region public function
@@ -99,6 +125,11 @@ public:
 private:
 #pragma region private variable
 	/// <summary>
+	/// background list
+	/// </summary>
+	list<CObject*> m_pBackgroundObjects;
+
+	/// <summary>
 	/// scene / world objects
 	/// </summary>
 	list<CObject*> m_pSceneObjects;
@@ -119,9 +150,29 @@ private:
 	list<CObject*> m_pRemoveObjects;
 
 	/// <summary>
-	/// list of all moveable objects
+	/// list of all moveable objects exept background
 	/// </summary>
 	list<CMoveObject*> m_pMoveObjects;
+
+	/// <summary>
+	/// list of all background 1 textures
+	/// </summary>
+	list<CObject*> m_pBackground1;
+
+	/// <summary>
+	/// list of all background 2 textures
+	/// </summary>
+	list<CObject*> m_pBackground2;
+
+	/// <summary>
+	/// list of all background 3 textures
+	/// </summary>
+	list<CObject*> m_pBackground3;
+
+	/// <summary>
+	/// list of all background 4 textures
+	/// </summary>
+	list<CObject*> m_pBackground4;
 #pragma endregion
 
 #pragma region private function

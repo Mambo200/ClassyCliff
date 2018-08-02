@@ -9,6 +9,22 @@
 CContentManagement::~CContentManagement()
 {
 	// as long as there is a object in list delete first element
+	while (m_pBackground1.size() > 0)
+		m_pBackground1.pop_front();
+
+	// as long as there is a object in list delete first element
+	while (m_pBackground2.size() > 0)
+		m_pBackground1.pop_front();
+
+	// as long as there is a object in list delete first element
+	while (m_pBackground3.size() > 0)
+		m_pBackground1.pop_front();
+
+	// as long as there is a object in list delete first element
+	while (m_pBackground4.size() > 0)
+		m_pBackground1.pop_front();
+
+	// as long as there is a object in list delete first element
 	while (m_pSceneObjects.size() > 0)
 		m_pSceneObjects.pop_front();
 
@@ -19,13 +35,25 @@ CContentManagement::~CContentManagement()
 	// as long as there is a object in list delete first element
 	while (m_pUIObjects.size() > 0)
 		m_pUIObjects.pop_front();
+
+	while (m_pBackgroundObjects.size() > 0)
+		m_pBackgroundObjects.pop_front();
 }
 #pragma endregion
 
 #pragma region public function
+//inline void CContentManagement::MoveBackground2Object()
+//{
+//	for (CObject* pObj : m_pBackground2)
+//		pObj->SetPosition(pObj->GetPosition() + SVector2(0, 1));
+//}
 // update every frame
 void CContentManagement::Update(float _deltaTime)
 {
+	//update every background object
+	for (CObject* pObj : m_pBackgroundObjects)
+		pObj->Update(_deltaTime);
+
 	// update every scene object
 	for each (CObject* pObj in m_pSceneObjects)
 		pObj->Update(_deltaTime);
@@ -43,6 +71,9 @@ void CContentManagement::Update(float _deltaTime)
 	{
 		// get first object in remove list
 		CObject* pObj = m_pRemoveObjects.front();
+
+		// remove pointer from background list
+		m_pBackgroundObjects.remove(pObj);
 
 		// remove pointer from scene list
 		m_pSceneObjects.remove(pObj);
@@ -87,6 +118,22 @@ void CContentManagement::Update(float _deltaTime)
 // render every frame
 void CContentManagement::Render(CRenderer * _pRenderer)
 {
+	// render every background1 object
+	for (CObject* pObj : m_pBackground1)
+		pObj->Render(_pRenderer);
+
+	// render every background1 object
+	for (CObject* pObj : m_pBackground2)
+		pObj->Render(_pRenderer);
+
+	// render every background1 object
+	for (CObject* pObj : m_pBackground3)
+		pObj->Render(_pRenderer);
+
+	// render every background1 object
+	for (CObject* pObj : m_pBackground4)
+		pObj->Render(_pRenderer);
+
 	// render every scene object
 	for each (CObject* pObj in m_pSceneObjects)
 		pObj->Render(_pRenderer);
