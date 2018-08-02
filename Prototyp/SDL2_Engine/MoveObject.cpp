@@ -10,6 +10,11 @@
 // update every frame
 void CMoveObject::Update(float _deltaTime)
 {
+
+	// if lifetime > 0 reduce
+	if (m_pLifetime > 0)
+		m_pLifetime -=  _deltaTime;
+
 	// save camera position
 	SVector2 camera = CEngine::Get()->GetRenderer()->GetCamera();
 
@@ -57,9 +62,14 @@ void CMoveObject::Update(float _deltaTime)
 		if (!moveable)
 		{
 			if (m_pTag == "Bullet")
+					
 			{
 				CEngine::Get()->GetCM()->RemoveObject(this);
 			}
+		}
+		else if (m_pTag == "Bullet" && m_pLifetime <= 0)
+		{
+			CEngine::Get()->GetCM()->RemoveObject(this);
 		}
 
 		// if not moveable cancel collision check

@@ -317,5 +317,8 @@ void GWorld::Init()
 		if (dynamic_cast<CMoveObject*>(pObj))
 			((CMoveObject*)pObj)->CheckCollisionObjects();
 	}
+
+	// set helper position of player
+	GPlayer::SetHelpPosition(SVector2(0, 0));
 }
 #pragma endregion

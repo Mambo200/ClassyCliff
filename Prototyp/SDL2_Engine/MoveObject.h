@@ -96,6 +96,11 @@ public:
 	/// deactivate gravity
 	/// </summary>
 	inline void DeactivateGravity() { m_gravity = false; }
+
+	/// <summary>
+	/// set lifetime
+	/// </summary>
+	inline void SetLifetime(float _float) { m_pLifetime -= _float; }
 #pragma endregion
 
 #pragma region public function
@@ -131,6 +136,11 @@ protected:
 	/// direction
 	/// </summary>
 	SVector2 m_movement;
+
+	/// <summary>
+	/// movement bool
+	/// </summary>
+	bool m_movement_bool;
 
 	/// <summary>
 	/// forward direction
