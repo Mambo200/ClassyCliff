@@ -22,8 +22,8 @@ public:
 		m_movement = _direction;
 		m_speed = BULLET_SPEED;
 		m_colType = ECollisionType::MOVE;
-		m_rect.w = BULLET_SIZE;
-		m_rect.h = BULLET_SIZE;
+		m_rect.w = BULLET_SIZE_X;
+		m_rect.h = BULLET_SIZE_Y;
 		m_pTag = "Bullet";
 		m_pLifetime = LIFETIME_OF_BULLET;
 	}

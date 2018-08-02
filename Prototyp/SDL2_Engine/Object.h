@@ -57,6 +57,31 @@ public:
 	/// </summary>
 	/// <param name="_pTag">tag to set</param>
 	inline void SetTag(const char* _pTag) { m_pTag = _pTag; }
+
+	/// <summary>
+	/// set state of animation of object
+	/// </summary>
+	/// <param name="_bo">bool to set</param>
+	inline void SetAnimated(bool _bo) { animated = _bo; }
+
+	/// <summary>
+	/// get state of animation of object
+	/// </summary>
+	/// <returns></returns>
+	inline bool GetAnimated() { return animated; }
+
+	/// <summary>
+	/// set count of frames for animation of object
+	/// </summary>
+	/// <param name="_in">number of frames</param>
+	inline void SetAnimatedFrames(int _in) { animated_frames = _in; }
+
+
+	/// <summary>
+	/// get count of frames for animation of object
+	/// </summary>
+	/// <returns></returns>
+	inline int GetAnimatedFrames() { return animated_frames; }
 #pragma endregion
 
 #pragma region public function
@@ -94,5 +119,15 @@ protected:
 	/// lifetime of object
 	/// </summary>
 	float m_pLifetime = 0.0f;
+
+	/// <summary>
+	/// has this object an animation
+	/// </summary>
+	bool animated = false;
+
+	/// <summary>
+	/// count of frames of animated object
+	/// </summary>
+	int animated_frames = 0;
 #pragma endregion
 };

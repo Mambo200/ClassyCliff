@@ -150,6 +150,12 @@ public:
 	/// </summary>
 	/// <param name="_pTexture">texture to set</param>
 	inline void SetTexture(CTexture* _pTexture) { m_pTexture = _pTexture; }
+
+	/// <summary>
+	/// set angle
+	/// </summary>
+	/// <param name="_angle">angle to set</param>
+	inline void SetAngle(double _angle) { m_angle = _angle; }
 #pragma endregion
 
 protected:
