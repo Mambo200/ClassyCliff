@@ -19,9 +19,6 @@
 using namespace std;
 #pragma endregion
 
-
-
-
 void GBackground::Update(float _deltaTime)
 {
 	LoadTexture1(1);
@@ -242,7 +239,7 @@ void GBackground::LoadLeftWall(int _world, int _position)
 
 		// create textured object
 		CTexturedObject* pObj = new CTexturedObject(
-			SVector2(-50 + _world, -(SCREEN_HEIGHT * _position)),
+			SVector2(-25 + _world, -(SCREEN_HEIGHT * _position)),
 			SVector2(PLAYER_HEIGHT * 2, PLAYER_WIDTH * 3)
 		);
 
@@ -385,7 +382,7 @@ void GBackground::LoadRightWall(int _world, int _position)
 
 	// create textured object
 	CTexturedObject* pObj = new CTexturedObject(
-		SVector2((SCREEN_WIDTH - (116 - WORLD_BLOCK_WIDTH + _world)), -(SCREEN_HEIGHT * _position)),
+		SVector2((SCREEN_WIDTH - (136 - WORLD_BLOCK_WIDTH + _world)), -(SCREEN_HEIGHT * _position)),
 		SVector2(SCREEN_WIDTH / 3, SCREEN_HEIGHT)
 	);
 
@@ -436,7 +433,7 @@ void GBackground::Ground()
 
 	// create textured object
 	CTexturedObject* pObj = new CTexturedObject(
-		SVector2(-270, -160),
+		SVector2(-270, -80),
 		SVector2(SCREEN_WIDTH * 2, SCREEN_HEIGHT / 3)
 	);
 

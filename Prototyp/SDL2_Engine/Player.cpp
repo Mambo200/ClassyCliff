@@ -60,51 +60,6 @@ void GPlayer::Update(float _deltaTime)
 		s2 = s2.normalize() * PLAYER_HEIGHT * 1.5f;
 	}
 
-	if (CInput::GetMouseDown(SDL_BUTTON_RIGHT))
-	{
-		// calculate boost direction
-		DirectionBoost(SVector2(m1, m2), m_helperPosition);
-
-		// calculate angle
-		double angle = atan2((double)m_boostDirection.X, (double)m_boostDirection.Y) * 180 / M_PI;
-
-		// spawn bullet
-		GBullet* pBullet = new GBullet(m_position, m_boostDirection);
-		pBullet->AddPosition(SVector2((m_boostDirection.X * (PLAYER_WIDTH)) + 30, (m_boostDirection.Y * 100) + 50));
-
-		// set texture name of object
-		pBullet->SetTextureName("Bullet");
-
-		// set forward of object
-		m_forward = m_boostDirection;
-
-		// if texture not exists
-		if (CEngine::Get()->GetTM()->GetTexture("Bullet") == nullptr)
-		{
-			// create new texture
-			CTexture* pTexture = new CTexture("Texture/Bullet/Rakete.png", CEngine::Get()->GetRenderer());
-
-			// add texture to tm
-			CEngine::Get()->GetTM()->AddTexture("Bullet", pTexture);
-
-			// set texture of object
-			pBullet->SetTexture(pTexture);
-			pBullet->SetAngle(-angle + 90);
-			pBullet->SetAnimated(true);
-			pBullet->SetAnimatedFrames(3);
-		}
-
-		// if texture exists set texture of object
-		else
-		{
-			pBullet->SetTexture(CEngine::Get()->GetTM()->GetTexture("Bullet"));
-			pBullet->SetAngle(-angle + 90);
-		}
-
-		// add to list
-		CEngine::Get()->GetCM()->AddPersistantObject(pBullet);
-	}
-
 	// if cursor right of player
 	if (m1 < m_helperPosition.X)
 	{
@@ -118,8 +73,6 @@ void GPlayer::Update(float _deltaTime)
 		m_forward.X = 1.0f;
 		m_mirror.X = 0.0f;
 	}
-
-	DirectionBoost(s2, m_helperPosition);
 
 	// if game started
 	if (start)
@@ -145,7 +98,7 @@ void GPlayer::Update(float _deltaTime)
 			if (CInput::GetMouseDown(SDL_BUTTON_LEFT) && m1 > m_helperPosition.X)
 			{
 				// calculate boost direction
-				DirectionBoost(s2, m_helperPosition);
+				DirectionBoost(s2);
 
 				// calculate angle
 				double angle = atan2((double)m_boostDirection.X, (double)m_boostDirection.Y) * 180 / M_PI;
@@ -196,7 +149,7 @@ void GPlayer::Update(float _deltaTime)
 			else if (CInput::GetMouseDown(SDL_BUTTON_LEFT) && m1 < m_helperPosition.X)
 			{
 				// calculate boost direction
-				DirectionBoost(s2, m_helperPosition);
+				DirectionBoost(s2);
 
 				// calculate angle
 				double angle = atan2((double)m_boostDirection.X, (double)m_boostDirection.Y) * 180 / M_PI;
@@ -303,8 +256,8 @@ void GPlayer::Update(float _deltaTime)
 					m_rect.x = m_position.X;
 					m_rect.y = m_position.Y;
 				}
-			}
-		//}
+			//}
+		}
 	}
 
 	if (!saved)
@@ -315,7 +268,7 @@ void GPlayer::Update(float _deltaTime)
 
 	// set position of camera
 	CEngine::Get()->GetRenderer()->SetCamera(
-		SVector2(savedXPos, m_position.Y - PLAYER_HEIGHT * 2.4)
+		SVector2(savedXPos, m_position.Y - PLAYER_HEIGHT)
 	);
 
 	/// <summary>
@@ -325,7 +278,6 @@ void GPlayer::Update(float _deltaTime)
 	std::string s = "Position Y: ";
 	s += std::to_string(s2.X) + " " + std::to_string(s2.Y) + "\n";
 	s += std::to_string(m_boostDirection.X) + " " + std::to_string(m_boostDirection.Y) + "\n";
-
 	s += std::to_string(m_helperPosition.X) + " " + std::to_string(m_helperPosition.Y);
 	LOG_ERROR("", s.c_str());
 }

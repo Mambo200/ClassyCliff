@@ -67,7 +67,7 @@ public:
 	/// </summary>
 	/// <param name="_pos">position of mouse</param>
 	/// <param name="_pos">position of m_helperPosition</param>
-	void DirectionBoost(SVector2 _posMouse, SVector2 _posPlayer)
+	void DirectionBoost(SVector2 _posMouse)
 	{
 		// reset boost direction
 		m_boostDirection = SVector2(0, 0);
@@ -75,19 +75,10 @@ public:
 		// helper for calculation
 		float one_percent = 0.0f;
 		float tmp = PLAYER_HEIGHT * 1.5;
-		int tmp_x;
 		SVector2 correctur_percent_power = SVector2(0, 0);
 		bool x_positiv;
 		bool y_positiv;
 		float boostPower = 0.0f;
-
-		// if mouse is left from player
-		if (_posMouse.X <= _posPlayer.X)
-			tmp_x = _posPlayer.X - _posMouse.X;
-
-		// if mouse is right from player
-		else if (_posMouse.X >= _posPlayer.X)
-			tmp_x = _posMouse.X - _posPlayer.X;
 
 		// calculate 1% of the relative position of mouse for y-achse
 		one_percent = tmp / 100;
@@ -98,7 +89,7 @@ public:
 		// set x of boostDirection in %
 		if (m_boostDirection.X > -0.9999999)
 			m_boostDirection.X = (_posMouse.X / one_percent) / 100;
-		else if (tmp_x < tmp * -1)
+		else if (_posMouse.X < tmp * -1)
 			m_boostDirection.X = -1.0f;
 
 		// make -boost to +boost in correctur_boost_power
@@ -188,11 +179,6 @@ private:
 	/// game start
 	/// </summary>
 	bool start = false;
-
-	/// <summary>
-	/// helper position for calculating the relativ position of mouse to player
-	/// </summary>
-	static SVector2 m_helperPosition;
 
 	/// <summary>
 	/// boost direction
