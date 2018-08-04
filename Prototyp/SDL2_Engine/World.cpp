@@ -34,20 +34,9 @@ void GWorld::Init()
 		GBackground::CreateWalls(i, i);
 	}
 
-
 	// string to define world
 	string world;
-
-	// add lines to world string
-	// string 100x20
-	// 1 block is 64 x 64 pixel
-	// screen has 20 (width) and 12 (height) blocks
-	// X = dirt (outside)
-	// 0 = black (free, background)
-	// W = way (walk on)
-	// L = lava (death)
 	// S = start point of player
-	// E = move enemy
 	
 	world += "FFFFFSFFFFF\n";
 
@@ -110,35 +99,6 @@ void GWorld::Init()
 		// switch char in world string
 		switch (world[i])
 		{
-		// if dirt set position of texture in atlas map
-		case 'X':
-		{
-			xPosOfTexture = WORLD_BLOCK_ATLAS_WIDTH;
-
-			// set collision type to wall
-			pObj->SetColType(ECollisionType::WALL);
-			break;
-		}
-
-		// if way set position of texture in atlas map
-		case 'W':
-		{
-			xPosOfTexture = 2 * WORLD_BLOCK_ATLAS_WIDTH;
-			
-			// set collision type to wall
-			pObj->SetColType(ECollisionType::WALL);
-			break;
-		}
-
-		// if lava set position of texture in atlas map
-		case 'L':
-		{
-			xPosOfTexture = 3 * WORLD_BLOCK_ATLAS_WIDTH;
-			
-			// set collision type to wall
-			pObj->SetColType(ECollisionType::WALL);
-			break;
-		}
 
 		case 'F':
 			continue;
@@ -167,7 +127,7 @@ void GWorld::Init()
 			if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
 			{
 				// create new texture
-				CTexture* pTexture = new CTexture("Texture/Character/Player/steigen/player_steigen0.png", CEngine::Get()->GetRenderer());
+				CTexture* pTexture = new CTexture("Texture/Character/Player/Flying_Front/Player_Flying_Front0.png", CEngine::Get()->GetRenderer());
 
 				// add texture to tm
 				CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
@@ -186,50 +146,6 @@ void GWorld::Init()
 
 			// add player to persistant list
 			CEngine::Get()->GetCM()->AddPersistantObject(pPlayer);
-			break;
-		}
-
-		case 'E':
-		{
-			// create move enemy
-			GMoveEnemy * pEnemy = new GMoveEnemy(
-				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - MOVE_ENEMY_HEIGHT),
-				SVector2()
-			);
-
-			// initialize enemy
-			pEnemy->Init();
-
-			// set texture name
-			texName = "MoveEnemy";
-
-			// set texture name of object
-			pEnemy->SetTextureName(texName.c_str());
-
-			// if texture not exists
-			if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
-			{
-				// create new texture
-				CTexture* pTexture = new CTexture("Texture/Character/Enemy/T_MoveEnemy_Idle.png", CEngine::Get()->GetRenderer());
-
-				// add texture to tm
-				CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
-
-				// set texture of object
-				pEnemy->SetTexture(pTexture);
-
-				SDL_Delay(500);
-			}
-
-			// if texture exists set texture of object
-			else
-			{
-				pEnemy->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
-			}
-
-			// add player to persistant list
-			CEngine::Get()->GetCM()->AddPersistantObject(pEnemy);
-
 			break;
 		}
 
@@ -259,8 +175,5 @@ void GWorld::Init()
 		if (dynamic_cast<CMoveObject*>(pObj))
 			((CMoveObject*)pObj)->CheckCollisionObjects();
 	}
-
-	// set helper position of player
-	GPlayer::SetHelpPosition(SVector2(0, 0));
 }
 #pragma endregion

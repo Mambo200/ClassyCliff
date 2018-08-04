@@ -55,13 +55,6 @@ public:
 	void Render(CRenderer* _pRenderer) override;
 #pragma endregion
 
-#pragma region help function
-	/// <summary>
-	/// set position of helper position
-	/// </summary>
-	/// <param name="_pos">position to set</param>
-	static void SetHelpPosition(SVector2 _pos) { m_helperPosition = _pos; }
-
 	/// <summary>
 	/// calculate boostpower
 	/// </summary>
