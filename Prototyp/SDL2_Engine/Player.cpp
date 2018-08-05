@@ -15,10 +15,6 @@
 #include "Background.h"
 #pragma endregion
 
-#pragma region static variable
-SVector2 GPlayer::m_helperPosition = SVector2(0, 0);
-#pragma endregion
-
 #pragma region public override function
 // update every frame
 void GPlayer::Update(float _deltaTime)
@@ -61,14 +57,14 @@ void GPlayer::Update(float _deltaTime)
 	}
 
 	// if cursor right of player
-	if (m1 < m_helperPosition.X)
+	if (m1 < 0)
 	{
 		m_forward.X = -1.0f;
 		m_mirror.X = 1.0f;
 	}
 
 	// if cursor left of player
-	if (m1 > m_helperPosition.X)
+	if (m1 > 0)
 	{
 		m_forward.X = 1.0f;
 		m_mirror.X = 0.0f;
@@ -78,14 +74,14 @@ void GPlayer::Update(float _deltaTime)
 	if (start)
 	{
 		// if cursor right of player
-		if (m1 < m_helperPosition.X)
+		if (m1 < 0)
 		{
 			m_forward.X = -1.0f;
 			m_mirror.X = 1.0f;
 		}
 
 		// if cursor left of player
-		if (m1 > m_helperPosition.X)
+		if (m1 > 0)
 		{
 			m_forward.X = 1.0f;
 			m_mirror.X = 0.0f;
@@ -95,7 +91,7 @@ void GPlayer::Update(float _deltaTime)
 		//if (moveable)
 		//{
 			// movement left
-			if (CInput::GetMouseDown(SDL_BUTTON_LEFT) && m1 > m_helperPosition.X)
+			if (CInput::GetMouseDown(SDL_BUTTON_LEFT) && m1 > 0)
 			{
 				// calculate boost direction
 				DirectionBoost(s2);
@@ -124,7 +120,7 @@ void GPlayer::Update(float _deltaTime)
 				if (CEngine::Get()->GetTM()->GetTexture("Bullet") == nullptr)
 				{
 					// create new texture
-					CTexture* pTexture = new CTexture("Texture/Bullet/Rakete.png", CEngine::Get()->GetRenderer());
+					CTexture* pTexture = new CTexture("Texture/Character/Player/Rocket/Rocket.png", CEngine::Get()->GetRenderer());
 
 					// add texture to tm
 					CEngine::Get()->GetTM()->AddTexture("Bullet", pTexture);
@@ -146,7 +142,7 @@ void GPlayer::Update(float _deltaTime)
 			}
 
 			// movement right
-			else if (CInput::GetMouseDown(SDL_BUTTON_LEFT) && m1 < m_helperPosition.X)
+			else if (CInput::GetMouseDown(SDL_BUTTON_LEFT) && m1 < 0)
 			{
 				// calculate boost direction
 				DirectionBoost(s2);
@@ -275,10 +271,9 @@ void GPlayer::Update(float _deltaTime)
 	/// TODO: DELETE
 	/// </summary>
 	// print player position
-	std::string s = "Position Y: ";
+	std::string s = "Position: ";
 	s += std::to_string(s2.X) + " " + std::to_string(s2.Y) + "\n";
 	s += std::to_string(m_boostDirection.X) + " " + std::to_string(m_boostDirection.Y) + "\n";
-	s += std::to_string(m_helperPosition.X) + " " + std::to_string(m_helperPosition.Y);
 	LOG_ERROR("", s.c_str());
 }
 

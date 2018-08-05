@@ -61,7 +61,7 @@ void GBackground::LoadTexture1(int _world)
 	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
 	{
 		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Background/BackgroundColor.png", CEngine::Get()->GetRenderer());
+		CTexture* pTexture = new CTexture("Texture/Background/Colision_False/BackgroundColor.png", CEngine::Get()->GetRenderer());
 
 		// add texture to tm
 		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
@@ -109,7 +109,7 @@ void GBackground::LoadTexture2(int _world)
 	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
 	{
 		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Background/Cliff4.png", CEngine::Get()->GetRenderer());
+		CTexture* pTexture = new CTexture("Texture/Background/Colision_False/Cliff4.png", CEngine::Get()->GetRenderer());
 
 		// add texture to tm
 		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
@@ -155,7 +155,7 @@ void GBackground::LoadTexture3(int _world)
 	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
 	{
 		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Background/Cliff3.png", CEngine::Get()->GetRenderer());
+		CTexture* pTexture = new CTexture("Texture/Background/Colision_False/Cliff3.png", CEngine::Get()->GetRenderer());
 
 		// add texture to tm
 		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
@@ -201,7 +201,7 @@ void GBackground::LoadTexture4(int _world)
 	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
 	{
 		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Background/Cliff2.png", CEngine::Get()->GetRenderer());
+		CTexture* pTexture = new CTexture("Texture/Background/Colision_False/Cliff2.png", CEngine::Get()->GetRenderer());
 
 		// add texture to tm
 		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
@@ -254,7 +254,7 @@ void GBackground::LoadLeftWall(int _world, int _position)
 		if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
 		{
 			// create new texture
-			CTexture* pTexture = new CTexture("Texture/Background/Branch1.png", CEngine::Get()->GetRenderer());
+			CTexture* pTexture = new CTexture("Texture/Character/Enemy/Static_Obstacle/Branch1.png", CEngine::Get()->GetRenderer());
 
 			// add texture to tm
 			CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
@@ -298,7 +298,7 @@ void GBackground::LoadLeftWall(int _world, int _position)
 		if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
 		{
 			// create new texture
-			CTexture* pTexture = new CTexture("Texture/Background/LinkeWand.png", CEngine::Get()->GetRenderer());
+			CTexture* pTexture = new CTexture("Texture/Background/Colision_True/Left_Wall.png", CEngine::Get()->GetRenderer());
 
 			// add texture to tm
 			CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
@@ -351,7 +351,7 @@ void GBackground::LoadRightWall(int _world, int _position)
 		if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
 		{
 			// create new texture
-			CTexture* pTexture = new CTexture("Texture/Background/Branch2.png", CEngine::Get()->GetRenderer());
+			CTexture* pTexture = new CTexture("Texture/Character/Enemy/Static_Obstacle/Branch2.png", CEngine::Get()->GetRenderer());
 
 			// add texture to tm
 			CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
@@ -397,7 +397,7 @@ void GBackground::LoadRightWall(int _world, int _position)
 	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
 	{
 		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Background/RechteWand.png", CEngine::Get()->GetRenderer());
+		CTexture* pTexture = new CTexture("Texture/Background/Colision_True/Right_Wall.png", CEngine::Get()->GetRenderer());
 
 		// add texture to tm
 		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
@@ -448,7 +448,7 @@ void GBackground::Ground()
 	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
 	{
 		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Background/Boden.png", CEngine::Get()->GetRenderer());
+		CTexture* pTexture = new CTexture("Texture/Background/Colision_True/Ground.png", CEngine::Get()->GetRenderer());
 
 		// add texture to tm
 		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
