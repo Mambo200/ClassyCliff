@@ -19,6 +19,9 @@
 // update every frame
 void GPlayer::Update(float _deltaTime)
 {
+	// if debug mode is active
+	if (DEBUG_ON)
+		moveable = true;
 
 	// creating world while playing
 	for (CObject* pObj : CEngine::Get()->GetCM()->GetBackground2Object())
@@ -88,8 +91,8 @@ void GPlayer::Update(float _deltaTime)
 		}
 
 		// if player is moveable
-		//if (moveable)
-		//{
+		if (moveable)
+		{
 			// movement left
 			if (CInput::GetMouseDown(SDL_BUTTON_LEFT) && m1 > 0)
 			{
@@ -252,7 +255,7 @@ void GPlayer::Update(float _deltaTime)
 					m_rect.x = m_position.X;
 					m_rect.y = m_position.Y;
 				}
-			//}
+			}
 		}
 	}
 
@@ -274,9 +277,13 @@ void GPlayer::Update(float _deltaTime)
 	std::string s = "Position: ";
 	s += std::to_string(s2.X) + " " + std::to_string(s2.Y) + "\n";
 	s += std::to_string(m_boostDirection.X) + " " + std::to_string(m_boostDirection.Y) + "\n";
-	LOG_ERROR("", s.c_str());
-}
+	//LOG_ERROR("", s.c_str());
+	LOG_ERROR("Player.X", m_position.Y);
 
+	// if player is lower than allowed
+	if (m_position.Y >= -400)
+		moveable = false;
+}
 // render every frame
 void GPlayer::Render(CRenderer * _pRenderer)
 {
