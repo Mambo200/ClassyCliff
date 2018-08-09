@@ -1,12 +1,13 @@
 #pragma once
 
 #pragma region value macro
+#define DEBUG_ON true
 #define SCREEN_WIDTH 500
 #define SCREEN_HEIGHT 720
 #define PLAYER_SPEED 500.0f
 #define PLAYER_JUMP_FORCE 375.0f
 #define PLAYER_JUMP_TIME 0.75f
-#define START_POITION 0
+#define START_POITION -500
 #define PLAYER_WIDTH 252 / 5
 #define PLAYER_HEIGHT 512 / 5
 #define BACKGROUND_HEIGHT 1920

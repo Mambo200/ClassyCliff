@@ -107,7 +107,7 @@ void GWorld::Init()
 		{
 			// create textured object
 			GPlayer * pPlayer = new GPlayer(
-				SVector2((width - 1) * WORLD_BLOCK_WIDTH, (height - 1) * WORLD_BLOCK_HEIGHT - PLAYER_HEIGHT), 
+				SVector2(0, START_POITION), 
 				SVector2(PLAYER_WIDTH, PLAYER_HEIGHT)
 			);
 

@@ -13,6 +13,7 @@
 #include "Texture.h"
 #include "ContentManagement.h"
 #include "Object.h"
+#include "Renderer.h"
 #pragma endregion
 
 #pragma region using
@@ -51,7 +52,7 @@ void GBackground::LoadTexture1(int _world)
 
 	// create textured object
 	CTexturedObject* pObj = new CTexturedObject(
-		SVector2((PLAYER_WIDTH / 2) - 10, height - (SCREEN_HEIGHT * _world)),
+		SVector2(25 - (SCREEN_WIDTH / 2), height - (SCREEN_HEIGHT * _world)),
 		SVector2(SCREEN_WIDTH, SCREEN_HEIGHT)
 	);
 	// set texture name of object
@@ -98,7 +99,7 @@ void GBackground::LoadTexture2(int _world)
 
 	// create textured object
 	CTexturedObject* pObj = new CTexturedObject(
-		SVector2((PLAYER_WIDTH / 2) - 10, height - (SCREEN_HEIGHT * _world)),
+		SVector2(25 - (SCREEN_WIDTH / 2), height - (SCREEN_HEIGHT * _world)),
 		SVector2(SCREEN_WIDTH, SCREEN_HEIGHT)
 	);
 
@@ -144,7 +145,7 @@ void GBackground::LoadTexture3(int _world)
 
 	// create textured object
 	CTexturedObject* pObj = new CTexturedObject(
-		SVector2((PLAYER_WIDTH / 2) - 10, height - (SCREEN_HEIGHT * _world)),
+		SVector2(25 - (SCREEN_WIDTH / 2), height - (SCREEN_HEIGHT * _world)),
 		SVector2(SCREEN_WIDTH, SCREEN_HEIGHT)
 	);
 
@@ -190,7 +191,7 @@ void GBackground::LoadTexture4(int _world)
 
 	// create textured object
 	CTexturedObject* pObj = new CTexturedObject(
-		SVector2((PLAYER_WIDTH / 2) - 10, height - (SCREEN_HEIGHT * _world)),
+		SVector2(25 - (SCREEN_WIDTH / 2), height - (SCREEN_HEIGHT * _world)),
 		SVector2(SCREEN_WIDTH, SCREEN_HEIGHT)
 	);
 
@@ -239,8 +240,8 @@ void GBackground::LoadLeftWall(int _world, int _position)
 
 		// create textured object
 		CTexturedObject* pObj = new CTexturedObject(
-			SVector2(-25 + _world, -(SCREEN_HEIGHT * _position)),
-			SVector2(PLAYER_HEIGHT * 2, PLAYER_WIDTH * 3)
+			SVector2((-5 - (SCREEN_WIDTH / 2)) + _world, -(SCREEN_HEIGHT * _position)),
+			SVector2(SCREEN_WIDTH / 3, SCREEN_HEIGHT / 4)
 		);
 
 
@@ -285,7 +286,7 @@ void GBackground::LoadLeftWall(int _world, int _position)
 
 		// create textured object
 		CTexturedObject* pObj = new CTexturedObject(
-			SVector2(-50 + _world,  -(SCREEN_HEIGHT * _position)),
+			SVector2((-25 - (SCREEN_WIDTH / 2)) + _world,  -(SCREEN_HEIGHT * _position)),
 			SVector2(SCREEN_WIDTH / 3, SCREEN_HEIGHT)
 		);
 
@@ -336,8 +337,8 @@ void GBackground::LoadRightWall(int _world, int _position)
 
 		// create textured object
 		CTexturedObject* pObj = new CTexturedObject(
-			SVector2((SCREEN_WIDTH - (PLAYER_HEIGHT * 2 - WORLD_BLOCK_WIDTH + _world)), -(SCREEN_HEIGHT * _position) + (SCREEN_HEIGHT/2)),
-			SVector2(PLAYER_HEIGHT*2 , PLAYER_WIDTH * 2)
+			SVector2(((SCREEN_WIDTH / 6) + 65) - _world, -(SCREEN_HEIGHT * _position) + (SCREEN_HEIGHT/2)),
+			SVector2(SCREEN_WIDTH / 3, SCREEN_HEIGHT / 4)
 		);
 
 
@@ -382,7 +383,7 @@ void GBackground::LoadRightWall(int _world, int _position)
 
 	// create textured object
 	CTexturedObject* pObj = new CTexturedObject(
-		SVector2((SCREEN_WIDTH - (136 - WORLD_BLOCK_WIDTH + _world)), -(SCREEN_HEIGHT * _position)),
+		SVector2(((SCREEN_WIDTH / 6) + 80) - _world, -(SCREEN_HEIGHT * _position)),
 		SVector2(SCREEN_WIDTH / 3, SCREEN_HEIGHT)
 	);
 
@@ -433,8 +434,8 @@ void GBackground::Ground()
 
 	// create textured object
 	CTexturedObject* pObj = new CTexturedObject(
-		SVector2(-270, -80),
-		SVector2(SCREEN_WIDTH * 2, SCREEN_HEIGHT / 3)
+		SVector2(-SCREEN_WIDTH / 2, START_POITION*0.9f), // 25 - (SCREEN_WIDTH / 2)
+		SVector2(SCREEN_WIDTH, SCREEN_HEIGHT / 2)
 	);
 
 
