@@ -39,6 +39,18 @@ CContentManagement::~CContentManagement()
 
 	while (m_pBackgroundObjects.size() > 0)
 		m_pBackgroundObjects.pop_front();
+
+	while (m_pBackground1.size() > 0)
+		m_pBackground1.pop_front();
+
+	while (m_pBackground2.size() > 0)
+		m_pBackground1.pop_front();
+
+	while (m_pBackground3.size() > 0)
+		m_pBackground1.pop_front();
+
+	while (m_pBackground4.size() > 0)
+		m_pBackground1.pop_front();
 }
 #pragma endregion
 
@@ -157,9 +169,61 @@ void CContentManagement::RemoveObject(CObject * _pObj)
 	m_pRemoveObjects.push_front(_pObj);
 }
 
+void CContentManagement::CleanScene()
+{
+	for (CObject* pObj : m_pSceneObjects)
+		RemoveObject(pObj);
+}
+
+void CContentManagement::CleanUI()
+{
+	for (CObject* pObj : m_pUIObjects)
+		RemoveObject(pObj);
+}
+
+void CContentManagement::CleanPersistantObjects()
+{
+	for (CObject* pObj : m_pPersistantObjects)
+		RemoveObject(pObj);
+}
+
+void CContentManagement::CleanBackgroundObjects()
+{
+	for (CObject* pObj : m_pBackground1)
+		RemoveObject(pObj);
+
+	for (CObject* pObj : m_pBackground2)
+		RemoveObject(pObj);
+
+	for (CObject* pObj : m_pBackground3)
+		RemoveObject(pObj);
+
+	for (CObject* pObj : m_pBackground4)
+		RemoveObject(pObj);
+}
+
 void CContentManagement::SortList(list<CObject*>& _pList)
 {
+	// new sorted list
+	list<CObject*> newList;
 
+	// go through layer count
+	for (int i = 0; i < LAYER_COUNT; i++)
+	{
+		// through all objects in list
+		for (CObject* pObj : _pList)
+		{
+			// if object has same layer as index
+			if (pObj->GetLayer() == i)
+			{
+				// add object to new list
+				newList.push_back(pObj);
+			}
+		}
+	}
+
+	// set old list to sorted list
+	_pList = newList;
 }
 
 #pragma endregion

@@ -50,6 +50,15 @@
     <ClCompile Include="Background.cpp">
       <Filter>Game\Background</Filter>
     </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Engine\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuPlayer.cpp">
+      <Filter>Game\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -114,6 +123,21 @@
     </Filter>
     <Filter Include="Game\Background">
       <UniqueIdentifier>{ba1c758b-6fe4-48f3-9338-7003d877532a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Sound">
+      <UniqueIdentifier>{aff86eec-6654-4f31-86f0-0b4786ecddd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Animation">
+      <UniqueIdentifier>{9c6e2e7e-915c-4395-bf2c-7929bacb4650}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Font">
+      <UniqueIdentifier>{77076948-bd58-47d0-8cc5-4ae35fd7d843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Text">
+      <UniqueIdentifier>{dfbe59af-ebbe-4301-bbe7-05187a3b6aac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Text">
+      <UniqueIdentifier>{6912fbbc-8069-4587-9653-06ca43c10a2a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +212,33 @@
     </ClInclude>
     <ClInclude Include="Background.h">
       <Filter>Game\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="Music.h">
+      <Filter>Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Engine\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Engine\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFPS.h">
+      <Filter>Game\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Engine\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Engine\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuPlayer.h">
+      <Filter>Game\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

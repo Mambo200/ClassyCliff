@@ -155,6 +155,11 @@ protected:
 
 #pragma region protected variable
 	/// <summary>
+	/// object that collides with this object
+	/// </summary>
+	CObject* m_pCollideObject;
+
+	/// <summary>
 	/// list of objects to check collision
 	/// </summary>
 	list<CObject*> m_pCollisionObjects;

@@ -43,5 +43,8 @@ void GMoveEnemy::Init()
 
 	// set collision type
 	m_colType = ECollisionType::MOVE;
+
+	// set tag
+	m_pTag = ENEMY_TAG;
 }
 #pragma endregion

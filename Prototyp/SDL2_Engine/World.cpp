@@ -12,6 +12,8 @@
 #include "Player.h"
 #include "MoveEnemy.h"
 #include "Background.h"
+#include "Sound.h"
+#include "Helper.h"
 #pragma endregion
 
 #pragma region using
@@ -136,6 +138,15 @@ void GWorld::Init()
 				pPlayer->SetTexture(pTexture);
 
 				SDL_Delay(500);
+
+				// initialize player
+				pPlayer->Init();
+
+				// create shot sound
+				CSound* pSound = new CSound(GetAssetPath("Audio/S_Shot.wav", 4).c_str());
+
+				// set shot sound of player
+				pPlayer->SetShotSound(pSound);
 			}
 
 			// if texture exists set texture of object

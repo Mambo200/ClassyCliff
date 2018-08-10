@@ -47,6 +47,17 @@ public:
 	}
 
 	/// <summary>
+	/// exit engine
+	/// </summary>
+	inline void Exit() { m_isRunning = false; }
+
+	/// <summary>
+	/// get sdl surface
+	/// </summary>
+	/// <returns>sdl surface</returns>
+	inline SDL_Surface* GetSDLSurface() { return m_pSurface; }
+
+	/// <summary>
 	/// get renderer
 	/// </summary>
 	/// <returns>renderer</returns>

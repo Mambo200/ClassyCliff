@@ -76,12 +76,23 @@ public:
 	/// <param name="_in">number of frames</param>
 	inline void SetAnimatedFrames(int _in) { animated_frames = _in; }
 
-
 	/// <summary>
 	/// get count of frames for animation of object
 	/// </summary>
 	/// <returns></returns>
 	inline int GetAnimatedFrames() { return animated_frames; }
+
+	/// <summary>
+	/// get layer
+	/// </summary>
+	/// <returns>layer</returns>
+	inline int GetLayer() { return m_layer; }
+
+	/// <summary>
+	/// set layer
+	/// </summary>
+	/// <param name="_layer">layer to set</param>
+	inline void SetLayer(int _layer) { m_layer = _layer; }
 #pragma endregion
 
 #pragma region public function
@@ -129,5 +140,10 @@ protected:
 	/// count of frames of animated object
 	/// </summary>
 	int animated_frames = 0;
+
+	/// <summary>
+	/// layer to render
+	/// </summary>
+	int m_layer;
 #pragma endregion
 };

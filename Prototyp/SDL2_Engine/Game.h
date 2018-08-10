@@ -1,5 +1,9 @@
 #pragma once
 
+#pragma region forward decleration
+class CFont;
+#pragma endregion
+
 /// <summary>
 /// core game class for game logic
 /// </summary>
@@ -15,7 +19,7 @@ public:
 	/// <summary>
 	/// destructor
 	/// </summary>
-	~GGame() {}
+	~GGame() { Clean(); }
 #pragma endregion
 
 #pragma region public inline function
@@ -38,5 +42,17 @@ public:
 	/// initialize game
 	/// </summary>
 	void Init();
+
+	/// <summary>
+	/// clean game
+	/// </summary>
+	void Clean();
+#pragma endregion
+
+#pragma region public variable
+	/// <summary>
+	/// base arial font
+	/// </summary>
+	CFont* m_PArialFont = nullptr;
 #pragma endregion
 };
