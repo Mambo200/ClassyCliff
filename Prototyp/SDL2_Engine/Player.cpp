@@ -13,6 +13,9 @@
 #include "Bullet.h"
 #include "Time.h"	///TODO: DELETE
 #include "Background.h"
+#include "Sound.h"
+#include "Animation.h"
+#include "MenuScene.h"
 #pragma endregion
 
 #pragma region public override function
@@ -193,6 +196,9 @@ void GPlayer::Update(float _deltaTime)
 
 				// add to list
 				CEngine::Get()->GetCM()->AddPersistantObject(pBullet);
+
+				// play shot sound
+				m_pShotSound->Play();
 			}
 			
 			// update parent
@@ -283,10 +289,32 @@ void GPlayer::Update(float _deltaTime)
 	// if player is lower than allowed
 	if (m_position.Y >= -400)
 		moveable = false;
+
+	// collide with object
+	if (!moveable)
+	{
+		// back to main menu
+		CEngine::Get()->ChangeScene(new GMenuScene());
+	}
+
+
 }
 // render every frame
 void GPlayer::Render(CRenderer * _pRenderer)
 {
 	CMoveObject::Render(_pRenderer);
+}
+#pragma endregion
+
+#pragma region public function
+// initialize player
+void GPlayer::Init()
+{
+	// create fly animation
+	m_pFlyAnim = new CAnimation(SVector2(), SVector2(PLAYER_SRC_RECT_WIDTH, PLAYER_SRC_RECT_HEIGHT), 3);
+	m_pFlyAnim->SetAnimationTime(0.5f);
+
+	// set idle to current animation
+	m_pCurrentAnim = m_pFlyAnim;
 }
 #pragma endregion

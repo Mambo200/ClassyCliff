@@ -4,12 +4,15 @@
 #define DEBUG_ON true
 #define SCREEN_WIDTH 500
 #define SCREEN_HEIGHT 720
+#define LAYER_COUNT 10
 #define PLAYER_SPEED 500.0f
 #define PLAYER_JUMP_FORCE 375.0f
 #define PLAYER_JUMP_TIME 0.75f
 #define START_POITION -500
 #define PLAYER_WIDTH 252 / 5
 #define PLAYER_HEIGHT 512 / 5
+#define PLAYER_SRC_RECT_WIDTH 36
+#define PLAYER_SRC_RECT_HEIGHT 46
 #define BACKGROUND_HEIGHT 1920
 #define PRERENDER 3
 #define PLAYER_MIRROR SVector2(1.0f, 0.0f)
@@ -30,6 +33,8 @@
 #define COLLISION_CHECK_TIMER 0.1f
 #define LIFETIME_OF_BULLET 1.0f
 #define Y_POSITION_OF_PLAYER SCREEN_HEIGHT - 2 * PLAYER_HEIGHT
+#define BULLET_TAG "Bullet"
+#define ENEMY_TAG "Enemy"
 #pragma endregion
 
 #pragma region function macro

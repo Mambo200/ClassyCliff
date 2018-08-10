@@ -116,6 +116,26 @@ public:
 	void RemoveObject(CObject* _pObj);
 
 	/// <summary>
+	/// clean all scene objects
+	/// </summary>
+	void CleanScene();
+
+	/// <summary>
+	/// clean all ui objects
+	/// </summary>
+	void CleanUI();
+
+	/// <summary>
+	/// clean all persistant objects
+	/// </summary>
+	void CleanPersistantObjects();
+
+	/// <summary>
+	/// clean all background objects
+	/// </summary>
+	void CleanBackgroundObjects();
+
+	/// <summary>
 	/// sort list for layering
 	/// </summary>
 	/// <param name="_pList">list to sort</param>

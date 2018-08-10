@@ -5,6 +5,11 @@
 #include "Macro.h"
 #pragma endregion
 
+#pragma region forward declaration
+class CSound;
+class CAnimation;
+#pragma endregion
+
 /// <summary>
 /// player class
 /// </summary>
@@ -38,7 +43,12 @@ public:
 	/// <summary>
 	/// destructor
 	/// </summary>
-	~GPlayer() {}
+	~GPlayer() 
+	{
+		// delete animation
+		delete m_pFlyAnim;
+		delete m_pDeathAnim;
+	}
 #pragma endregion
 
 #pragma region public override function
@@ -141,6 +151,20 @@ public:
 	SVector2 GetBoostDirection() { return m_boostDirection; }
 #pragma endregion
 
+#pragma region public inline function
+	/// <summary>
+	/// set shot sound
+	/// </summary>
+	/// <param name="_pSound">sound to set</param>
+	void SetShotSound(CSound* _pSound) { m_pShotSound = _pSound; }
+
+	/// <summary>
+	/// initialize player
+	/// </summary>
+	void Init();
+#pragma endregion
+
+
 private:
 #pragma region private primitive variable
 	/// <summary>
@@ -180,5 +204,28 @@ private:
 
 	int m_backGround = PRERENDER;
 	int m_afterFifty = PRERENDER;
+
+#pragma region private variable
+	/// <summary>
+	/// shot sound
+	/// </summary>
+	CSound* m_pShotSound;
+
+	/// <summary>
+	/// current animation
+	/// </summary>
+	CAnimation* m_pCurrentAnim;
+
+	/// <summary>
+	/// fly animation
+	/// </summary>
+	CAnimation* m_pFlyAnim;
+	
+	/// <summary>
+	/// death animation
+	/// </summary>
+	CAnimation* m_pDeathAnim;
+#pragma endregion
+
 #pragma endregion
 };

@@ -6,7 +6,9 @@ class GBackground :
 {
 public:
 	GBackground();
-	~GBackground();
+	~GBackground()
+	{
+	}
 
 	/// <summary>
 	/// create left and right wall
