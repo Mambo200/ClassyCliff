@@ -1,6 +1,8 @@
 #pragma once
 #include "MoveObject.h"
 #include "Macro.h"
+#include "ContentManagement.h"
+#include "Engine.h"
 class GBackground :
 	public CObject
 {
@@ -9,7 +11,6 @@ public:
 	~GBackground()
 	{
 	}
-
 	/// <summary>
 	/// create left and right wall
 	/// </summary>

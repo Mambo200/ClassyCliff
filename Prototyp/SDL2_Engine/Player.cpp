@@ -290,6 +290,10 @@ void GPlayer::Update(float _deltaTime)
 	if (m_position.Y >= -400)
 		moveable = false;
 
+	// if debug mode is active
+	if (DEBUG_ON)
+		moveable = true;
+
 	// collide with object
 	if (!moveable)
 	{

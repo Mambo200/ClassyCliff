@@ -99,6 +99,12 @@ void CContentManagement::Update(float _deltaTime)
 		// remove pointer from ui list
 		m_pUIObjects.remove(pObj);
 
+		// remove pointer from background lists
+		m_pBackground1.remove(pObj);
+		m_pBackground2.remove(pObj);
+		m_pBackground3.remove(pObj);
+		m_pBackground4.remove(pObj);
+
 		// remove pointer from move list
 		if((CMoveObject*)pObj)
 			m_pMoveObjects.remove((CMoveObject*)pObj);
