@@ -3,6 +3,7 @@
 #pragma region project include
 #include "MoveObject.h"
 #include "Macro.h"
+#include "Sound.h"
 #pragma endregion
 
 /// <summary>
@@ -54,4 +55,5 @@ public:
 	}
 #pragma endregion
 
+	void PlaySound() { m_pSound->Play(); }
 };

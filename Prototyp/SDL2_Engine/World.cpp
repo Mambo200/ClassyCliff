@@ -147,18 +147,13 @@ void GWorld::Init()
 
 				// initialize player
 				pPlayer->Init();
-
-				// create shot sound
-				CSound* pSound = new CSound(GetAssetPath("Audio/S_Shot.wav", 4).c_str());
-
-				// set shot sound of player
-				pPlayer->SetShotSound(pSound);
 			}
 
 			// if texture exists set texture of object
 			else
 			{
 				pPlayer->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
+
 
 				// create shot sound
 				CSound* pSound = new CSound(GetAssetPath("Audio/S_Shot.wav", 4).c_str());
@@ -168,6 +163,7 @@ void GWorld::Init()
 
 				// initialize player
 				pPlayer->Init();
+
 			}
 
 			// add player to persistant list

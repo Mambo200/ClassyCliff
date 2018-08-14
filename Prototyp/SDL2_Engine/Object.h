@@ -6,6 +6,7 @@
 
 #pragma region forward decleration
 class CRenderer;
+class CSound;
 #pragma endregion
 
 /// <summary>
@@ -93,6 +94,12 @@ public:
 	/// </summary>
 	/// <param name="_layer">layer to set</param>
 	inline void SetLayer(int _layer) { m_layer = _layer; }
+
+	/// <summary>
+	/// set shot sound
+	/// </summary>
+	/// <param name="_pSound">sound to set</param>
+	inline void SetSound(CSound* _pSound) { m_pSound = _pSound; }
 #pragma endregion
 
 #pragma region public function
@@ -145,5 +152,10 @@ protected:
 	/// layer to render
 	/// </summary>
 	int m_layer;
+
+	/// <summary>
+	/// sound of object
+	/// </summary>
+	CSound* m_pSound;
 #pragma endregion
 };

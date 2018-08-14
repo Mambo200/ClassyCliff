@@ -16,6 +16,7 @@
 #include "Sound.h"
 #include "Animation.h"
 #include "MenuScene.h"
+#include "Helper.h"
 #pragma endregion
 
 #pragma region public override function
@@ -134,6 +135,13 @@ void GPlayer::Update(float _deltaTime)
 					// set texture of object
 					pBullet->SetTexture(pTexture);
 					pBullet->SetAngle(-angle + 90);
+
+					// create shot sound
+					CSound* pSound = new CSound(GetAssetPath("Audio/S_Shot.wav", 4).c_str());
+
+					// set shot sound of player
+					pBullet->SetSound(pSound);
+					pBullet->PlaySound();
 				}
 
 				// if texture exists set texture of object
@@ -141,6 +149,13 @@ void GPlayer::Update(float _deltaTime)
 				{
 					pBullet->SetTexture(CEngine::Get()->GetTM()->GetTexture("Bullet"));
 					pBullet->SetAngle(-angle + 90);
+
+					// create shot sound
+					CSound* pSound = new CSound(GetAssetPath("Audio/S_Shot.wav", 4).c_str());
+
+					// set shot sound of player
+					pBullet->SetSound(pSound);
+					pBullet->PlaySound();
 				}
 
 				// add to list
@@ -185,6 +200,13 @@ void GPlayer::Update(float _deltaTime)
 					// set texture of object
 					pBullet->SetTexture(pTexture);
 					pBullet->SetAngle(-angle + 90);
+
+					// create shot sound
+					CSound* pSound = new CSound(GetAssetPath("Audio/S_Shot.wav", 4).c_str());
+
+					// set shot sound of player
+					pBullet->SetSound(pSound);
+					pBullet->PlaySound();
 				}
 
 				// if texture exists set texture of object
@@ -192,13 +214,17 @@ void GPlayer::Update(float _deltaTime)
 				{
 					pBullet->SetTexture(CEngine::Get()->GetTM()->GetTexture("Bullet"));
 					pBullet->SetAngle(-angle + 90);
+
+					// create shot sound
+					CSound* pSound = new CSound(GetAssetPath("Audio/S_Shot.wav", 4).c_str());
+
+					// set shot sound of player
+					pBullet->SetSound(pSound);
+					pBullet->PlaySound();
 				}
 
 				// add to list
 				CEngine::Get()->GetCM()->AddPersistantObject(pBullet);
-
-				// play shot sound
-				m_pShotSound->Play();
 			}
 			
 			// update parent

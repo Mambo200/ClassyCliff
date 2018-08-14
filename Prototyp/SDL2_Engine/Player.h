@@ -95,56 +95,8 @@ public:
 		else if (_posMouse.X < tmp * -1)
 			m_boostDirection.X = -1.0f;
 
-		// make -boost to +boost in correctur_boost_power
-		if (m_boostDirection.X <= 0)
-		{
-			correctur_percent_power.X = m_boostDirection.X * -1;
-			x_positiv = false;
-		}
-		else
-		{
-			correctur_percent_power.X = m_boostDirection.X;
-			x_positiv = true;
-		}
-
-		if (m_boostDirection.Y <= 0)
-		{
-			correctur_percent_power.Y = m_boostDirection.Y * -1;
-			y_positiv = false;
-		}
-		else
-		{
-			correctur_percent_power.Y = m_boostDirection.Y;
-			y_positiv = true;
-		}
-
 		// calculate boost power
 		boostPower = correctur_percent_power.X + correctur_percent_power.Y;
-
-		// if boost > 100% correctur to 100%
-		if (boostPower >= 1)
-		{
-			if (x_positiv)
-				m_boostDirection.X -= (boostPower - 1) / 2;
-			else
-				m_boostDirection.X += (boostPower - 1) / 2;
-			if (y_positiv)
-				m_boostDirection.Y -= (boostPower - 1) / 2;
-			else
-				m_boostDirection.Y += (boostPower - 1) / 2;
-		}
-
-		else if (boostPower <= 1)
-		{
-			if (x_positiv)
-				m_boostDirection.X += (1 - boostPower) / 2;
-			else
-				m_boostDirection.X -= (1 - boostPower) / 2;
-			if (y_positiv)
-				m_boostDirection.Y += (1 - boostPower) / 2;
-			else
-				m_boostDirection.Y -= (1 - boostPower) / 2;
-		}
 	}
 
 	// get direction of boost
@@ -152,11 +104,6 @@ public:
 #pragma endregion
 
 #pragma region public inline function
-	/// <summary>
-	/// set shot sound
-	/// </summary>
-	/// <param name="_pSound">sound to set</param>
-	void SetShotSound(CSound* _pSound) { m_pShotSound = _pSound; }
 
 	/// <summary>
 	/// initialize player
