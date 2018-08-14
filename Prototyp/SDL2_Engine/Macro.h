@@ -1,7 +1,7 @@
 #pragma once
 
 #pragma region value macro
-#define DEBUG_ON true
+#define DEBUG_ON false
 #define SCREEN_WIDTH 500
 #define SCREEN_HEIGHT 720
 #define LAYER_COUNT 10
@@ -11,8 +11,8 @@
 #define START_POITION -500
 #define PLAYER_WIDTH 252 / 5
 #define PLAYER_HEIGHT 512 / 5
-#define PLAYER_SRC_RECT_WIDTH 36
-#define PLAYER_SRC_RECT_HEIGHT 46
+#define PLAYER_SRC_RECT_WIDTH 252
+#define PLAYER_SRC_RECT_HEIGHT 756
 #define BACKGROUND_HEIGHT 1920
 #define PRERENDER 3
 #define PLAYER_MIRROR SVector2(1.0f, 0.0f)

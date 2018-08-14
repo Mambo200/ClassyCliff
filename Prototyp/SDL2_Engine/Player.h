@@ -46,7 +46,7 @@ public:
 	~GPlayer() 
 	{
 		// delete animation
-		delete m_pFlyAnim;
+		delete m_pFlyAnimRight;
 		delete m_pDeathAnim;
 	}
 #pragma endregion
@@ -165,6 +165,7 @@ public:
 #pragma endregion
 
 
+
 private:
 #pragma region private primitive variable
 	/// <summary>
@@ -217,15 +218,29 @@ private:
 	CAnimation* m_pCurrentAnim;
 
 	/// <summary>
-	/// fly animation
+	/// fly animation when face right (see face)
 	/// </summary>
-	CAnimation* m_pFlyAnim;
-	
+	CAnimation* m_pFlyAnimRight;
+
+	/// <summary>
+	/// fly animation when face left (see back)
+	/// </summary>
+	CAnimation* m_pFlyAnimLeft;
+
+	/// <summary>
+	/// fall animation when face right (see face)
+	/// </summary>
+	CAnimation* m_pFallAnimRight;
+
+	/// <summary>
+	/// fall animation when face left (see back)
+	/// </summary>
+	CAnimation* m_pFallAnimLeft;
+
 	/// <summary>
 	/// death animation
 	/// </summary>
 	CAnimation* m_pDeathAnim;
 #pragma endregion
 
-#pragma endregion
 };

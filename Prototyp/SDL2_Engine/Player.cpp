@@ -265,6 +265,20 @@ void GPlayer::Update(float _deltaTime)
 		}
 	}
 
+	if (m_pCurrentAnim)
+	{
+		// update animation
+		m_pCurrentAnim->Update(_deltaTime);
+
+		// set source from animation
+		m_srcRect = SRect(
+			m_pCurrentAnim->GetCurrentTexturePosition().X,
+			m_pCurrentAnim->GetCurrentTexturePosition().Y,
+			m_pCurrentAnim->GetSize().X,
+			m_pCurrentAnim->GetSize().Y
+		);
+	}
+
 	if (!saved)
 	{
 		savedXPos = m_position.X + PLAYER_WIDTH / 2;
@@ -280,11 +294,11 @@ void GPlayer::Update(float _deltaTime)
 	/// TODO: DELETE
 	/// </summary>
 	// print player position
-	std::string s = "Position: ";
-	s += std::to_string(s2.X) + " " + std::to_string(s2.Y) + "\n";
-	s += std::to_string(m_boostDirection.X) + " " + std::to_string(m_boostDirection.Y) + "\n";
-	//LOG_ERROR("", s.c_str());
-	LOG_ERROR("Player.X", m_position.Y);
+	//std::string s = "Position: ";
+	//s += std::to_string(s2.X) + " " + std::to_string(s2.Y) + "\n";
+	//s += std::to_string(m_boostDirection.X) + " " + std::to_string(m_boostDirection.Y) + "\n";
+	////LOG_ERROR("", s.c_str());
+	//LOG_ERROR("Player.X", m_position.Y);
 
 	// if player is lower than allowed
 	if (m_position.Y >= -400)
@@ -314,11 +328,11 @@ void GPlayer::Render(CRenderer * _pRenderer)
 // initialize player
 void GPlayer::Init()
 {
-	// create fly animation
-	m_pFlyAnim = new CAnimation(SVector2(), SVector2(PLAYER_SRC_RECT_WIDTH, PLAYER_SRC_RECT_HEIGHT), 3);
-	m_pFlyAnim->SetAnimationTime(0.5f);
+	// create fly animation (right)
+	m_pFlyAnimRight = new CAnimation(SVector2(), SVector2(PLAYER_SRC_RECT_WIDTH, PLAYER_SRC_RECT_HEIGHT), 3);
+	m_pFlyAnimRight->SetAnimationTime(0.5f);
 
-	// set idle to current animation
-	m_pCurrentAnim = m_pFlyAnim;
+
+	m_pCurrentAnim = m_pFlyAnimRight;
 }
 #pragma endregion
