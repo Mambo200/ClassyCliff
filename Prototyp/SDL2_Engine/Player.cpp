@@ -32,7 +32,7 @@ void GPlayer::Update(float _deltaTime)
 		pObj->SetPosition(pObj->GetPosition() + SVector2(0, 100));
 
 	//LOG_ERROR((int)CEngine::Get()->GetRenderer()->GetCamera().Y % (SCREEN_HEIGHT * (m_backGround - 2)), m_backGround)
-	LOG_ERROR(CEngine::Get()->GetTime()->GetFPS(), m_afterFifty);
+	//LOG_ERROR(CEngine::Get()->GetTime()->GetFPS(), m_afterFifty);
 		if (((int)CEngine::Get()->GetRenderer()->GetCamera().Y % (SCREEN_HEIGHT * (m_afterFifty - 2))) <= 0 &&
 			((int)CEngine::Get()->GetRenderer()->GetCamera().Y % (SCREEN_HEIGHT * (m_afterFifty - 2))) >= -100)
 		{
@@ -44,8 +44,14 @@ void GPlayer::Update(float _deltaTime)
 			//CEngine::Get()->GetCM()->MoveBackground2Object();
 		}
 
+	// set standing animation
+	if (!start)
+	{
+		m_pCurrentAnim = m_pIdleAnim;
+	}
+
 	// start game
-	if (CInput::GetMouseDown(SDL_BUTTON_LEFT))
+	if (CInput::GetMouseDown(SDL_BUTTON_LEFT) && start == false)
 		start = true;
 
 	// get mouseposition on screen
@@ -325,6 +331,44 @@ void GPlayer::Update(float _deltaTime)
 	//s += std::to_string(m_boostDirection.X) + " " + std::to_string(m_boostDirection.Y) + "\n";
 	////LOG_ERROR("", s.c_str());
 	//LOG_ERROR("Player.X", m_position.Y);
+	LOG_ERROR("m1", m1);
+
+	// set animation
+	// player can control
+	if (moveable)
+	{
+		// mouse is on the right side of the player
+		if (m1 >= 0)
+		{
+			// player is falling
+			if (m_gravity)
+				m_pCurrentAnim = m_pFallAnimRight;
+
+			// player is rising
+			else
+				m_pCurrentAnim = m_pFlyAnimRight;
+		}
+
+		// mouse is on the left side of the player
+		else
+		{
+			// player is falling
+			if (m_gravity)
+				m_pCurrentAnim = m_pFallAnimLeft;
+
+			// player is rising
+			else
+				m_pCurrentAnim = m_pFlyAnimLeft;
+		}
+	}
+
+	// player collided with object
+	else
+	{
+		m_mirror = SVector2();
+		m_pCurrentAnim = m_pDeathAnim;
+		CEngine::Get()->ChangeScene(new GMenuScene());
+	}
 
 	// if player is lower than allowed
 	if (m_position.Y >= -400)
@@ -333,13 +377,6 @@ void GPlayer::Update(float _deltaTime)
 	// if debug mode is active
 	if (DEBUG_ON)
 		moveable = true;
-
-	// collide with object
-	if (!moveable)
-	{
-		// back to main menu
-		CEngine::Get()->ChangeScene(new GMenuScene());
-	}
 
 
 }
@@ -354,11 +391,58 @@ void GPlayer::Render(CRenderer * _pRenderer)
 // initialize player
 void GPlayer::Init()
 {
+	// create fall animation (left)
+	m_pFallAnimLeft = new CAnimation
+	(
+		SVector2(),
+		SVector2(PLAYER_SRC_RECT_WIDTH, PLAYER_SRC_RECT_HEIGHT),
+		3
+	);
+	m_pFallAnimLeft->SetAnimationTime(0.5f);
+	
+	// create fall animation (right)
+	m_pFallAnimRight = new CAnimation
+	(
+		SVector2(0.0f, PLAYER_SRC_RECT_HEIGHT),
+		SVector2(PLAYER_SRC_RECT_WIDTH, PLAYER_SRC_RECT_HEIGHT),
+		3
+	);
+	m_pFallAnimRight->SetAnimationTime(0.5f);
+
+	// create fly animation (left)
+	m_pFlyAnimLeft = new CAnimation
+	(
+		SVector2(0.0f, PLAYER_SRC_RECT_HEIGHT * 2),
+		SVector2(PLAYER_SRC_RECT_WIDTH, PLAYER_SRC_RECT_HEIGHT),
+		3
+	);
+	m_pFlyAnimLeft->SetAnimationTime(0.5f);
+
 	// create fly animation (right)
-	m_pFlyAnimRight = new CAnimation(SVector2(), SVector2(PLAYER_SRC_RECT_WIDTH, PLAYER_SRC_RECT_HEIGHT), 3);
+	m_pFlyAnimRight = new CAnimation
+	(
+		SVector2(0.0f, PLAYER_SRC_RECT_HEIGHT * 3),
+		SVector2(PLAYER_SRC_RECT_WIDTH, PLAYER_SRC_RECT_HEIGHT),
+		3
+	);
 	m_pFlyAnimRight->SetAnimationTime(0.5f);
 
+	// create idle animation
+	m_pIdleAnim = new CAnimation
+	(
+		SVector2(0.0f, PLAYER_SRC_RECT_HEIGHT * 4),
+		SVector2(PLAYER_SRC_RECT_WIDTH, PLAYER_SRC_RECT_HEIGHT),
+		3
+	);
+	m_pIdleAnim->SetAnimationTime(0.5f);
 
-	m_pCurrentAnim = m_pFlyAnimRight;
+	// create death animation
+	m_pDeathAnim = new CAnimation
+	(
+		SVector2(0.0f, PLAYER_SRC_RECT_HEIGHT * 5),
+		SVector2(PLAYER_SRC_RECT_HEIGHT, PLAYER_SRC_RECT_WIDTH),
+		1
+	);
+	m_pDeathAnim->SetAnimationTime(0.5f);
 }
 #pragma endregion
