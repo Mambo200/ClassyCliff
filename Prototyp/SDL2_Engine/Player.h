@@ -185,6 +185,12 @@ private:
 	CAnimation* m_pFallAnimLeft;
 
 	/// <summary>
+	/// animation at the beginning when player stands still
+	/// </summary>
+	CAnimation* m_pIdleAnim;
+
+
+	/// <summary>
 	/// death animation
 	/// </summary>
 	CAnimation* m_pDeathAnim;

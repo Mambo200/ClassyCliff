@@ -135,7 +135,7 @@ void GWorld::Init()
 			if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
 			{
 				// create new texture
-				CTexture* pTexture = new CTexture("Texture/Character/Player/Standing/Player_Standing_Spr_Sheet.png", CEngine::Get()->GetRenderer());
+				CTexture* pTexture = new CTexture("Texture/Character/Player/Player_Spr_Sheet/Player_Spr_Sheet.png", CEngine::Get()->GetRenderer());
 
 				// add texture to tm
 				CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
@@ -159,7 +159,7 @@ void GWorld::Init()
 				CSound* pSound = new CSound(GetAssetPath("Audio/S_Shot.wav", 4).c_str());
 
 				// set shot sound of player
-				pPlayer->SetShotSound(pSound);
+				//pPlayer->SetShotSound(pSound);
 
 				// initialize player
 				pPlayer->Init();
@@ -197,186 +197,5 @@ void GWorld::Init()
 		if (dynamic_cast<CMoveObject*>(pObj))
 			((CMoveObject*)pObj)->CheckCollisionObjects();
 	}
-}
-
-
-void GWorld::FlyAnimationRight()
-{
-	// create textured object
-	GPlayer * pPlayer = new GPlayer(
-		SVector2(0, START_POITION),
-		SVector2(PLAYER_WIDTH, PLAYER_HEIGHT)
-	);
-
-	// set texture name
-	string texName = "PlayerRightFly";
-
-	// set texture name of object
-	pPlayer->SetTextureName(texName.c_str());
-
-	// if texture not exists
-	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
-	{
-		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Character/Player/Flying_Front/Player_Flying_Front_Spr_Sheet.png", CEngine::Get()->GetRenderer());
-
-		// add texture to tm
-		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
-
-		// set texture of object
-		pPlayer->SetTexture(pTexture);
-
-		SDL_Delay(500);
-
-		// initialize player
-		pPlayer->Init();
-	}
-
-	// if texture exists set texture of object
-	else
-	{
-		pPlayer->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
-
-		// initialize player
-		pPlayer->Init();
-	}
-
-	// add player to persistant list
-	CEngine::Get()->GetCM()->AddPersistantObject(pPlayer);
-}
-
-void GWorld::FlyAnimationLeft()
-{
-	// create textured object
-	GPlayer * pPlayer = new GPlayer(
-		SVector2(0, START_POITION),
-		SVector2(PLAYER_WIDTH, PLAYER_HEIGHT)
-	);
-
-	// set texture name
-	string texName = "PlayerLeftFly";
-
-	// set texture name of object
-	pPlayer->SetTextureName(texName.c_str());
-
-	// if texture not exists
-	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
-	{
-		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Character/Player/Flying_Back/Player_Flying_Back_Spr_Sheet.png", CEngine::Get()->GetRenderer());
-
-		// add texture to tm
-		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
-
-		// set texture of object
-		pPlayer->SetTexture(pTexture);
-
-		SDL_Delay(500);
-
-		// initialize player
-		pPlayer->Init();
-	}
-
-	// if texture exists set texture of object
-	else
-	{
-		pPlayer->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
-
-		// initialize player
-		pPlayer->Init();
-	}
-
-	// add player to persistant list
-	CEngine::Get()->GetCM()->AddPersistantObject(pPlayer);
-}
-
-void GWorld::FallAnimationRight()
-{
-	// create textured object
-	GPlayer * pPlayer = new GPlayer(
-		SVector2(0, START_POITION),
-		SVector2(PLAYER_WIDTH, PLAYER_HEIGHT)
-	);
-
-	// set texture name
-	string texName = "PlayerRightFall";
-
-	// set texture name of object
-	pPlayer->SetTextureName(texName.c_str());
-
-	// if texture not exists
-	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
-	{
-		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Character/Player/Falling_Front/Player_Falling_Front_Spr_Sheet.png", CEngine::Get()->GetRenderer());
-
-		// add texture to tm
-		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
-
-		// set texture of object
-		pPlayer->SetTexture(pTexture);
-
-		SDL_Delay(500);
-
-		// initialize player
-		pPlayer->Init();
-	}
-
-	// if texture exists set texture of object
-	else
-	{
-		pPlayer->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
-
-		// initialize player
-		pPlayer->Init();
-	}
-
-	// add player to persistant list
-	CEngine::Get()->GetCM()->AddPersistantObject(pPlayer);
-}
-
-void GWorld::FallAnimationLeft()
-{
-	// create textured object
-	GPlayer * pPlayer = new GPlayer(
-		SVector2(0, START_POITION),
-		SVector2(PLAYER_WIDTH, PLAYER_HEIGHT)
-	);
-
-	// set texture name
-	string texName = "PlayerLeftFall";
-
-	// set texture name of object
-	pPlayer->SetTextureName(texName.c_str());
-
-	// if texture not exists
-	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
-	{
-		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Character/Player/Falling_Back/Player_Falling_Back_Spr_Sheet.png", CEngine::Get()->GetRenderer());
-
-		// add texture to tm
-		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
-
-		// set texture of object
-		pPlayer->SetTexture(pTexture);
-
-		SDL_Delay(500);
-
-		// initialize player
-		pPlayer->Init();
-	}
-
-	// if texture exists set texture of object
-	else
-	{
-		pPlayer->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
-
-		// initialize player
-		pPlayer->Init();
-	}
-
-	// add player to persistant list
-	CEngine::Get()->GetCM()->AddPersistantObject(pPlayer);
 }
 #pragma endregion

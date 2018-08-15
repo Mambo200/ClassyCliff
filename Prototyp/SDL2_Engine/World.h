@@ -23,11 +23,5 @@ public:
 	/// initialize world
 	/// </summary>
 	void Init();
-
-	
-	void FlyAnimationRight();
-	void FlyAnimationLeft();
-	void FallAnimationRight();
-	void FallAnimationLeft();
 #pragma endregion
 };
