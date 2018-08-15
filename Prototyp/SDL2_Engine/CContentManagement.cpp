@@ -15,15 +15,15 @@ CContentManagement::~CContentManagement()
 
 	// as long as there is a object in list delete first element
 	while (m_pBackground2.size() > 0)
-		m_pBackground1.pop_front();
+		m_pBackground2.pop_front();
 
 	// as long as there is a object in list delete first element
 	while (m_pBackground3.size() > 0)
-		m_pBackground1.pop_front();
+		m_pBackground3.pop_front();
 
 	// as long as there is a object in list delete first element
 	while (m_pBackground4.size() > 0)
-		m_pBackground1.pop_front();
+		m_pBackground4.pop_front();
 
 	// as long as there is a object in list delete first element
 	while (m_pSceneObjects.size() > 0)
@@ -37,34 +37,48 @@ CContentManagement::~CContentManagement()
 	while (m_pUIObjects.size() > 0)
 		m_pUIObjects.pop_front();
 
+	// as long as there is a object in list delete first element
 	while (m_pBackgroundObjects.size() > 0)
 		m_pBackgroundObjects.pop_front();
 
-	while (m_pBackground1.size() > 0)
-		m_pBackground1.pop_front();
+	// as long as there is a object in list delete first element
+	while (m_pWallObjects.size() > 0)
+		m_pWallObjects.pop_front();
 
-	while (m_pBackground2.size() > 0)
-		m_pBackground1.pop_front();
+	// as long as there is a object in list delete first element
+	while (m_pBrancheObjects.size() > 0)
+		m_pBrancheObjects.pop_front();
 
-	while (m_pBackground3.size() > 0)
-		m_pBackground1.pop_front();
-
-	while (m_pBackground4.size() > 0)
-		m_pBackground1.pop_front();
 }
 #pragma endregion
 
 #pragma region public function
-//inline void CContentManagement::MoveBackground2Object()
-//{
-//	for (CObject* pObj : m_pBackground2)
-//		pObj->SetPosition(pObj->GetPosition() + SVector2(0, 1));
-//}
+
 // update every frame
 void CContentManagement::Update(float _deltaTime)
 {
 	//update every background object
 	for (CObject* pObj : m_pBackground1)
+		pObj->Update(_deltaTime);
+
+	//update every background object
+	for (CObject* pObj : m_pBackground2)
+		pObj->Update(_deltaTime);
+
+	//update every background object
+	for (CObject* pObj : m_pBackground3)
+		pObj->Update(_deltaTime);
+
+	//update every background object
+	for (CObject* pObj : m_pBackground4)
+		pObj->Update(_deltaTime);
+
+	//update every wall object
+	for (CObject* pObj : m_pWallObjects)
+		pObj->Update(_deltaTime);
+
+	//update every branche object
+	for (CObject* pObj : m_pBrancheObjects)
 		pObj->Update(_deltaTime);
 		
 	// update every scene object
@@ -105,6 +119,11 @@ void CContentManagement::Update(float _deltaTime)
 		m_pBackground3.remove(pObj);
 		m_pBackground4.remove(pObj);
 
+		// remove pointer from wall list
+		m_pWallObjects.remove(pObj);
+
+		// remove pointer from branche list
+		m_pBrancheObjects.remove(pObj);
 		// remove pointer from move list
 		if((CMoveObject*)pObj)
 			m_pMoveObjects.remove((CMoveObject*)pObj);
@@ -143,16 +162,24 @@ void CContentManagement::Render(CRenderer * _pRenderer)
 	for (CObject* pObj : m_pBackground1)
 		pObj->Render(_pRenderer);
 
-	// render every background1 object
+	// render every background2 object
 	for (CObject* pObj : m_pBackground2)
 		pObj->Render(_pRenderer);
 
-	// render every background1 object
+	// render every background3 object
 	for (CObject* pObj : m_pBackground3)
 		pObj->Render(_pRenderer);
 
-	// render every background1 object
+	// render every background4 object
 	for (CObject* pObj : m_pBackground4)
+		pObj->Render(_pRenderer);
+
+	// render every wall object
+	for (CObject* pObj : m_pWallObjects)
+		pObj->Render(_pRenderer);
+
+	// render every branche object
+	for (CObject* pObj : m_pBrancheObjects)
 		pObj->Render(_pRenderer);
 
 	// render every scene object
@@ -205,6 +232,12 @@ void CContentManagement::CleanBackgroundObjects()
 		RemoveObject(pObj);
 
 	for (CObject* pObj : m_pBackground4)
+		RemoveObject(pObj);
+
+	for (CObject* pObj : m_pWallObjects)
+		RemoveObject(pObj);
+
+	for (CObject* pObj : m_pBrancheObjects)
 		RemoveObject(pObj);
 }
 

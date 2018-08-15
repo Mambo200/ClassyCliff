@@ -81,6 +81,30 @@ public:
 	/// <returns>list of all ui object</returns>
 	inline list<CObject*> GetUIObjects() { return m_pUIObjects; }
 
+	/// <summary>
+	/// add object to background list
+	/// </summary>
+	/// <param name="_pObject">object to add</param>
+	inline void AddWallObject(CObject* _pObject) { AddObject(_pObject, m_pWallObjects); }
+
+	/// <summary>
+	/// get background object list
+	/// </summary>
+	/// <returns>list of all background object</returns>
+	inline list<CObject*> GetWallObjects() { return m_pWallObjects; }
+
+	/// <summary>
+	/// add object to background list
+	/// </summary>
+	/// <param name="_pObject">object to add</param>
+	inline void AddBrancheObject(CObject* _pObject) { AddObject(_pObject, m_pBrancheObjects); }
+
+	/// <summary>
+	/// get background object list
+	/// </summary>
+	/// <returns>list of all background object</returns>
+	inline list<CObject*> GetBrancheObjects() { return m_pBrancheObjects; }
+
 	inline void AddBackground1Object(CObject* _pObject) { AddObject(_pObject, m_pBackground1); }
 	inline list<CObject*> GetBackground1Object() { return m_pBackground1; }
 
@@ -175,24 +199,34 @@ private:
 	list<CMoveObject*> m_pMoveObjects;
 
 	/// <summary>
-	/// list of all background 1 textures
+	/// list of all background 1 objects
 	/// </summary>
 	list<CObject*> m_pBackground1;
 
 	/// <summary>
-	/// list of all background 2 textures
+	/// list of all background 2 objects
 	/// </summary>
 	list<CObject*> m_pBackground2;
 
 	/// <summary>
-	/// list of all background 3 textures
+	/// list of all background 3 objects
 	/// </summary>
 	list<CObject*> m_pBackground3;
 
 	/// <summary>
-	/// list of all background 4 textures
+	/// list of all background 4 objects
 	/// </summary>
 	list<CObject*> m_pBackground4;
+
+	/// <summary>
+	/// list of all Wall objects
+	/// </summary>
+	list<CObject*> m_pWallObjects;
+
+	/// <summary>
+	/// list of all Branch objects
+	/// </summary>
+	list<CObject*> m_pBrancheObjects;
 #pragma endregion
 
 #pragma region private function

@@ -49,6 +49,30 @@ public:
 	static void LoadTexture4(int _world);
 
 	/// <summary>
+	/// create background 1
+	/// </summary>
+	/// <param name="_world">position of texture</param>
+	static void LoadBackground1(int _pos);
+
+	/// <summary>
+	/// create background 2
+	/// </summary>
+	/// <param name="_world">position of texture</param>
+	static void LoadBackground2(int _pos);
+
+	/// <summary>
+	/// create background 3
+	/// </summary>
+	/// <param name="_world">position of texture</param>
+	static void LoadBackground3(int _pos);
+
+	/// <summary>
+	/// create background 4
+	/// </summary>
+	/// <param name="_world">position of texture</param>
+	static void LoadBackground4(int _pos);
+
+	/// <summary>
 	/// create left wall
 	/// </summary>
 	/// <param name="_world">number how close the walls are</param>
@@ -73,8 +97,6 @@ public:
 
 	static int GetPositionOfTexture() { return m_afterFifty; }
 	static void SetPositionOfTexture(int _position) { m_afterFifty = _position; }
-
-	void Update(float _deltaTime) override;
 
 	private:
 

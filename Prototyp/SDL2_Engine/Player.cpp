@@ -22,26 +22,30 @@
 // update every frame
 void GPlayer::Update(float _deltaTime)
 {
+	// last position of player
+	SVector2 lastPosition;
+
+	// reset pointer of background-objects
+	CObject* bGround1_1 = nullptr;
+	CObject* bGround2_1 = nullptr;
+	CObject* bGround3_1 = nullptr;
+	CObject* bGround4_1 = nullptr;
+
+	// get first object of the list of background-objects
+	bGround1_1 = CEngine::Get()->GetCM()->GetBackground1Object().front();
+	bGround2_1 = CEngine::Get()->GetCM()->GetBackground2Object().front();
+	bGround3_1 = CEngine::Get()->GetCM()->GetBackground3Object().front();
+	bGround4_1 = CEngine::Get()->GetCM()->GetBackground4Object().front();
+	// differenz
+	float diff = 0;
+
+	// if lastPostion zero, get current position of player
+	if (lastPosition.Y == 0)
+		lastPosition = GetPosition();
+
 	// if debug mode is active
 	if (DEBUG_ON)
 		moveable = true;
-
-	// creating world while playing
-	for (CObject* pObj : CEngine::Get()->GetCM()->GetBackground2Object())
-		pObj->SetPosition(pObj->GetPosition() + SVector2(0, 100));
-
-	//LOG_ERROR((int)CEngine::Get()->GetRenderer()->GetCamera().Y % (SCREEN_HEIGHT * (m_backGround - 2)), m_backGround)
-	LOG_ERROR(CEngine::Get()->GetTime()->GetFPS(), m_afterFifty);
-		if (((int)CEngine::Get()->GetRenderer()->GetCamera().Y % (SCREEN_HEIGHT * (m_afterFifty - 2))) <= 0 &&
-			((int)CEngine::Get()->GetRenderer()->GetCamera().Y % (SCREEN_HEIGHT * (m_afterFifty - 2))) >= -100)
-		{
-			GBackground::GenerateBackgorund(m_afterFifty);
-			GBackground::CreateWalls(m_backGround, m_afterFifty);
-			if (m_backGround < 50)
-				m_backGround++;
-			m_afterFifty++;
-			//CEngine::Get()->GetCM()->MoveBackground2Object();
-		}
 
 	// start game
 	if (CInput::GetMouseDown(SDL_BUTTON_LEFT))
@@ -52,7 +56,7 @@ void GPlayer::Update(float _deltaTime)
 	int m2;
 	SDL_GetMouseState(&m1, &m2);
 
-	m1 = m1 - ( m_rect.x - (CEngine::Get()->GetRenderer()->GetCamera().X - SCREEN_WIDTH / 2)+ m_rect.w / 2);
+	m1 = m1 - (m_rect.x - (CEngine::Get()->GetRenderer()->GetCamera().X - SCREEN_WIDTH / 2)+ m_rect.w / 2);
 	m2 = m2 - (m_rect.y  - (CEngine::Get()->GetRenderer()->GetCamera().Y - SCREEN_HEIGHT / 2)+ m_rect.h / 2);
 
 	SVector2 s2 = SVector2(m1, m2);
@@ -79,18 +83,44 @@ void GPlayer::Update(float _deltaTime)
 	// if game started
 	if (start)
 	{
-		// if cursor right of player
-		if (m1 < 0)
+
+		if (((int)CEngine::Get()->GetRenderer()->GetCamera().Y % (SCREEN_HEIGHT * (m_afterFifty - 2))) <= 0 &&
+			((int)CEngine::Get()->GetRenderer()->GetCamera().Y % (SCREEN_HEIGHT * (m_afterFifty - 2))) >= -100)
 		{
-			m_forward.X = -1.0f;
-			m_mirror.X = 1.0f;
+			GBackground::CreateWalls(m_backGround, m_afterFifty);
+			if (m_backGround < 50)
+				m_backGround++;
+			m_afterFifty++;
+			//CEngine::Get()->GetCM()->MoveBackground2Object();
 		}
 
-		// if cursor left of player
-		if (m1 > 0)
+		float c = CEngine::Get()->GetRenderer()->GetCamera().Y;
+		float o1 = bGround1_1->GetPosition().Y;
+		float o2 = bGround2_1->GetPosition().Y;
+		float o3 = bGround3_1->GetPosition().Y;
+		float o4 = bGround4_1->GetPosition().Y;
+
+		//LOG_ERROR("Position of Object:", o2);
+		//LOG_ERROR("Position of Camera:", c);
+
+		if (c - SCREEN_HEIGHT < o1)
 		{
-			m_forward.X = 1.0f;
-			m_mirror.X = 0.0f;
+			GBackground::LoadBackground1(o1);
+		}
+
+		if (c - SCREEN_HEIGHT < o2)
+		{
+			GBackground::LoadBackground2(o2);
+		}
+
+		if (c - SCREEN_HEIGHT < o3)
+		{
+			GBackground::LoadBackground3(o3);
+		}
+
+		if (c - SCREEN_HEIGHT < o4)
+		{
+			GBackground::LoadBackground4(o4);
 		}
 
 		// if player is moveable
@@ -263,6 +293,25 @@ void GPlayer::Update(float _deltaTime)
 				}
 			}
 		}
+		
+		if (CEngine::Get()->GetCM()->GetBackground2Object().size() >= 4)
+		{
+			bGround2_1 = CEngine::Get()->GetCM()->GetBackground2Object().back();
+			CEngine::Get()->GetCM()->RemoveObject(bGround2_1);
+		}
+		
+		if (CEngine::Get()->GetCM()->GetBackground3Object().size() >= 4)
+		{
+			bGround3_1 = CEngine::Get()->GetCM()->GetBackground3Object().back();
+			CEngine::Get()->GetCM()->RemoveObject(bGround3_1);
+		}
+		
+		if (CEngine::Get()->GetCM()->GetBackground4Object().size() >= 4)
+		{
+			bGround4_1 = CEngine::Get()->GetCM()->GetBackground4Object().back();
+			CEngine::Get()->GetCM()->RemoveObject(bGround4_1);
+		}
+
 	}
 
 	if (!saved)
@@ -275,16 +324,6 @@ void GPlayer::Update(float _deltaTime)
 	CEngine::Get()->GetRenderer()->SetCamera(
 		SVector2(savedXPos, m_position.Y - PLAYER_HEIGHT)
 	);
-
-	/// <summary>
-	/// TODO: DELETE
-	/// </summary>
-	// print player position
-	std::string s = "Position: ";
-	s += std::to_string(s2.X) + " " + std::to_string(s2.Y) + "\n";
-	s += std::to_string(m_boostDirection.X) + " " + std::to_string(m_boostDirection.Y) + "\n";
-	//LOG_ERROR("", s.c_str());
-	LOG_ERROR("Player.X", m_position.Y);
 
 	// if player is lower than allowed
 	if (m_position.Y >= -400)
@@ -301,7 +340,32 @@ void GPlayer::Update(float _deltaTime)
 		CEngine::Get()->ChangeScene(new GMenuScene());
 	}
 
+	// calculate differenz between last position and current position of Player
+	diff = lastPosition.Y - GetPosition().Y;
 
+	// move backgrounds
+	for (CObject* pObj : CEngine::Get()->GetCM()->GetBackground1Object())
+	{
+		pObj->AddPosition(SVector2(0, (diff / 1.125f) * -1));
+	}
+
+	for (CObject* pObj : CEngine::Get()->GetCM()->GetBackground2Object())
+	{
+		pObj->AddPosition(SVector2(0, (diff / 1.25f) * -1));
+	}
+
+	for (CObject* pObj : CEngine::Get()->GetCM()->GetBackground3Object())
+	{
+		pObj->AddPosition(SVector2(0, (diff / 1.5f) * -1));
+	}
+
+	for (CObject* pObj : CEngine::Get()->GetCM()->GetBackground4Object())
+	{
+		pObj->AddPosition(SVector2(0, (diff / 2) * -1));
+	}
+
+	// get current position of Player
+	lastPosition = GetPosition();
 }
 // render every frame
 void GPlayer::Render(CRenderer * _pRenderer)
