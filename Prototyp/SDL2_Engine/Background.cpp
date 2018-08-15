@@ -20,11 +20,6 @@
 using namespace std;
 #pragma endregion
 
-void GBackground::Update(float _deltaTime)
-{
-	LoadTexture1(1);
-}
-
 void GBackground::GenerateBackgorund(int _world)
 {
 	LoadTexture4(_world);
@@ -37,6 +32,15 @@ void GBackground::CreateWalls(int _world, int _position)
 {
 	LoadLeftWall(_world, _position);
 	LoadRightWall(_world, _position);
+
+	// delete useless Objects from backgroundlists
+	if (CEngine::Get()->GetCM()->GetWallObjects().size() >= 4)
+		CEngine::Get()->GetCM()->RemoveObject(CEngine::Get()->GetCM()->GetWallObjects().back());
+
+	// delete useless Objects from backgroundlists
+	if (CEngine::Get()->GetCM()->GetBrancheObjects().size() >= 4)
+		CEngine::Get()->GetCM()->RemoveObject(CEngine::Get()->GetCM()->GetBrancheObjects().back());
+
 }
 
 /// <summary>
@@ -274,8 +278,11 @@ void GBackground::LoadLeftWall(int _world, int _position)
 			pObj->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
 		}
 
+		// set Tag of Object
+		pObj->SetTag(texName.c_str());
+
 		// add object to scene list
-		CEngine::Get()->GetCM()->AddSceneObject(pObj);
+		CEngine::Get()->GetCM()->AddBrancheObject(pObj);
 	}
 
 		// name of world texture
@@ -320,8 +327,11 @@ void GBackground::LoadLeftWall(int _world, int _position)
 			pObj->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
 		}
 
+		// set Tag of Object
+		pObj->SetTag(texName.c_str());
+
 		// add object to scene list
-		CEngine::Get()->GetCM()->AddSceneObject(pObj);
+		CEngine::Get()->GetCM()->AddWallObject(pObj);
 }
 
 void GBackground::LoadRightWall(int _world, int _position)
@@ -371,8 +381,11 @@ void GBackground::LoadRightWall(int _world, int _position)
 			pObj->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
 		}
 
+		// set Tag of Object
+		pObj->SetTag(texName.c_str());
+
 		// add object to scene list
-		CEngine::Get()->GetCM()->AddSceneObject(pObj);
+		CEngine::Get()->GetCM()->AddBrancheObject(pObj);
 	}
 
 	// name of world texture
@@ -419,8 +432,11 @@ void GBackground::LoadRightWall(int _world, int _position)
 		pObj->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
 	}
 
+	// set Tag of Object
+	pObj->SetTag(texName.c_str());
+
 	// add object to scene list
-	CEngine::Get()->GetCM()->AddSceneObject(pObj);
+	CEngine::Get()->GetCM()->AddWallObject(pObj);
 
 }
 
@@ -474,3 +490,165 @@ void GBackground::Ground()
 	CEngine::Get()->GetCM()->AddBackground4Object(pObj);
 }
 
+
+#pragma region Spawnalgorithmus
+// handle the first backgroundlist
+void GBackground::LoadBackground1(int _pos)
+{
+	string texName = "Background1";
+
+	CTexturedObject* pObj = new CTexturedObject(
+		SVector2(25 - (SCREEN_WIDTH / 2), (int)_pos - (SCREEN_HEIGHT)),
+		SVector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+
+	pObj->SetTextureName(texName.c_str());
+
+	// if texture not exists
+	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
+	{
+		// create new texture
+		CTexture* pTexture = new CTexture("Texture/Background/Colision_False/BackgroundColor.png", CEngine::Get()->GetRenderer());
+
+		// add texture to tm
+		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
+
+		// set texture of object
+		pObj->SetTexture(pTexture);
+
+		SDL_Delay(500);
+	}
+
+	// if texture exists set texture of object
+	else
+	{
+		pObj->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
+	}
+
+	// add object to background list
+	CEngine::Get()->GetCM()->AddBackground1Object(pObj);
+
+	// delete useless Objects from backgroundlists
+	if (CEngine::Get()->GetCM()->GetBackground1Object().size() >= 4)
+		CEngine::Get()->GetCM()->RemoveObject(CEngine::Get()->GetCM()->GetBackground1Object().back());
+}
+
+// handle second backgroundlist
+void GBackground::LoadBackground2(int _pos)
+{
+	string texName = "Background2";
+
+	CTexturedObject* pObj = new CTexturedObject(
+		SVector2(25 - (SCREEN_WIDTH / 2), (int)_pos - (SCREEN_HEIGHT)),
+		SVector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+
+	pObj->SetTextureName(texName.c_str());
+
+	// if texture not exists
+	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
+	{
+		// create new texture
+		CTexture* pTexture = new CTexture("Texture/Background/Colision_False/Cliff4.png", CEngine::Get()->GetRenderer());
+
+		// add texture to tm
+		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
+
+		// set texture of object
+		pObj->SetTexture(pTexture);
+
+		SDL_Delay(500);
+	}
+
+	// if texture exists set texture of object
+	else
+	{
+		pObj->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
+	}
+
+	// add object to background list
+	CEngine::Get()->GetCM()->AddBackground2Object(pObj);
+
+	// delete useless Objects from backgroundlists
+	if (CEngine::Get()->GetCM()->GetBackground2Object().size() >= 4)
+		CEngine::Get()->GetCM()->RemoveObject(CEngine::Get()->GetCM()->GetBackground2Object().back());
+}
+
+// handle third backgroundlist
+void GBackground::LoadBackground3(int _pos)
+{
+	string texName = "Background3";
+
+	CTexturedObject* pObj = new CTexturedObject(
+		SVector2(25 - (SCREEN_WIDTH / 2), (int)_pos - (SCREEN_HEIGHT)),
+		SVector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+
+	pObj->SetTextureName(texName.c_str());
+
+	// if texture not exists
+	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
+	{
+		// create new texture
+		CTexture* pTexture = new CTexture("Texture/Background/Colision_False/Cliff3.png", CEngine::Get()->GetRenderer());
+
+		// add texture to tm
+		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
+
+		// set texture of object
+		pObj->SetTexture(pTexture);
+
+		SDL_Delay(500);
+	}
+
+	// if texture exists set texture of object
+	else
+	{
+		pObj->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
+	}
+
+	// add object to background list
+	CEngine::Get()->GetCM()->AddBackground3Object(pObj);
+
+	// delete useless Objects from backgroundlists
+	if (CEngine::Get()->GetCM()->GetBackground3Object().size() >= 4)
+		CEngine::Get()->GetCM()->RemoveObject(CEngine::Get()->GetCM()->GetBackground3Object().back());
+}
+
+// handle fourth backgroundlist
+void GBackground::LoadBackground4(int _pos)
+{
+	string texName = "Background4";
+
+	CTexturedObject* pObj = new CTexturedObject(
+		SVector2(25 - (SCREEN_WIDTH / 2), (int)_pos - (SCREEN_HEIGHT)),
+		SVector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+
+	pObj->SetTextureName(texName.c_str());
+
+	// if texture not exists
+	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
+	{
+		// create new texture
+		CTexture* pTexture = new CTexture("Texture/Background/Colision_False/Cliff2.png", CEngine::Get()->GetRenderer());
+
+		// add texture to tm
+		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
+
+		// set texture of object
+		pObj->SetTexture(pTexture);
+
+		SDL_Delay(500);
+	}
+
+	// if texture exists set texture of object
+	else
+	{
+		pObj->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
+	}
+
+	// add object to background list
+	CEngine::Get()->GetCM()->AddBackground4Object(pObj);
+
+	// delete useless Objects from backgroundlists
+	if (CEngine::Get()->GetCM()->GetBackground4Object().size() >= 4)
+		CEngine::Get()->GetCM()->RemoveObject(CEngine::Get()->GetCM()->GetBackground4Object().back());
+}
+#pragma endregion
