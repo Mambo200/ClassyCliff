@@ -204,6 +204,7 @@ xcopy "$(SolutionDir)Library\SDL2_ttf\lib\$(PlatformShortName)\*.dll" "$(Solutio
     <ClInclude Include="Enum.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="TextScore.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Macro.h" />

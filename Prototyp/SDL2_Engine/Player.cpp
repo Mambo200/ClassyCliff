@@ -371,7 +371,7 @@ void GPlayer::Update(float _deltaTime)
 		SVector2(savedXPos, m_position.Y - PLAYER_HEIGHT)
 	);
 
-	LOG_ERROR("m1", m1);
+	//LOG_ERROR("m1", m1);
 
 	// set animation
 	// player can control
@@ -443,6 +443,26 @@ void GPlayer::Update(float _deltaTime)
 
 	// get current position of Player
 	lastPosition = GetPosition();
+
+	// print player position
+	std::string s = "Position: ";
+	s += std::to_string(s2.X) + " " + std::to_string(s2.Y) + "\n";
+	s += std::to_string(m_boostDirection.X) + " " + std::to_string(m_boostDirection.Y) + "\n";
+	//LOG_ERROR("", s.c_str());
+	//LOG_ERROR("Player.Y", m_position.Y);
+	LOG_ERROR("high score", m_maxYCoordinate);
+
+	// save high score
+	if (((-(m_position.Y)) + START_POITION) > m_maxYCoordinate)
+	{
+		m_maxYCoordinate = (-(m_position.Y)) - 500;
+		m_currentScore = m_maxYCoordinate / 50;
+	}
+
+	// death if position lower then player position
+	if (diff <= -25)
+		moveable = false;
+
 }
 // render every frame
 void GPlayer::Render(CRenderer * _pRenderer)
