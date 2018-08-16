@@ -111,6 +111,13 @@ public:
 	void Init();
 #pragma endregion
 
+#pragma region public functions
+	/// <summary>
+	/// get current score
+	/// </summary>
+	/// <returns>playerscore</returns>
+	int GetCurrentScore() { return m_currentScore; }
+#pragma endregion
 
 
 private:
@@ -155,6 +162,16 @@ private:
 
 #pragma region private variable
 	/// <summary>
+	/// save highscore
+	/// </summary>
+	int m_maxYCoordinate;
+
+	/// <summary>
+	/// current score in this scene
+	/// </summary>
+	int m_currentScore;
+
+	/// <summary>
 	/// shot sound
 	/// </summary>
 	CSound* m_pShotSound;
@@ -188,7 +205,6 @@ private:
 	/// animation at the beginning when player stands still
 	/// </summary>
 	CAnimation* m_pIdleAnim;
-
 
 	/// <summary>
 	/// death animation

@@ -240,5 +240,8 @@
     <ClInclude Include="MenuPlayer.h">
       <Filter>Game\Player</Filter>
     </ClInclude>
+    <ClInclude Include="TextScore.h">
+      <Filter>Game\Text</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

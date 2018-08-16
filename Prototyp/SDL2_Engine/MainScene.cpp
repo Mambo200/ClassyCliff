@@ -6,6 +6,7 @@
 #include "Music.h"
 #include "Game.h"
 #include "TextFPS.h"
+#include "TextScore.h"
 #pragma endregion
 
 #pragma region public override function
@@ -16,6 +17,9 @@ void GMainScene::Init()
 	m_pWorld = new GWorld();
 	m_pWorld->Init();
 
+	// create score text
+	//GTextScore* pScore = new GTextScore("Score: 0", GGame::Get()->m_PArialFont, SRect(SCREEN_WIDTH / 2 - 50, 0, 100, 50));
+
 	// create fps text
 	GTextFPS* pText = new GTextFPS("FPS: 0", GGame::Get()->m_PArialFont, SRect(SCREEN_WIDTH / 2 - 50, 0, 100, 50));
 
@@ -23,7 +27,7 @@ void GMainScene::Init()
 	CEngine::Get()->GetCM()->AddUIObject(pText);
 
 	// create background music
-	m_pBackgroundMusic = new CMusic(GetAssetPath("Audio/S_Background.wav", 4).c_str());
+	m_pBackgroundMusic = new CMusic(GetAssetPath("Audio/S_Background.wavv", 4).c_str());
 
 	// play music
 	m_pBackgroundMusic->Play(true);
