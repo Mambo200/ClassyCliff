@@ -1,3 +1,5 @@
+// Changes by Tobias Stroedicke & Marcel Lueke
+
 #include <iostream>	///TODO: DELETE
 #include <string>	///TODO: DELETE
 
@@ -364,6 +366,7 @@ void GPlayer::Update(float _deltaTime)
 		);
 	}
 
+#pragma region Tobias Stroedicke
 	if (!saved)
 	{
 		savedXPos = m_position.X + PLAYER_WIDTH / 2;
@@ -416,10 +419,7 @@ void GPlayer::Update(float _deltaTime)
 	// if player is lower than allowed
 	if (m_position.Y >= -400)
 		moveable = false;
-
-	// if debug mode is active
-	if (DEBUG_ON)
-		moveable = true;
+#pragma endregion
 
 	// calculate differenz between last position and current position of Player
 	diff = lastPosition.Y - GetPosition().Y;
@@ -467,11 +467,17 @@ void GPlayer::Update(float _deltaTime)
 	if (diff <= -25)
 		moveable = false;
 
+#pragma region Tobias Stroedicke
 	// save score
-	if ((m_currentScore > GScore::GetScoreFromFile()) && !moveable)
+	if (!moveable)
 	{
-		GScore::SetScoreToFile(m_currentScore);
+		// if current score higher than highscore save
+		if (m_currentScore > GScore::GetScoreFromFile())
+		{
+			GScore::SetScoreToFile(m_currentScore);
+		}
 	}
+#pragma endregion
 
 }
 // render every frame
@@ -485,6 +491,7 @@ void GPlayer::Render(CRenderer * _pRenderer)
 // initialize player and score
 void GPlayer::Init()
 {
+#pragma region Tobias Stroedicke
 	// create fall animation (left)
 	m_pFallAnimLeft = new CAnimation
 	(
@@ -538,5 +545,6 @@ void GPlayer::Init()
 		1
 	);
 	m_pDeathAnim->SetAnimationTime(0.5f);
+#pragma endregion
 }
 #pragma endregion

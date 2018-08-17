@@ -1,3 +1,5 @@
+// Everything by Tobias Stroedicke
+
 #pragma region system include
 #include <sstream>
 #include <istream>

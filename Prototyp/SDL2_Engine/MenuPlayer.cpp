@@ -1,3 +1,5 @@
+// Changes by Tobias Stroedicke
+
 #pragma region project include
 #include "MenuPlayer.h"
 #include "Game.h"
@@ -33,7 +35,7 @@ void GMenuPlayer::Update(float _deltaTime)
 {
 	// get key down to change buttons
 	if (CInput::GetKeyDown(SDL_SCANCODE_S) || CInput::GetKeyDown(SDL_SCANCODE_W) ||
-		CInput::GetKeyDown(SDL_SCANCODE_DOWN) || CInput::GetKeyDown(SDL_SCANCODE_UP))
+		CInput::GetKeyDown(SDL_SCANCODE_DOWN) || CInput::GetKeyDown(SDL_SCANCODE_UP)) // Tobias Stroedicke
 	{
 		// switch buttons
 		m_startActive = !m_startActive;

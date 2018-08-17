@@ -1,0 +1,12 @@
+Tobias Stroedicke:
+	new Background add to list and unload them after, load background
+	show current Score and highscore on screen
+	save/load highscore in/from file
+	player can move and has gravity
+	player camera
+	player animation
+Marcel Lueke:
+	better controls and boost for player
+	background can move
+Zusammen:
+	add mouse input to the game

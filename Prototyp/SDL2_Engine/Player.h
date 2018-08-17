@@ -1,4 +1,5 @@
 #pragma once
+// Changes by Tobias Stroedicke & Marcel Lueke
 
 #pragma region project include
 #include "MoveObject.h"  
@@ -189,6 +190,7 @@ private:
 	/// </summary>
 	CAnimation* m_pCurrentAnim;
 
+#pragma region Tobias Stroedicke
 	/// <summary>
 	/// fly animation when face right (see face)
 	/// </summary>
@@ -218,6 +220,7 @@ private:
 	/// death animation
 	/// </summary>
 	CAnimation* m_pDeathAnim;
+#pragma endregion
 #pragma endregion
 
 };
