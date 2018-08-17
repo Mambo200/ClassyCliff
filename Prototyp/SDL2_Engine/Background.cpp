@@ -22,10 +22,10 @@ using namespace std;
 
 void GBackground::GenerateBackgorund(int _world)
 {
-	LoadTexture4(_world);
-	LoadTexture3(_world);
-	LoadTexture2(_world);
-	LoadTexture1(_world);
+	LoadBackground4(_world);
+	LoadBackground3(_world);
+	LoadBackground2(_world);
+	LoadBackground1(_world);
 }
 
 void GBackground::CreateWalls(int _world, int _position)
@@ -41,194 +41,6 @@ void GBackground::CreateWalls(int _world, int _position)
 	if (CEngine::Get()->GetCM()->GetBrancheObjects().size() >= 4)
 		CEngine::Get()->GetCM()->RemoveObject(CEngine::Get()->GetCM()->GetBrancheObjects().back());
 
-}
-
-/// <summary>
-/// Create Background 1
-/// </summary>
-void GBackground::LoadTexture1(int _world)
-{
-	// name of world texture
-	string texName = "Background1";
-
-	// width and height of world
-	int width = 0, height = START_POITION;
-
-	// create textured object
-	CTexturedObject* pObj = new CTexturedObject(
-		SVector2(25 - (SCREEN_WIDTH / 2), height - (SCREEN_HEIGHT * _world)),
-		SVector2(SCREEN_WIDTH, SCREEN_HEIGHT)
-	);
-	// set texture name of object
-	pObj->SetTextureName(texName.c_str());
-
-	// if texture not exists
-	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
-	{
-		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Background/Colision_False/BackgroundColor.png", CEngine::Get()->GetRenderer());
-
-		// add texture to tm
-		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
-
-		// set texture of object
-		pObj->SetTexture(pTexture);
-
-		SDL_Delay(500);
-	}
-
-	// if texture exists set texture of object
-	else
-	{
-
-		//// mirror every second texture
-		//if (_world % 2)
-		//	pObj->SetMirror(SVector2(0, 1));
-
-		pObj->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
-	}
-
-	// add object to background list
-	CEngine::Get()->GetCM()->AddBackground1Object(pObj);
-}
-
-
-void GBackground::LoadTexture2(int _world)
-{
-	// name of world texture
-	string texName = "Background2";
-
-	// width and height of world
-	int width = 0, height = START_POITION;
-
-	// create textured object
-	CTexturedObject* pObj = new CTexturedObject(
-		SVector2(25 - (SCREEN_WIDTH / 2), height - (SCREEN_HEIGHT * _world)),
-		SVector2(SCREEN_WIDTH, SCREEN_HEIGHT)
-	);
-
-	// set texture name of object
-	pObj->SetTextureName(texName.c_str());
-
-	// if texture not exists
-	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
-	{
-		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Background/Colision_False/Cliff4.png", CEngine::Get()->GetRenderer());
-
-		// add texture to tm
-		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
-
-		// set texture of object
-		pObj->SetTexture(pTexture);
-
-		SDL_Delay(500);
-	}
-
-	// if texture exists set texture of object
-	else
-	{
-		//// mirror every second texture
-		//if (_world % 2)
-		//	pObj->SetMirror(SVector2(0, 1));
-
-		pObj->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
-	}
-
-	// add object to background list
-	CEngine::Get()->GetCM()->AddBackground2Object(pObj);
-}
-
-void GBackground::LoadTexture3(int _world)
-{
-	// name of world texture
-	string texName = "Background3";
-
-	// width and height of world
-	int width = 0, height = START_POITION;
-
-	// create textured object
-	CTexturedObject* pObj = new CTexturedObject(
-		SVector2(25 - (SCREEN_WIDTH / 2), height - (SCREEN_HEIGHT * _world)),
-		SVector2(SCREEN_WIDTH, SCREEN_HEIGHT)
-	);
-
-	// set texture name of object
-	pObj->SetTextureName(texName.c_str());
-
-	// if texture not exists
-	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
-	{
-		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Background/Colision_False/Cliff3.png", CEngine::Get()->GetRenderer());
-
-		// add texture to tm
-		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
-
-		// set texture of object
-		pObj->SetTexture(pTexture);
-
-		SDL_Delay(500);
-	}
-
-	// if texture exists set texture of object
-	else
-	{
-		//// mirror every second texture
-		//if (_world % 2)
-		//	pObj->SetMirror(SVector2(0, 1));
-
-		pObj->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
-	}
-
-	// add object to background list
-	CEngine::Get()->GetCM()->AddBackground3Object(pObj);
-}
-
-void GBackground::LoadTexture4(int _world)
-{
-	// name of world texture
-	string texName = "Background4";
-
-	// width and height of world
-	int width = 0, height = START_POITION;
-
-	// create textured object
-	CTexturedObject* pObj = new CTexturedObject(
-		SVector2(25 - (SCREEN_WIDTH / 2), height - (SCREEN_HEIGHT * _world)),
-		SVector2(SCREEN_WIDTH, SCREEN_HEIGHT)
-	);
-
-	// set texture name of object
-	pObj->SetTextureName(texName.c_str());
-
-	// if texture not exists
-	if (CEngine::Get()->GetTM()->GetTexture(texName) == nullptr)
-	{
-		// create new texture
-		CTexture* pTexture = new CTexture("Texture/Background/Colision_False/Cliff2.png", CEngine::Get()->GetRenderer());
-
-		// add texture to tm
-		CEngine::Get()->GetTM()->AddTexture(texName, pTexture);
-
-		// set texture of object
-		pObj->SetTexture(pTexture);
-
-		SDL_Delay(500);
-	}
-
-	// if texture exists set texture of object
-	else
-	{
-		//// mirror every second texture
-		//if (_world % 2)
-		//	pObj->SetMirror(SVector2(0, 1));
-
-		pObj->SetTexture(CEngine::Get()->GetTM()->GetTexture(texName));
-	}
-
-	// add object to background list
-	CEngine::Get()->GetCM()->AddBackground4Object(pObj);
 }
 
 void GBackground::LoadLeftWall(int _world, int _position)
@@ -247,8 +59,6 @@ void GBackground::LoadLeftWall(int _world, int _position)
 			SVector2((-5 - (SCREEN_WIDTH / 2)) + _world, -(SCREEN_HEIGHT * _position)),
 			SVector2(SCREEN_WIDTH / 3, SCREEN_HEIGHT / 4)
 		);
-
-
 
 		// set texture name of object
 		pObj->SetTextureName(texName.c_str());
