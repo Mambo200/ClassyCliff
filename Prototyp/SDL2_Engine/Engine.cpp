@@ -1,3 +1,5 @@
+// Changes by Tobias Stroedicke & Marcel Lueke
+
 #pragma region system include
 #include <iostream>
 #include <SDL.h>
@@ -242,8 +244,11 @@ void CEngine::Update()
 		// parse event to input class
 		if (e.type == SDL_EventType::SDL_KEYDOWN || e.type == SDL_EventType::SDL_KEYUP)
 			CInput::ParseEvent(e);
+
+#pragma region Tobias Stroedicke & Marcel Lueke
 		if (e.type == SDL_EventType::SDL_MOUSEBUTTONDOWN || e.type == SDL_EventType::SDL_MOUSEBUTTONUP)
 			CInput::ParseEvent(e);
+#pragma endregion
 	}
 
 	// update content

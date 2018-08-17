@@ -1,4 +1,5 @@
 #pragma once
+// Changes by Tobias Stroedicke & Marcel Lueke
 
 #pragma region system include
 #include <SDL.h>
@@ -44,6 +45,7 @@ public:
 	/// <returns>if key is released this frame</returns>
 	static bool GetKeyUp(SDL_Scancode _key);
 
+#pragma region Tobias Stroedicke & Marcel Lueke
 	/// <summary>
 	/// mouse button is pressed
 	/// </summary>
@@ -65,6 +67,7 @@ public:
 	/// <returns>if mouse button is released this frame</returns>
 	static bool GetMouseUp(int _button);
 #pragma endregion
+#pragma endregion
 
 private:
 #pragma region private primitive variable
@@ -78,6 +81,7 @@ private:
 	/// </summary>
 	static bool m_keyWasDown[256];
 
+#pragma region Tobias Stroedicke & Marcel Lueke
 	/// <summary>
 	/// mousebutton down this frame
 	/// </summary>
@@ -87,5 +91,6 @@ private:
 	/// mousebutton down last frame
 	/// </summary>
 	static bool m_buttonWasDown[5];
+#pragma endregion
 #pragma endregion
 };

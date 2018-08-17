@@ -18,7 +18,7 @@ void GMenuScene::Init()
 
 	// create background music
 	// Copyright Halcyonic Falcon X
-	m_pBackgroundMusic = new CMusic(GetAssetPath("Audio/S_Background_MenuScene.mp3", 4).c_str());
+	m_pBackgroundMusic = new CMusic(GetAssetPath("Audio/S_Background_MenuScene.mp3", 4).c_str()); // Changed Music
 
 	// play music
 	m_pBackgroundMusic->Play(true);

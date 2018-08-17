@@ -1,4 +1,5 @@
 #pragma once
+// Everything by Tobias Stroedicke
 
 #pragma region project include
 #include "Text.h"

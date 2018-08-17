@@ -26,12 +26,6 @@ using namespace std;
 // initialize world
 void GWorld::Init()
 {	
-	// create animation
-	//FlyAnimationLeft();
-	//FlyAnimationRight();
-	//FallAnimationLeft();
-	//FallAnimationRight();
-
 	// prerender background
 	for (int i = 0; i < PRERENDER; i++)
 	{

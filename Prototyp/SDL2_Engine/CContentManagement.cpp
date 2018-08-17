@@ -1,4 +1,7 @@
 #pragma region project include
+
+// Changes by Tobias Stroedicke
+
 #include "ContentManagement.h"
 #include "MoveObject.h"
 #include "Macro.h"
@@ -9,6 +12,7 @@
 // destructor
 CContentManagement::~CContentManagement()
 {
+#pragma region Tobias Stroedicke
 	// as long as there is a object in list delete first element
 	while (m_pBackground1.size() > 0)
 		m_pBackground1.pop_front();
@@ -24,6 +28,7 @@ CContentManagement::~CContentManagement()
 	// as long as there is a object in list delete first element
 	while (m_pBackground4.size() > 0)
 		m_pBackground4.pop_front();
+#pragma endregion
 
 	// as long as there is a object in list delete first element
 	while (m_pSceneObjects.size() > 0)
@@ -57,6 +62,7 @@ CContentManagement::~CContentManagement()
 // update every frame
 void CContentManagement::Update(float _deltaTime)
 {
+#pragma region Tobias Stroedicke
 	//update every background object
 	for (CObject* pObj : m_pBackground1)
 		pObj->Update(_deltaTime);
@@ -72,6 +78,7 @@ void CContentManagement::Update(float _deltaTime)
 	//update every background object
 	for (CObject* pObj : m_pBackground4)
 		pObj->Update(_deltaTime);
+#pragma endregion
 
 	//update every wall object
 	for (CObject* pObj : m_pWallObjects)
@@ -113,11 +120,13 @@ void CContentManagement::Update(float _deltaTime)
 		// remove pointer from ui list
 		m_pUIObjects.remove(pObj);
 
+#pragma region Tobias Stroedicke
 		// remove pointer from background lists
 		m_pBackground1.remove(pObj);
 		m_pBackground2.remove(pObj);
 		m_pBackground3.remove(pObj);
 		m_pBackground4.remove(pObj);
+#pragma endregion
 
 		// remove pointer from wall list
 		m_pWallObjects.remove(pObj);
@@ -158,6 +167,7 @@ void CContentManagement::Update(float _deltaTime)
 // render every frame
 void CContentManagement::Render(CRenderer * _pRenderer)
 {
+#pragma region Tobias Stroedicke
 	// render every background1 object
 	for (CObject* pObj : m_pBackground1)
 		pObj->Render(_pRenderer);
@@ -173,6 +183,7 @@ void CContentManagement::Render(CRenderer * _pRenderer)
 	// render every background4 object
 	for (CObject* pObj : m_pBackground4)
 		pObj->Render(_pRenderer);
+#pragma endregion
 
 	// render every wall object
 	for (CObject* pObj : m_pWallObjects)
@@ -222,16 +233,16 @@ void CContentManagement::CleanPersistantObjects()
 
 void CContentManagement::CleanBackgroundObjects()
 {
-	for (CObject* pObj : m_pBackground1)
+	for (CObject* pObj : m_pBackground1) // Tobias Stroedicke
 		RemoveObject(pObj);
 
-	for (CObject* pObj : m_pBackground2)
+	for (CObject* pObj : m_pBackground2) // Tobias Stroedicke
 		RemoveObject(pObj);
 
-	for (CObject* pObj : m_pBackground3)
+	for (CObject* pObj : m_pBackground3) // Tobias Stroedicke
 		RemoveObject(pObj);
 
-	for (CObject* pObj : m_pBackground4)
+	for (CObject* pObj : m_pBackground4) // Tobias Stroedicke
 		RemoveObject(pObj);
 
 	for (CObject* pObj : m_pWallObjects)
