@@ -19,6 +19,8 @@
 #include "Helper.h"
 #pragma endregion
 
+int GPlayer::m_currentScore = 0;
+
 #pragma region public override function
 // update every frame
 void GPlayer::Update(float _deltaTime)
@@ -453,7 +455,7 @@ void GPlayer::Update(float _deltaTime)
 	LOG_ERROR("high score", m_maxYCoordinate);
 
 	// save high score
-	if (((-(m_position.Y)) + START_POITION) > m_maxYCoordinate)
+	if ((((-(m_position.Y)) + START_POITION) > m_maxYCoordinate) || start == false)
 	{
 		m_maxYCoordinate = (-(m_position.Y)) - 500;
 		m_currentScore = m_maxYCoordinate / 50;
