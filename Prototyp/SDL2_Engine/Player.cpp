@@ -468,7 +468,7 @@ void GPlayer::Update(float _deltaTime)
 		moveable = false;
 
 	// save score
-	if ((m_currentScore > GScore::GetScoreFromFile()))
+	if ((m_currentScore > GScore::GetScoreFromFile()) && !moveable)
 	{
 		GScore::SetScoreToFile(m_currentScore);
 	}
