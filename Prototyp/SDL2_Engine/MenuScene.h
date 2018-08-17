@@ -4,6 +4,8 @@
 #include "Scene.h"  
 #pragma endregion
 
+class CMusic;
+
 /// <summary>
 /// menu scene class
 /// </summary>
@@ -33,4 +35,13 @@ public:
 	/// </summary>
 	virtual void Clean() override;
 #pragma endregion
+
+private:
+#pragma region private variable
+	/// <summary>
+	/// background music
+	/// </summary>
+	CMusic* m_pBackgroundMusic;
+#pragma endregion
+
 };

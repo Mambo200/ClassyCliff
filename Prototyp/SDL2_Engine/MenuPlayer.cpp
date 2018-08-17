@@ -32,7 +32,8 @@ GMenuPlayer::~GMenuPlayer()
 void GMenuPlayer::Update(float _deltaTime)
 {
 	// get key down to change buttons
-	if (CInput::GetKeyDown(SDL_SCANCODE_S) || CInput::GetKeyDown(SDL_SCANCODE_W))
+	if (CInput::GetKeyDown(SDL_SCANCODE_S) || CInput::GetKeyDown(SDL_SCANCODE_W) ||
+		CInput::GetKeyDown(SDL_SCANCODE_DOWN) || CInput::GetKeyDown(SDL_SCANCODE_UP))
 	{
 		// switch buttons
 		m_startActive = !m_startActive;

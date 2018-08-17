@@ -30,7 +30,8 @@ void GMainScene::Init()
 	//CEngine::Get()->GetCM()->AddUIObject(pText);
 
 	// create background music
-	m_pBackgroundMusic = new CMusic(GetAssetPath("Audio/S_Background.wavv", 4).c_str());
+	// Copyright Halcyonic Falcon X
+	m_pBackgroundMusic = new CMusic(GetAssetPath("Audio/S_Background_MainScene.mp3", 4).c_str());
 
 	// play music
 	m_pBackgroundMusic->Play(true);
