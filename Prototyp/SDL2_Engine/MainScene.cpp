@@ -18,13 +18,16 @@ void GMainScene::Init()
 	m_pWorld->Init();
 
 	// create score text
-	//GTextScore* pScore = new GTextScore("Score: 0", GGame::Get()->m_PArialFont, SRect(SCREEN_WIDTH / 2 - 50, 0, 100, 50));
+	GTextScore* pScore = new GTextScore("Score: 0", GGame::Get()->m_PArialFont, SRect(SCREEN_WIDTH / 2 - 50, 0, 100, 50));
+
+	// add score text to list
+	CEngine::Get()->GetCM()->AddUIObject(pScore);
 
 	// create fps text
-	GTextFPS* pText = new GTextFPS("FPS: 0", GGame::Get()->m_PArialFont, SRect(SCREEN_WIDTH / 2 - 50, 0, 100, 50));
+	//GTextFPS* pText = new GTextFPS("FPS: 0", GGame::Get()->m_PArialFont, SRect(SCREEN_WIDTH / 2 - 50, 0, 100, 50));
 
 	// add fps text to list
-	CEngine::Get()->GetCM()->AddUIObject(pText);
+	//CEngine::Get()->GetCM()->AddUIObject(pText);
 
 	// create background music
 	m_pBackgroundMusic = new CMusic(GetAssetPath("Audio/S_Background.wavv", 4).c_str());

@@ -36,7 +36,7 @@ public:
 		string text = "Score: ";
 
 		// append fps value
-		text.append(to_string(CTime::GetFPS()));
+		text.append(to_string(GPlayer::GetCurrentScore()));
 
 		// random color
 		SColor color = SColor(

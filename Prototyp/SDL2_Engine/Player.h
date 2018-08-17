@@ -116,7 +116,10 @@ public:
 	/// get current score
 	/// </summary>
 	/// <returns>playerscore</returns>
-	int GetCurrentScore() { return m_currentScore; }
+	int static GetCurrentScore() 
+	{
+			return m_currentScore; 
+	}
 #pragma endregion
 
 
@@ -169,7 +172,7 @@ private:
 	/// <summary>
 	/// current score in this scene
 	/// </summary>
-	int m_currentScore;
+	int static m_currentScore;
 
 	/// <summary>
 	/// shot sound
