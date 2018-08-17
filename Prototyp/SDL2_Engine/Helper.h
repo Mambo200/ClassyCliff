@@ -17,3 +17,13 @@ string GetParentDirectory(string _path, int _depth = 1);
 /// get directory from asset
 /// </summary>
 string GetAssetPath(const char* _pPath, int _depth);
+
+/// <summary>
+/// save string to file
+/// </summary>
+void SaveStringToFile(string _text, const char* _pFileName);
+
+/// <summary>
+/// load string from file
+/// </summary>
+string LoadStringFromFile(const char* _pFileName);

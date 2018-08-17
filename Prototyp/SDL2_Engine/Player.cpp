@@ -17,9 +17,11 @@
 #include "Animation.h"
 #include "MenuScene.h"
 #include "Helper.h"
+#include "Score.h"
 #pragma endregion
 
 int GPlayer::m_currentScore = 0;
+int GPlayer::m_highScore = 0;
 
 #pragma region public override function
 // update every frame
@@ -465,6 +467,12 @@ void GPlayer::Update(float _deltaTime)
 	if (diff <= -25)
 		moveable = false;
 
+	// save score
+	if ((m_currentScore > GScore::GetScoreFromFile()))
+	{
+		GScore::SetScoreToFile(m_currentScore);
+	}
+
 }
 // render every frame
 void GPlayer::Render(CRenderer * _pRenderer)
@@ -474,7 +482,7 @@ void GPlayer::Render(CRenderer * _pRenderer)
 #pragma endregion
 
 #pragma region public function
-// initialize player
+// initialize player and score
 void GPlayer::Init()
 {
 	// create fall animation (left)

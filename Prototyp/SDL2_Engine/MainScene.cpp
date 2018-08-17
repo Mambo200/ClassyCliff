@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "TextFPS.h"
 #include "TextScore.h"
+#include "TextHighScore.h"
 #pragma endregion
 
 #pragma region public override function
@@ -18,16 +19,16 @@ void GMainScene::Init()
 	m_pWorld->Init();
 
 	// create score text
-	GTextScore* pScore = new GTextScore("Score: 0", GGame::Get()->m_PArialFont, SRect(SCREEN_WIDTH / 2 - 50, 0, 100, 50));
+	GTextScore* pScore = new GTextScore("Score: 0", GGame::Get()->m_PArialFont, SRect(SCREEN_WIDTH / 2 - 100, 100, 200, 50));
 
-	// add score text to list
+	// add score text to ui list
 	CEngine::Get()->GetCM()->AddUIObject(pScore);
 
-	// create fps text
-	//GTextFPS* pText = new GTextFPS("FPS: 0", GGame::Get()->m_PArialFont, SRect(SCREEN_WIDTH / 2 - 50, 0, 100, 50));
+	// create high score text
+	GTextHighScore* pHighScore = new GTextHighScore("Highscore = 0", GGame::Get()->m_PArialFont, SRect(SCREEN_WIDTH / 2 - 150, 0, 300, 50));
 
-	// add fps text to list
-	//CEngine::Get()->GetCM()->AddUIObject(pText);
+	// add high score to ui list
+	CEngine::Get()->GetCM()->AddUIObject(pHighScore);
 
 	// create background music
 	// Copyright Halcyonic Falcon X

@@ -12,7 +12,6 @@ class CScene;
 class CContentManagement;
 class CTime;
 class CTextureManagement;
-class GPlayer;
 #pragma endregion
 
 /// <summary>
@@ -81,12 +80,6 @@ public:
 	/// </summary>
 	/// <returns>time class</returns>
 	inline CTime* GetTime() { return m_pTime; }
-
-	/// <summary>
-	/// get player class
-	/// </summary>
-	/// <returns>player class</returns>
-	inline GPlayer* GetScore() { return m_pScore; }
 #pragma endregion
 
 #pragma region public function
@@ -162,11 +155,6 @@ private:
 	/// time
 	/// </summary>
 	CTime* m_pTime;
-
-	/// <summary>
-	/// score
-	/// </summary>
-	GPlayer* m_pScore;
 #pragma enregion
 
 #pragma region private function
