@@ -175,6 +175,11 @@ private:
 	int static m_currentScore;
 
 	/// <summary>
+	/// highscore
+	/// </summary>
+	int static m_highScore;
+
+	/// <summary>
 	/// shot sound
 	/// </summary>
 	CSound* m_pShotSound;
