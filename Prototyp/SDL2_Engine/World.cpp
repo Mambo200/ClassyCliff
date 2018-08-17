@@ -32,15 +32,15 @@ void GWorld::Init()
 	//FallAnimationLeft();
 	//FallAnimationRight();
 
-	// create ground
-	GBackground::Ground();
-
 	// prerender background
 	for (int i = 0; i < PRERENDER; i++)
 	{
-		GBackground::GenerateBackgorund(i);
+		GBackground::GenerateBackgorund(i - 242);
 		GBackground::CreateWalls(i, i);
 	}
+
+	// create ground
+	GBackground::Ground();
 
 	// string to define world
 	string world;

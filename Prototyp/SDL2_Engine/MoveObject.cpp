@@ -194,5 +194,49 @@ void CMoveObject::CheckCollisionObjects()
 			}
 		}
 	}
+
+	// through all branch object
+	for (CObject* pObj : CEngine::Get()->GetCM()->GetBrancheObjects())
+	{
+		// if current object is a textured object and not self
+		if ((CTexturedObject*)pObj && pObj != this)
+		{
+			// if collision type is none continue
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+				continue;
+
+			// if distance to object is lower than collision distance
+			if (pObj->GetPosition().X >= m_position.X - COLLISION_DISTANCE &&
+				pObj->GetPosition().X <= m_position.X + COLLISION_DISTANCE &&
+				pObj->GetPosition().Y >= m_position.Y - COLLISION_DISTANCE &&
+				pObj->GetPosition().Y <= m_position.Y + COLLISION_DISTANCE)
+			{
+				// add object to collision list
+				m_pCollisionObjects.push_front(pObj);
+			}
+		}
+	}
+
+	// through all wall object
+	for (CObject* pObj : CEngine::Get()->GetCM()->GetWallObjects())
+	{
+		// if current object is a textured object and not self
+		if ((CTexturedObject*)pObj && pObj != this)
+		{
+			// if collision type is none continue
+			if (((CTexturedObject*)pObj)->GetColType() == ECollisionType::NONE)
+				continue;
+
+			// if distance to object is lower than collision distance
+			if (pObj->GetPosition().X >= m_position.X - COLLISION_DISTANCE &&
+				pObj->GetPosition().X <= m_position.X + COLLISION_DISTANCE &&
+				pObj->GetPosition().Y >= m_position.Y - COLLISION_DISTANCE &&
+				pObj->GetPosition().Y <= m_position.Y + COLLISION_DISTANCE)
+			{
+				// add object to collision list
+				m_pCollisionObjects.push_front(pObj);
+			}
+		}
+	}
 }
 #pragma endregion
