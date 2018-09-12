@@ -412,6 +412,13 @@ void GPlayer::Update(float _deltaTime)
 	// player collided with object
 	else
 	{
+#pragma region Tobias Stroedicke
+		// if current score higher than highscore save
+		if (m_currentScore > GScore::GetScoreFromFile())
+		{
+			GScore::SetScoreToFile(m_currentScore);
+		}
+#pragma endregion
 		m_mirror = SVector2();
 		m_pCurrentAnim = m_pDeathAnim;
 		CEngine::Get()->ChangeScene(new GMenuScene());
@@ -467,17 +474,6 @@ void GPlayer::Update(float _deltaTime)
 	if (diff <= -25)
 		moveable = false;
 
-#pragma region Tobias Stroedicke
-	// save score
-	if (!moveable)
-	{
-		// if current score higher than highscore save
-		if (m_currentScore > GScore::GetScoreFromFile())
-		{
-			GScore::SetScoreToFile(m_currentScore);
-		}
-	}
-#pragma endregion
 
 }
 // render every frame
